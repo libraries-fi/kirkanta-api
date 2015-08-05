@@ -1,0 +1,13 @@
+{
+  "name": "kifi-libdir-api",
+  "description": "Restful API server for providing access to the Library Directory of Kirjastot.fi",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "elasticsearch": "^5.0.0",
+    "express": "*",
+    "knex": "*",
+    "pg": "*",
+    "promise": "^7.0.3"
+  }
+}

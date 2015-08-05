@@ -1,0 +1,11 @@
+{
+  "address": "192.168.0.12",
+  "port": 8000,
+
+  "elastic": {
+    "address": "localhost",
+    "port": 9210,
+    "index": "library_directory",
+    "size": 5
+  }
+}
