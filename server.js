@@ -4,7 +4,7 @@ var config = require("./config");
 var encoders = require("./lib/encoders");
 var controller = require("./lib/controller");
 
-app.listen(config.port, config.address, function() {
+app.listen(config.server.port, config.server.address, function() {
   console.log("Listening");
 });
 
