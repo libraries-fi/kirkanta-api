@@ -9,8 +9,8 @@ app.listen(config.server.port, config.server.address, function() {
 });
 
 app.use(function(req, res, next) {
-  req.query.lang = "fi";
-  req.query.format = "json";
+  req.query.lang = req.query.lang || "fi";
+  req.query.format = req.query.format || "json";
   next();
 });
 
