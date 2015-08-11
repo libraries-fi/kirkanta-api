@@ -49,3 +49,7 @@ app.use(function(req, res, next) {
     next();
   }
 });
+
+process.on("uncaughtException", function(err) {
+  console.log("Exception", err);
+});
