@@ -11,9 +11,9 @@ app.listen(config.server.port, function() {
   console.log("Listening");
 });
 
-app.use(authentication.apikey);
+// app.use("/v3", authentication.apikey);
 
-app.use(function(req, res, next) {
+app.use("/v3", function(req, res, next) {
   req.query.lang = req.query.lang || "fi";
   req.query.format = req.query.format || "json";
   next();
@@ -31,8 +31,7 @@ app.get("*", function(req, res, next) {
   if ("result" in res.locals) {
     return next();
   }
-  res.status(404);
-  res.send("404 Not Found");
+  res.status(404).send("404 Not Found");
 });
 
 app.use(encoders.selectEncoder);
