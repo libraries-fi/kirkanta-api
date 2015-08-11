@@ -6,9 +6,10 @@ let config = require("./config");
 let authentication = require("./lib/authentication");
 let controller = require("./lib/controller");
 let encoders = require("./lib/encoders");
+let util = require("util");
 
-app.listen(config.server.port, function() {
-  console.log("Listening");
+let server = app.listen(config.server.port, config.server.address, function() {
+  console.log(util.format("Listening at %s:%d", server.address().address, server.address().port));
 });
 
 // app.use("/v3", authentication.apikey);

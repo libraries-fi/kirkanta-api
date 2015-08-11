@@ -1,0 +1,28 @@
+{
+  "server": {
+    "address": "localhost",
+    "port": 8000
+  },
+  "elastic": {
+    "address": "localhost",
+    "port": 9200,
+    "index": "library_directory"
+  },
+  "postgres": {
+    "address": "localhost",
+    "port": 5433,
+    "database": "library_directory",
+    "user": "root",
+    "password": ""
+  },
+  "api": {
+    "results_per_page": 50,
+    "default_language": "fi",
+    "languages": ["en", "ru", "se", "sv"]
+  },
+  "trschema": {
+    "city": {"name": true},
+    "consortium": {"name": true},
+    "region": {"name": true}
+  }
+}

@@ -8,6 +8,7 @@
     "express": "*",
     "knex": "*",
     "pg": "*",
-    "promise": "^7.0.3"
+    "promise": "^7.0.3",
+    "xml-escape": "^1.0.0"
   }
 }
