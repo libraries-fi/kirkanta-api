@@ -1,12 +1,17 @@
-var express = require("express");
-var app = express();
-var config = require("./config");
-var encoders = require("./lib/encoders");
-var controller = require("./lib/controller");
+"use strict";
 
-app.listen(config.server.port, config.server.address, function() {
+let express = require("express");
+let app = express();
+let config = require("./config");
+let authentication = require("./lib/authentication");
+let controller = require("./lib/controller");
+let encoders = require("./lib/encoders");
+
+app.listen(config.server.port, function() {
   console.log("Listening");
 });
+
+app.use(authentication.apikey);
 
 app.use(function(req, res, next) {
   req.query.lang = req.query.lang || "fi";
@@ -22,6 +27,14 @@ app.get("/", function(req, res) {
 app.get("/v3/:type", controller.list);
 app.get("/v3/:type/:id", controller.fetch);
 
+app.get("*", function(req, res, next) {
+  if ("result" in res.locals) {
+    return next();
+  }
+  res.status(404);
+  res.send("404 Not Found");
+});
+
 app.use(encoders.selectEncoder);
 app.use(encoders.encodeResponse);
 
@@ -35,9 +48,4 @@ app.use(function(req, res, next) {
   } else {
     next();
   }
-});
-
-app.get("*", function(req, res) {
-  res.status(404);
-  res.send("404 Not Found");
 });
