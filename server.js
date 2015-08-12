@@ -12,7 +12,9 @@ let server = app.listen(config.server.port, config.server.address, function() {
   console.log(util.format("Listening at %s:%d", server.address().address, server.address().port));
 });
 
-// app.use("/v3", authentication.apikey);
+if (config.api.require_authentication) {
+  app.use("/v3", authentication.apikey);
+}
 
 app.use("/v3", function(req, res, next) {
   req.query.lang = req.query.lang || "fi";

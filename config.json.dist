@@ -16,6 +16,7 @@
     "password": ""
   },
   "api": {
+    "require_authentication": true,
     "results_per_page": 50,
     "default_language": "fi",
     "languages": ["en", "ru", "se", "sv"]
