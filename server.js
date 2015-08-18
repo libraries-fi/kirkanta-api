@@ -22,6 +22,15 @@ app.use("/v3", function(req, res, next) {
   next();
 });
 
+app.use("/v3", function(req, res, next) {
+  if ("with" in req.query) {
+    req.query.with = req.query.with.split(",");
+  } else {
+    req.query.with = [];
+  }
+  next();
+});
+
 app.get("/", function(req, res) {
   // Index, documentation
   res.send("API INDEX");
