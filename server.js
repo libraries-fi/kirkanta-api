@@ -6,6 +6,7 @@ let config = require("./config");
 let authentication = require("./lib/authentication");
 let controller = require("./lib/controller");
 let encoders = require("./lib/encoders");
+let searcher = require("./lib/searcher");
 let util = require("util");
 
 let server = app.listen(config.server.port, config.server.address, function() {
@@ -36,8 +37,29 @@ app.get("/", function(req, res) {
   res.send("API INDEX");
 });
 
-app.get("/v3/:type", controller.list);
-app.get("/v3/:type/:id", controller.fetch);
+app.get("/v3/help", controller.helpIndex);
+app.get("/v3/help/:type", controller.helpType);
+
+app.get("/v3/:type", function(req, res, next) {
+  let types = searcher.searcher.types;
+  if (types.indexOf(req.params.type) >= 0) {
+    controller.list.apply(controller, arguments);
+  } else {
+    next();
+  }
+});
+
+app.get("/v3/:type/:id", function(req, res, next) {
+  let types = searcher.searcher.types;
+  if (types.indexOf(req.params.type) >= 0) {
+    controller.fetch.apply(controller, arguments);
+  } else {
+    next();
+  }
+});
+
+// app.get("/v3/:type", controller.list);
+// app.get("/v3/:type/:id", controller.fetch);
 
 app.get("*", function(req, res, next) {
   if ("result" in res.locals) {
