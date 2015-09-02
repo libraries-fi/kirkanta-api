@@ -7,6 +7,7 @@
     "elasticsearch": "^5.0.0",
     "express": "*",
     "knex": "*",
+    "moment": "^2.10.6",
     "pg": "*",
     "promise": "^7.0.3",
     "xml-escape": "^1.0.0"
