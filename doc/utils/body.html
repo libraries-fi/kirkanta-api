@@ -1,0 +1,806 @@
+<h1>Kirjastohakemiston rajapinta v2</h1>
+
+<table><thead>
+<tr>
+<th>Päiväys</th>
+<th>Julkaisija</th>
+<th>Dokumentin versio</th>
+<th>Rajapinnan versio</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>21.05.2013</td>
+<td>Samu Juvonen</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>Julkaistu rajapinta ja dokumentaatio.</td>
+</tr>
+<tr>
+<td>30.05.2013</td>
+<td>Samu Juvonen</td>
+<td>1.1</td>
+<td>2.1</td>
+<td><strong>1.</strong> Poistettu parametrit date_from ja date_to (käytä parametria date operaattoreiden &lt; ja &gt; kanssa!). <strong>2.</strong> Lisätty modified-kenttä tietueisiin. <strong>3.</strong> Korjattu Service-tyypin tietorakenne.</td>
+</tr>
+<tr>
+<td>05.06.2013</td>
+<td>Samu Juvonen</td>
+<td>1.2</td>
+<td>2.2</td>
+<td><strong>1.</strong> Kirjastojen haku slug-tunnisteen perusteella. <strong>2.</strong> Tuki kirjastoauton pysäkeille. <strong>3.</strong> Tuki osastoille.</td>
+</tr>
+</tbody></table>
+
+<h1>Johdanto</h1>
+
+<p>Tämä dokumentti kuvaa Kirjastot.fi:n kirjastohakemiston julkisen rest-rajapinnan. Rajapinta mahdollistaa kirjastojen tietojen käytön kolmannen osapuolen sovelluksissa. Rajapinnan versio 2.0 korvaa vanhan rajapinnan 1.0, jota ei enää kehitetä. Vanha rajapinta on kuitenkin käytettävissä vielä toistaiseksi. Vanhan dokumentaation löytää osoitteesta <a href="http://api.kirjastot.fi/v1-doc.html">http://api.kirjastot.fi/v1-doc.html</a>.</p>
+
+<h1>Yleistä rajapinnasta</h1>
+
+<p>Rajapintaa käytetään tavallisilla <em>http-pyynnöillä</em>, joihin vastataan asiakassovelluksen määrittämällä datatyypillä. Tuetut datatyypit ovat <em>xml</em>, <em>json</em> ja <em>jsonp</em>. Asiakas tekee pyynnöt tavallisina http:n get-pyyntöinä.</p>
+
+<p>Rajapinta on kaikille avoin eikä vaadi asiakasohjelmien tai käyttäjien tunnistautumista. Asiakassovellukset voivat halutessaan &quot;ilmoittaa olemassaolostaan&quot; käyttämällä urlissa parametria <em>client</em>, jolle annetaan arvoksi sovelluksen nimi ja versio <em>(client=kifisovellus/1.0)</em>.</p>
+
+<p>Rajapinnan käytön havainnollistamiseksi on tehty muutamia esimerkkisovelluksia:
+<code>http://api.kirjastot.fi/widgets/demo.php</code></p>
+
+<p>Demon lähdekoodit ovat saatavilla Kirjastot.fi:n GitHub-sivulta:
+<code>https://github.com/libraries-fi/library-directory-api-demo</code></p>
+
+<h2>Vastauksen tietotyypin määrittäminen</h2>
+
+<p>Asiakas voi määrittää tuloksen tietotyypin käyttämällä http-protokollan <em>Accept</em>-otsikkotietoa, jonka voi ylikirjoittaa get-parametrilla <em>format</em>. Accept-otsikossa määritetään haluttu muoto käyttämällä standardia mime-tyyppiä. Format-parametrin arvona käytetään ns. tiedostopäätettä. Mikäli otsikkotiedoissa määritellään useampi tyyppi, valitaan http-standardin mukaisesti korkeimman prioriteetin omaava tyyppi.</p>
+
+<table><thead>
+<tr>
+<th>Tietotyyppi</th>
+<th>Accept-otsikko (mime)</th>
+<th>Format-parametri</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>XML</td>
+<td>application/xml</td>
+<td>xml</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>application/json</td>
+<td>json</td>
+</tr>
+<tr>
+<td>JSONP</td>
+<td>application/javascript</td>
+<td>jsonp</td>
+</tr>
+</tbody></table>
+
+<p>Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla <em>callback</em>.</p>
+
+<p>Palautettavan datan merkistö on utf8. Json-muotoisissa dokumenteissa ascii-taulun ulkopuoliset merkit on enkoodattu json-standardin mukaisesti.</p>
+
+<h1>Rajapinnan kutsut</h1>
+
+<p>Rajapinnan kutsujen polut myötäilevät rest-filosofiaa. Polussa määritetään haettavan resurssin tyyppi sekä mahdollinen tietueen tunniste. Muut parametrit määritellään urlin query string -osassa.</p>
+
+<p>Kutsujen muoto on seuraavanlainen:</p>
+
+<pre><code>http://api.kirjastot.fi/v2/:resurssi/:id?parametrit
+http://api.kirjastot.fi/v2/search/:resurssi?parametrit
+</code></pre>
+
+<p>Tässä <em>:resurssi</em> tarkoittaa resurssin tyyppiä ja <em>:id</em> resurssin tunnistetta. Kysymysmerkin jälkeinen osa (_parametrit_) on tavallinen <em>query string</em>. Resurssin tyyppi voi olla moniosainen, esimerkiksi <em>libraries/services</em>. Jälkimmäistä kutsua käytetään tietueiden massahakuun.</p>
+
+<p>Kutsuilla on joitakin yhteisiä parametreja, joiden merkitys ja vaikutus on kaikille tietotyypeille sama:</p>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Sallitut arvot</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>lang</td>
+<td>fi, sv, se, en</td>
+<td>Palautettavan tietueen kieliversio</td>
+</tr>
+<tr>
+<td>format</td>
+<td>xml, json, jsonp</td>
+<td>Vastauksen tietotyyppi</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><em>merkkijono</em></td>
+<td>Jsonp-formaattia käytettäessä callback-funktion nimi</td>
+</tr>
+<tr>
+<td>client</td>
+<td><em>merkkijono</em></td>
+<td>Asiakassovelluksen nimi ja versio (foobar/1.0) [vapaaehtoinen]</td>
+</tr>
+</tbody></table>
+
+<h2>Kutsujen listaus</h2>
+
+<p>Polkuun upotetut parametrit on merkitty kaksoispisteellä, esim &quot;:id&quot;.</p>
+
+<table><thead>
+<tr>
+<th>Polku</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/libraries/:id</td>
+<td>Kirjaston tietueen haku</td>
+</tr>
+<tr>
+<td>/libraries/schedules/:id</td>
+<td>Kirjaston aikataulujen haku</td>
+</tr>
+<tr>
+<td>/libraries/services/:id</td>
+<td>Kirjaston palveluiden listaus</td>
+</tr>
+<tr>
+<td>/libraries/staff/:id</td>
+<td>Kirjaston henkilöstön listaus</td>
+</tr>
+<tr>
+<td>/departments/:id</td>
+<td>Osaston tietueen haku</td>
+</tr>
+<tr>
+<td>/mobilestops/:id</td>
+<td>Kirjastoauton pysäkin tietueen haku</td>
+</tr>
+<tr>
+<td>/search/departments</td>
+<td>Osastojen haku</td>
+</tr>
+<tr>
+<td>/search/libraries</td>
+<td>Kirjastojen massahaku</td>
+</tr>
+<tr>
+<td>/search/mobilestops</td>
+<td>Kirjastoautojen pysäkkien massahaku</td>
+</tr>
+<tr>
+<td>/search/schedules</td>
+<td>Aukioloaikojen massahaku</td>
+</tr>
+<tr>
+<td>/search/services</td>
+<td>Palvelumallien massahaku</td>
+</tr>
+</tbody></table>
+
+<h2>Lisää hakuehdoista</h2>
+
+<p>Hakuehtoja on mahdollista monipuolistaa käyttämällä operaattoreita ! (not), * (or), &lt; (less or equal) ja &gt; (larger or equal). Lisäksi vapaatekstikentissä voidaan käyttää jokerimerkkinä asteriskia <em>*</em>. Jos halutaan hakea kahden eri kentän perusteella siten, että vain toisen ehdon tarvitsee toteutua, kenttien nimien perään voidaan liittää asteriski <em>*</em>. Yksittäisen kentän vaihtoehtoistamiseksi eri arvot erotellaan pilkuin. Numeerisia kenttiä sekä päivämääräkenttiä voidaan vastaavasti rajata arvovälille operaattoreilla &lt; ja &gt;.</p>
+
+<p>Ehdollistaminen toimii siten, että tietue hyväksytään tulokseen, mikäli se täsmää <em>vähintään yhteen</em> vaihtoehtoiseen hakuehtoon. Lisäksi kyseisen tietueen täytyy täsmätä <em>kaikkiin</em> pakollisiin hakuehtoihin (joko negaatiot tai tavalliset ehdot).</p>
+
+<h3>Teknisiä rajoituksia</h3>
+
+<p>Yksi hakuavain eli kentän nimen ja mahdollisen operaattorin yhdistelmä voi esiintyä urlissa enintään yhden kerran. Ei siis ole mahdollista hakea sekä ehdolla <em>city*=helsinki</em> että <em>city*=vantaa</em>, vaan nämä täytyy yhdistää muotoon <em>city=helsinki,vantaa</em>. Haussa on mahdollista käyttää saman kentän kahta eri variaatiota, esimerkiksi avaimia <em>city*</em> ja <em>city-</em> tai <em>city</em> ja <em>city-</em>.</p>
+
+<p>Sanahaut eivät ole ns. <em>case-sensitive</em> eli eivät tee eroa isojen ja pienten kirjaimien välille.</p>
+
+<h3>Esimerkkejä</h3>
+
+<h4>Kyselyiden muuntaminen Boolen logiikaksi</h4>
+
+<pre><code>?city=helsinki&amp;consortium=helmet&amp;name-=foo*
+city=helsinki AND consortium=helmet NOT name=foo*
+</code></pre>
+
+<pre><code>?city*=helsinki,vantaa,espoo&amp;name*=foo
+city=helsinki OR city=vantaa OR city=espoo OR name=foo
+</code></pre>
+
+<pre><code>?city*=vantaa&amp;name=foo*&amp;geo*=20,30&amp;city-=helsinki
+name=foo* NOT city=helsinki AND (city=vantaa OR geo=20,30)
+</code></pre>
+
+<h4>Kyselyitä</h4>
+
+<p>Haetaan kaikki kirjastot, jotka sijaitsevat joko Helsingissä tai Vantaalla:
+    <code>http://api.kirjastot.fi/v2/search/libraries?city=helsinki,vantaa</code></p>
+
+<p>Haetaan kaikki Helmet-kimpan kirjastot, jotka eivät sijaitse Helsingissä:
+    <code>http://api.kirjastot.fi/v2/search/libraries?consortium=helmet&amp;city-=helsinki</code></p>
+
+<p>Haetaan kirjastoja joko Vantaalta tai Aalto-kimpasta:
+    <code>http://api.kirjastot.fi/v2/search/libraries?city*=vantaa&amp;consortium*=aalto</code></p>
+
+<p>Haetaan Helmet-kimpan kirjastot, joita on muokattu vuoden 2013 aikana.
+    <code>http://api.kirjastot.fi/v2/search/libraries?consortium=helmet&amp;modified&gt;=2013-01-01</code></p>
+
+<h2>Yksittäisen kirjaston tiedot</h2>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/libraries/:id?parametrit</code></p>
+
+<p>Tuloksena palautetaan koko kirjaston tietue.</p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Kirjaston tunniste</td>
+</tr>
+<tr>
+<td>with</td>
+<td>Tulokseen sisällytettävät lisätietojen lohkot</td>
+</tr>
+</tbody></table>
+
+<h4>Palautettavien tietojen laajuus – with</h4>
+
+<p>Koska kirjastojen tietueissa on hyvin paljon tietoa, voidaan esimerkiksi tiedonsiirron optimoimiseksi suotia pois tietueiden tarpeettomia osioita <em>with</em>-parametria käyttäen. Parametrille annetaan arvoksi pilkuilla erotettu lista niistä osioista, jotka halutaan sisällyttää mukaan tietueeseen.</p>
+
+<h4>Sallitut arvot</h4>
+
+<table><thead>
+<tr>
+<th>Osio</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accessibility</td>
+<td>Kirjaston tarjoamat esteettömyys- tai saavutettavuuspalvelut</td>
+</tr>
+<tr>
+<td>additional_info</td>
+<td>Lista vapaamuotoisista lisätiedoista</td>
+</tr>
+<tr>
+<td>contact</td>
+<td>Laajennetut yhteystiedot kuten puhelinnumerot ja www-osoitteet</td>
+</tr>
+<tr>
+<td>periods</td>
+<td>Kirjaston aukiolojaksojen tiedot (eri asia kuin aukiolotiedot)</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>Tietoa kirjastorakennuksesta</td>
+</tr>
+</tbody></table>
+
+<h3>Henkilöstön listaus</h3>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/libraries/staff/:id?parametrit</code></p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Kirjaston tunniste</td>
+</tr>
+<tr>
+<td>modified</td>
+<td>Henkilön tietueen muokkausaika</td>
+</tr>
+</tbody></table>
+
+<pre lang="xml"><code>&lt;collection count=&quot;1&quot;&gt;
+    &lt;person&gt;
+        &lt;id&gt;ga2w-WoVTI-31o4Ia12BDA&lt;/id&gt;
+        &lt;name&gt;
+            &lt;first&gt;Maisa&lt;/first&gt;
+            &lt;last&gt;Malli&lt;/last&gt;
+        &lt;/name&gt;
+        &lt;email&gt;maisa.malli@kirjastot.fi&lt;/email&gt;
+        &lt;telephone&gt;+358551234567&lt;/telephone&gt;
+        &lt;modified&gt;2013-01-01T12:00&lt;/modified&gt;
+        &lt;job_title multilang=&quot;true&quot;&gt;
+            &lt;value lang=&quot;fi&quot;&gt;Kirjastonjohtaja&lt;/value&gt;
+            &lt;value lang=&quot;sv&quot;/&gt;
+            &lt;value lang=&quot;en&quot;/&gt;
+            &lt;value lang=&quot;se&quot;/&gt;
+        &lt;/job_title&gt;
+        &lt;responsibility multilang=&quot;true&quot;&gt;
+            &lt;value lang=&quot;fi&quot;&gt;Kirjaston johtaminen&lt;/value&gt;
+            &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+        &lt;/responsibility&gt;
+        &lt;url multilang=&quot;true&quot;&gt;
+            &lt;value lang=&quot;fi&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+        &lt;/url&gt;
+        &lt;organisations&gt;
+            &lt;organisation is_head=&quot;1&quot;&gt;goQMRZg5vsamxx4fbj-A&lt;/organisation&gt;
+        &lt;/organisations&gt;
+    &lt;/person&gt;
+&lt;/collection&gt;
+</code></pre>
+
+<h3>Aikataulujen listaus</h3>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/libraries/schedules/:id?parametrit</code></p>
+
+<p>Tuloksena palautetaan määrätyn kirjaston aikataulutiedot haetulla aikavälillä.</p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Kirjaston tunniste</td>
+</tr>
+<tr>
+<td>date</td>
+<td>Aikavälin päätepiste (käytä operaattoreiden &lt; ja &gt; kanssa)</td>
+</tr>
+<tr>
+<td>week</td>
+<td>Haettavan viikon numero kuluvalta vuodelta (palauttaa viikon aukiolotiedot)</td>
+</tr>
+<tr>
+<td>as_weeks</td>
+<td>Jos asetettu, päivät ryhmitellään viikkoihin</td>
+</tr>
+</tbody></table>
+
+<p>Kun date- tai week-parametria käytetään operaattoreiden &lt; ja &gt; kanssa, täytyy määrittää sekä alku- että loppuarvo!</p>
+
+<pre lang="xml"><code>&lt;collection count=&quot;3&quot;&gt;
+    &lt;day number=&quot;1&quot;&gt;
+        &lt;date&gt;2013-05-20&lt;/date&gt;
+        &lt;opens&gt;09:00&lt;/opens&gt;
+        &lt;closes&gt;20:00&lt;/closes&gt;
+    &lt;/day&gt;
+    &lt;day number=&quot;2&quot;&gt;
+        &lt;date&gt;2013-05-21&lt;/date&gt;
+        &lt;opens&gt;09:00&lt;/opens&gt;
+        &lt;closes&gt;20:00&lt;/closes&gt;
+    &lt;/day&gt;
+    &lt;day number=&quot;3&quot;&gt;
+        &lt;date&gt;2013-05-22&lt;/date&gt;
+        &lt;opens&gt;09:00&lt;/opens&gt;
+        &lt;closes&gt;20:00&lt;/closes&gt;
+    &lt;/day&gt;
+&lt;/collection&gt;
+</code></pre>
+
+<h3>Palveluiden listaus</h3>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/libraries/services/:id?parametrit</code></p>
+
+<p>Tuloksena palautetaan lista kirjastoon liitetyistä palveluista.</p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Kirjaston tunniste</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Palvelun tyyppi</td>
+</tr>
+<tr>
+<td>modified</td>
+<td>Palvelun tietueen muokkausaika</td>
+</tr>
+</tbody></table>
+
+<pre lang="xml"><code>&lt;collection count=&quot;1&quot;&gt;
+    &lt;service&gt;
+        &lt;type&gt;tila&lt;/type&gt;
+        &lt;price&gt;0&lt;/price&gt;
+        &lt;for_loan&gt;1&lt;/for_loan&gt;
+        &lt;description&gt;&lt;/description&gt;
+        &lt;modified&gt;2013-05-30T15:15:34&lt;/modified&gt;
+        &lt;tags&gt;
+            &lt;item&gt;ensimmäinen tagi&lt;/item&gt;
+            &lt;item&gt;toinen tagi&lt;/item&gt;
+        &lt;/tags&gt;
+        &lt;contact&gt;
+            &lt;telephone&gt;&lt;/telephone&gt;
+            &lt;email&gt;&lt;/email&gt;
+            &lt;url multilang=&quot;true&quot;&gt;
+                &lt;value lang=&quot;fi&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+            &lt;/url&gt;
+        &lt;/contact&gt;
+        &lt;name multilang=&quot;true&quot;&gt;
+            &lt;value lang=&quot;fi&quot;&gt;Palvelun nimi&lt;/value&gt;
+            &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+        &lt;/name&gt;
+        &lt;picture&gt;
+            &lt;file size=&quot;small&quot;&gt;http://kirkanta.kirjastot.fi/media/image_content/small/2560x1600-51a74017.jpeg&lt;/file&gt;
+            &lt;file size=&quot;medium&quot;&gt;http://kirkanta.kirjastot.fi/media/image_content/medium/2560x1600-51a74017.jpeg&lt;/file&gt;
+            &lt;file size=&quot;large&quot;&gt;http://kirkanta.kirjastot.fi/media/image_content/large/2560x1600-51a74017.jpeg&lt;/file&gt;
+            &lt;file size=&quot;huge&quot;&gt;http://kirkanta.kirjastot.fi/media/image_content/huge/2560x1600-51a74017.jpeg&lt;/file&gt;
+        &lt;/picture&gt;
+        &lt;template&gt;
+            &lt;id&gt;1n6Ln1SdTaGJ6v1T-yFfkQ&lt;/id&gt;
+            &lt;name multilang=&quot;true&quot;&gt;
+                &lt;value lang=&quot;fi&quot;&gt;Jaetun mallipalvelun nimi&lt;/value&gt;
+                &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+            &lt;/name&gt;
+        &lt;/template&gt;
+    &lt;/service&gt;
+&lt;/collection&gt;
+</code></pre>
+
+<h2>Yksittäisen kirjastoauton pysäkin tiedot</h2>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/mobilestops/:id?parametrit</code></p>
+
+<p>Tuloksena kirjastoauton pysäkin tietue.</p>
+
+<h2>Yksittäisen osaston tiedot</h2>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/mobilestops/:id?parametrit</code></p>
+
+<p>Tuloksena kirjastoauton pysäkin tietue.</p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Pysäkin tunniste</td>
+</tr>
+</tbody></table>
+
+<h2>Kirjastojen massahaku</h2>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/search/libraries?parametrit</code></p>
+
+<p>Tuloksena palautetaan lista kirjastojen tietueista.</p>
+
+<pre lang="xml"><code>&lt;collection count=&quot;3&quot;&gt;
+    &lt;library&gt;...&lt;/library&gt;
+    &lt;library&gt;...&lt;/library&gt;
+    &lt;library&gt;...&lt;/library&gt;
+&lt;/collection&gt;
+</code></pre>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Sallitut arvot</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><em>Merkkijono</em></td>
+<td>Kirjaston nimi (hakee kaikilla kielillä)</td>
+</tr>
+<tr>
+<td>city</td>
+<td><em>CSV</em></td>
+<td>Lista paikkakuntien nimistä (hakee kaikilla kielillä)</td>
+</tr>
+<tr>
+<td>consortium</td>
+<td><em>CSV</em></td>
+<td>Lista kirjastokimpan tunnisteista</td>
+</tr>
+<tr>
+<td>with</td>
+<td><em>CSV</em></td>
+<td>Lista tietueisiin sisällytettävistä lohkoista</td>
+</tr>
+<tr>
+<td>geo</td>
+<td>Koordinaattipari</td>
+<td>Koordinaatit, joiden &quot;läheltä&quot; kirjastoja haetaan</td>
+</tr>
+<tr>
+<td>distance</td>
+<td>Etäisyys metreissä</td>
+<td>Koordinaattihaussa haettavien kirjastojen etäisyys</td>
+</tr>
+<tr>
+<td>modified</td>
+<td>Päivämäärät</td>
+<td>Tietueen muokkausaika</td>
+</tr>
+<tr>
+<td>service.name</td>
+<td><em>Merkkijono</em></td>
+<td>Palvelun nimi (hakee kaikilla kielillä)</td>
+</tr>
+<tr>
+<td>service.type</td>
+<td><em>CSV</em></td>
+<td>Lista palveluiden tyypeistä</td>
+</tr>
+</tbody></table>
+
+<h4>Koordinaattihaku – geo</h4>
+
+<p>Kirjastoja voi hakea käyttäjän maantieteellisen sijainnin perusteella käyttämällä koordinaattihakua. Koordinaateilla haettaessa koordinaatit määritetään <em>geo</em>-parametrilla. Sen arvo on koordinaattipari <em>x,y</em> (esim. geo=30.12,45.77), joka ilmaisee sijainnin eli pisteen, jonka läheisyydestä kirjastoja haetaan. Oletusarvoisesti kirjastoja haetaan 10 km:n säteeltä, mutta etäisyyden voi määrittää parametrilla <em>distance</em>, jolle annetaan etäisyys metreissä (esim. distance=10000).</p>
+
+<h3>Kirjastojen aikataulujen massahaku</h3>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/search/schedules?parametrit</code></p>
+
+<p>Tuloksena palautetaan hakuehtoihin täsmäävien kirjastojen aikataulut. Tulosjoukko on ryhmitelty kirjastojen mukaan ja sisältää myös kirjastojen ydintiedot.</p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>city</td>
+<td>Kirjaston paikkakunnan nimi (hakee kaikilla kielillä)</td>
+</tr>
+<tr>
+<td>consortium</td>
+<td>Kirjastokimpan tunniste</td>
+</tr>
+<tr>
+<td>date</td>
+<td>Haetun aikavälin päätepiste (käytä operaattoreiden &lt; ja &gt; kanssa)</td>
+</tr>
+<tr>
+<td>week</td>
+<td>Haettavan viikon numero kuluvalta vuodelta (palauttaa viikon aukiolotiedot)</td>
+</tr>
+<tr>
+<td>as_weeks</td>
+<td>Jos asetettu, päivät ryhmitellään viikkoihin</td>
+</tr>
+</tbody></table>
+
+<p>Kun date- tai week-parametria käytetään operaattoreiden &lt; ja &gt; kanssa, täytyy määrittää sekä alku- että loppuarvo!</p>
+
+<h3>Palveluiden massahaku</h3>
+
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v2/search/services?parametrit</code></p>
+
+<h4>Sallitut parametrit</h4>
+
+<table><thead>
+<tr>
+<th>Parametri</th>
+<th>Kuvaus</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>Palvelun nimi (hakee kaikilla kielillä)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Palvelun tyyppitunniste</td>
+</tr>
+<tr>
+<td>modified</td>
+<td>Muokkausajankohta</td>
+</tr>
+</tbody></table>
+
+<p>Tuloksena palautetaan lista palveluiden tietueista. Jaetut palvelut ovat mallipohjia, joita voidaan käyttää pohjina liitettäessä palveluita kirjastoihin. Näin voidaan saavuttaa esimerkiksi palveluiden yhtenäinen nimeäminen eri kirjastojen välillä.</p>
+
+<pre lang="xml"><code>&lt;collection count=&quot;1&quot;&gt;
+    &lt;service&gt;
+        &lt;id&gt;1n6Ln1SdTaGJ6v1T-yFfkQ&lt;/id&gt;
+        &lt;type&gt;tila&lt;/type&gt;
+        &lt;modified&gt;2013-05-30T15:03:39&lt;/modified&gt;
+        &lt;price/&gt;
+        &lt;for_loan/&gt;
+        &lt;name multilang=&quot;true&quot;&gt;
+            &lt;value lang=&quot;fi&quot;&gt;Siikapalvelu&lt;/value&gt;
+            &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+            &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+        &lt;/name&gt;
+        &lt;tags&gt;&lt;/tags&gt;
+        &lt;description&gt;
+            &lt;long multilang=&quot;true&quot;&gt;
+                &lt;value lang=&quot;fi&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+            &lt;/long&gt;
+            &lt;short multilang=&quot;true&quot;&gt;
+                &lt;value lang=&quot;fi&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;sv&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+                &lt;value lang=&quot;se&quot;&gt;&lt;/value&gt;
+            &lt;/short&gt;
+        &lt;/description&gt;
+    &lt;/service&gt;
+&lt;/collection&gt;
+</code></pre>
+
+<h1>Dokumenttien rakenne</h1>
+
+<p>Rajapinnan palauttamissa dokumenteissa kenttien järjestys on sekalainen, eli ei voida olettaa, että kenttien järjestys oli kahta tietuetta vertaillessa sama. Tämä pätee myös silloin, kun rajapinta palauttaa monta tietuetta listana.</p>
+
+<p>Yleisestä käytännöstä poiketen kirjastojen id-tunnisteet eivät ole numeerisia. Sen sijaan id:t ovat vaihtelevan pituisia merkkijonoja, joissa isoilla ja pienillä kirjaimilla on merkitystä. Id-tunnisteessa sallitut merkit ovat isot ja pienet kirjaimet (a-z), numerot (0-9) sekä tavuviiva (-).</p>
+
+<h2>Monikielisyyden tuki</h2>
+
+<p>Koska osa tietueiden kentistä on monikielisiä, voi asiakasohjelma pyytää vain tietyn kieliversion. Mikäli asiakassovellus ei määritä mitään kieltä, yksi tietue sisältää kaikkien eri kielten datan eli kieliversiot eivät ole tuloksessa omina tietueinaan.</p>
+
+<p>Kirjastot voivat itse valita, mitä kieliä ne tukevat, joten eri kieliversioiden kattavuus on varsin hajanaista. Mikäli tuloksen kieliversio on määritetty mutta kyseisellä kielellä jonkin monikielisen kentän arvo on tyhjä, järjestelmä täyttää kentän automaattisesti sen suomenkielisellä vastineella.</p>
+
+<p>Palautettavan kieliversion voi määrittää get-parametrilla <em>lang</em>. Xml-muotoisessa vastauksessa monikieliset kentät on merkitty attribuutilla <em>multilang</em> (multilang=&quot;true&quot;). Kun kieliversiota ei ole määritetty, monikieliset kentät sisältävät listan <em>value</em>-elementtejä, joiden attribuutti <em>lang</em> kertoo arvon kielen.</p>
+
+<p>Mikäli kieliversio on määritetty, tällöin monikielinen kenttä sisältää vain kyseisen kielen (tai ns. fallback-kielen eli suomen) datan ja multilang-kentällä on myös <em>lang</em>-attribuutti, joka ilmaisee kyseisen arvon todellisen kielen.</p>
+
+<p>Json(p)-dokumenteissa attribuutteja ei voi käyttää, joten asiakassovelluksen täytyy itse tietää monikieliset kentät ja osata käsitellä niitä asianmukaisesti.</p>
+
+<h4>Kielikoodit</h4>
+
+<table><thead>
+<tr>
+<th>Kieli</th>
+<th>Koodi</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Suomi</td>
+<td>fi</td>
+</tr>
+<tr>
+<td>Englanti</td>
+<td>en</td>
+</tr>
+<tr>
+<td>Ruotsi</td>
+<td>sv</td>
+</tr>
+<tr>
+<td>Saame</td>
+<td>se</td>
+</tr>
+<tr>
+<td>Venäjä</td>
+<td>ru [Ei vielä käytössä]</td>
+</tr>
+</tbody></table>
+
+<h2>Kuvat</h2>
+
+<p>Hakemistoon voi lisätä kuvia kirjastoille. Kuvat ovat valmiiksi saatavilla eri kokoisina. Jokaisen kuvan tietueessa on osoitteet saatavilla oleviin eri kokoisiin versioihin. Kuvat on pakattu jpeg-muotoon. Kuvia ei ole ns. cropattu mihinkään tiettyyn kuvasuhteeseen vaan alkuperäiset mittasuhteet on säilytetty.</p>
+
+<table><thead>
+<tr>
+<th>Kokoluokka</th>
+<th>Resoluutio (max)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>small</td>
+<td>100 x 100 px</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>570 x 570 px</td>
+</tr>
+<tr>
+<td>large</td>
+<td>1980 x 1980 px</td>
+</tr>
+<tr>
+<td>huge</td>
+<td>3840 x 3840 px</td>
+</tr>
+</tbody></table>
+
+<h2>Tietotyyppien muotoilu</h2>
+
+<p>Erikoistietotyypit kuten päivämäärät, puhelinnumerot tai www-osoitteet ovat aina normalisoidussa muodossa.</p>
+
+<ul>
+<li>Päivämäärät standardissa muodossa: YYYY-MM-DD (esim. 2013-07-31).</li>
+<li>Kellonajat muodossa hh:ii (esim. 09:11).</li>
+<li>Datetime-arvot: ISO-8601-standardin mukainen esitystapa (esim. 2013-07-31T09:11).</li>
+<li>Puhelinnumerot kansainvälisessä muodossa: +358551234567.</li>
+<li>Www-osoitteet täydellisessä muodossaan sisältäen protokollan tunnisteen.</li>
+<li>Valuuttoja ilmaisevat arvot ovat euromääräisiä mutteivät sisällä rahayksikköä.</li>
+<li>Liukuluvuissa desimaalierotin on piste.</li>
+</ul>
+
+<h2>Esimerkkejä kieliversioitujen kenttien rakenteesta</h2>
+
+<p>Kieliversiota ei määritetty:</p>
+
+<pre lang="xml"><code>&lt;library&gt;
+    &lt;id&gt;LTYu6-FGmQ1&lt;/id&gt;
+    &lt;name multilang=&quot;true&quot;&gt;
+        &lt;value lang=&quot;fi&quot;&gt;Testikirjasto&lt;/value&gt;
+        &lt;value lang=&quot;en&quot;&gt;Test library&lt;/value&gt;
+    &lt;/name&gt;
+    &lt;name_short multilang=&quot;true&quot;&gt;
+        &lt;value lang=&quot;fi&quot;&gt;Testi&lt;/value&gt;
+        &lt;value lang=&quot;en&quot;&gt;&lt;/value&gt;
+    &lt;/name_short&gt;
+&lt;/library&gt;
+</code></pre>
+
+<pre lang="json"><code>{
+    &quot;id&quot;: &quot;LTYu6-FGmQ1&quot;,
+    &quot;name&quot;: {
+        &quot;fi&quot;: &quot;Testikirjasto&quot;,
+        &quot;en&quot;: &quot;Test library&quot;
+    },
+    &quot;name_short&quot;: {
+        &quot;fi&quot;: &quot;Testi&quot;,
+        &quot;en&quot;: &quot;&quot;
+    }
+}
+</code></pre>
+
+<p>Kieliversioksi määritetty englanti:</p>
+
+<pre lang="xml"><code>&lt;library&gt;
+    &lt;id&gt;LTYu6-FGmQ1&lt;/id&gt;
+    &lt;name multilang=&quot;true&quot; lang=&quot;en&quot;&gt;Test library&lt;/name&gt;
+    &lt;name_short multilang=&quot;true&quot; lang=&quot;fi&quot;&gt;Testi&lt;/name&gt;
+&lt;/library&gt;
+</code></pre>
+
+<pre lang="json"><code>{
+    &quot;id&quot;: &quot;LTYu6-FGmQ1&quot;,
+    &quot;name&quot;: &quot;Test library&quot;,
+    &quot;name_short&quot;: &quot;Testi&quot;
+}
+</code></pre>
