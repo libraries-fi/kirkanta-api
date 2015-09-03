@@ -58,6 +58,17 @@ app.get("/v3/:type/:id", function(req, res, next) {
   }
 });
 
+app.get("/v3/library", function(req, res, next) {
+  req.params.type = "organisation";
+  req.query.type = (req.query.type + "," || "") + "branchlibrary";
+  controller.list.apply(controller, arguments);
+});
+
+app.get("/v3/library/:id", function(req, res, next) {
+  req.params.type = "organisation";
+  controller.fetch.apply(controller, arguments);
+});
+
 // app.get("/v3/:type", controller.list);
 // app.get("/v3/:type/:id", controller.fetch);
 
