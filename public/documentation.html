@@ -138,8 +138,6 @@
  Testivaiheen aikana rajapinta (3.0) käyttää tuotantoversiosta erillistä tietokantaa, jonka tietoja ei yleisesti ottaen päivitetä. Lisäksi tietueiden tunnisteet tulevat vielä muuttumaan, kun rajapinta ja Kirjastohakemiston uusi ylläpito otetaan tuotantokäyttöön syyskuun lopulla.</p>
 <h1 id="rajapinnan-kuvaus">Rajapinnan kuvaus</h1>
 <p>Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka on tarkoitus sulkea pysyvästi vuoden 2016 alkupuolella. Rajapinta noudattaa rest-periaatetta ja sitä käytetään tavallisilla <em>http-pyynnöillä</em>. Tuetut tietomuodot ovat xml, json sekä jsonp.</p>
-<p>Kirjastohakemiston rajapinnan käyttö on maksutonta eikä vaadi erityistä lupaa, mutta käyttöön on otettu käyttöoikeusavaimet käyttäjien yksilöimiseksi tilastointia varten. Avaimia voi hankkia rekisteröitymällä osoitteessa <a href="http://kirkanta.kirjastot.fi/apikey">http://kirkanta.kirjastot.fi/apikey</a>. (<strong>HUOM</strong> Testivaiheessa osoite on <a href="http://kirkantadev.kirjastot.fi/apikey!">http://kirkantadev.kirjastot.fi/apikey!</a>)</p>
-<p>Avaimia käytetään tilastoinnillisiin tarkoituksiin, joten tarkoitus ei ole ollut tuottaa vahvaa autentikointia. Olisi hyvä luoda uusi avain per uusi "projekti", mutta mitään ehdotonta sääntöä ei tämän osalta ole.</p>
 <h2 id="tietojen-muoto">Tietojen muoto</h2>
 <p>Rajapinta tukee xml-, json- ja jsonp-formaatteja. Xml-dokumenttien yhteydessä ei ainakaan toistaiseksi käytetään skeemaa rakenteen validoimiseksi. Käytetty merkistö on utf-8.</p>
 <p>Asiakasohjelma voi määrittää vastauksen tietotyypin joko http-protokollan mukaisella <em>Accept</em>-otsakkeella, jonka voi ylikirjoittaa get-parametrilla <em>format</em>. Mikäli otsikkotiedoissa määritellään useampi tyyppi, valitaan http-standardin mukaisesti korkeimman prioriteetin omaava tyyppi.</p>
@@ -189,11 +187,6 @@ http://api.kirjastot.fi/v3/organisation/23423?format=jsonp&amp;callback=foo
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>apikey</td>
-<td><em>merkkijono</em></td>
-<td>Rajapinnan käyttämiseen vaadittu yksityinen avain</td>
-</tr>
 <tr>
 <td>lang</td>
 <td>fi, sv, se, en</td>

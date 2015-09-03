@@ -14,10 +14,6 @@ Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen
 # Rajapinnan kuvaus
 Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka on tarkoitus sulkea pysyvästi vuoden 2016 alkupuolella. Rajapinta noudattaa rest-periaatetta ja sitä käytetään tavallisilla _http-pyynnöillä_. Tuetut tietomuodot ovat xml, json sekä jsonp.
 
-Kirjastohakemiston rajapinnan käyttö on maksutonta eikä vaadi erityistä lupaa, mutta käyttöön on otettu käyttöoikeusavaimet käyttäjien yksilöimiseksi tilastointia varten. Avaimia voi hankkia rekisteröitymällä osoitteessa http://kirkanta.kirjastot.fi/apikey. (**HUOM** Testivaiheessa osoite on http://kirkantadev.kirjastot.fi/apikey!)
-
-Avaimia käytetään tilastoinnillisiin tarkoituksiin, joten tarkoitus ei ole ollut tuottaa vahvaa autentikointia. Olisi hyvä luoda uusi avain per uusi "projekti", mutta mitään ehdotonta sääntöä ei tämän osalta ole.
-
 ## Tietojen muoto
 Rajapinta tukee xml-, json- ja jsonp-formaatteja. Xml-dokumenttien yhteydessä ei ainakaan toistaiseksi käytetään skeemaa rakenteen validoimiseksi. Käytetty merkistö on utf-8.
 
@@ -51,7 +47,6 @@ Kaikki kutsut tukevat tiettyjä parametreja, joilla voidaan vaikuttaa vastauksen
 
 Parametri   | Sallitut arvot    | Kuvaus
 ----------- | ----------------- | ------
-apikey      | _merkkijono_      | Rajapinnan käyttämiseen vaadittu yksityinen avain
 lang        | fi, sv, se, en    | Palautettavan tietueen kieliversio [oletusarvo: kaikki kielet]
 format      | xml, json, jsonp  | Vastauksen tietotyyppi [oletusarvo: json]
 callback    | _merkkijono_      | Jsonp-formaattia käytettäessä callback-funktion nimi
