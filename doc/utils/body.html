@@ -1,1 +1,635 @@
-Invalid markdown file --readme
+<h1 id="kirjastohakemiston-rajapinta-v3">Kirjastohakemiston rajapinta v3</h1>
+<table>
+<thead>
+<tr>
+<th>Päiväys</th>
+<th>Rajapinnan versio</th>
+<th>Muutoksen kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>03.09.2015</td>
+<td>3.0</td>
+<td>Ensimmäinen julkaisu</td>
+</tr>
+</tbody>
+</table>
+<h1 id="johdanto">Johdanto</h1>
+<p>Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteistiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa <a href="http://hakemisto.kirjastot.fi">http://hakemisto.kirjastot.fi</a>.</p>
+<p><strong>HUOM</strong>
+ Testivaiheen aikana rajapinta (3.0) käyttää tuotantoversiosta erillistä tietokantaa, jonka tietoja ei yleisesti ottaen päivitetä. Lisäksi tietueiden tunnisteet tulevat vielä muuttumaan, kun rajapinta ja Kirjastohakemiston uusi ylläpito otetaan tuotantokäyttöön syyskuun lopulla.</p>
+<h1 id="rajapinnan-kuvaus">Rajapinnan kuvaus</h1>
+<p>Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka on tarkoitus sulkea pysyvästi vuoden 2016 alkupuolella. Rajapinta noudattaa rest-periaatetta ja sitä käytetään tavallisilla <em>http-pyynnöillä</em>. Tuetut tietomuodot ovat xml, json sekä jsonp.</p>
+<p>Kirjastohakemiston rajapinnan käyttö on maksutonta eikä vaadi erityistä lupaa, mutta käyttöön on otettu käyttöoikeusavaimet käyttäjien yksilöimiseksi tilastointia varten. Avaimia voi hankkia rekisteröitymällä osoitteessa <a href="http://kirkanta.kirjastot.fi/apikey">http://kirkanta.kirjastot.fi/apikey</a>. (<strong>HUOM</strong> Testivaiheessa osoite on <a href="http://kirkantadev.kirjastot.fi/apikey!">http://kirkantadev.kirjastot.fi/apikey!</a>)</p>
+<p>Avaimia käytetään tilastoinnillisiin tarkoituksiin, joten tarkoitus ei ole ollut tuottaa vahvaa autentikointia. Olisi hyvä luoda uusi avain per uusi "projekti", mutta mitään ehdotonta sääntöä ei tämän osalta ole.</p>
+<h2 id="tietojen-muoto">Tietojen muoto</h2>
+<p>Rajapinta tukee xml-, json- ja jsonp-formaatteja. Xml-dokumenttien yhteydessä ei ainakaan toistaiseksi käytetään skeemaa rakenteen validoimiseksi. Käytetty merkistö on utf-8.</p>
+<p>Asiakasohjelma voi määrittää vastauksen tietotyypin joko http-protokollan mukaisella <em>Accept</em>-otsakkeella, jonka voi ylikirjoittaa get-parametrilla <em>format</em>. Mikäli otsikkotiedoissa määritellään useampi tyyppi, valitaan http-standardin mukaisesti korkeimman prioriteetin omaava tyyppi.</p>
+<table>
+<thead>
+<tr>
+<th>Tietotyyppi</th>
+<th>Accept-otsikko (mime)</th>
+<th>Format-parametri</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML</td>
+<td>application/xml</td>
+<td>xml</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>application/json</td>
+<td>json</td>
+</tr>
+<tr>
+<td>JSONP</td>
+<td style="transition: transform 1s ease 0s;">application/javascript</td>
+<td>jsonp</td>
+</tr>
+</tbody>
+</table>
+<p>Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla <em>callback</em>.</p>
+<h1 id="rajapinnan-kutsut">Rajapinnan kutsut</h1>
+<p>Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää haettavan resurssin tyypin sekä mahdollisen id-tunnisteen. Muut parametrit määritetään pyyntöosoitteen <em>query string</em> -osassa.</p>
+<p>Kutsujen muoto on seuraavanlainen:</p>
+<pre><code>http://api.kirjastot.fi/v3/:resurssi?parametrit
+http://api.kirjastot.fi/v3/:resurssi/:id?parametrit
+</code></pre><p><strong>Esimerkkejä</strong></p>
+<pre><code>http://api.kirjastot.fi/v3/organisation?name=pasila&amp;format=jsonp&amp;callback=foo
+http://api.kirjastot.fi/v3/organisation/23423?format=jsonp&amp;callback=foo
+</code></pre><h2 id="yleiset-parametrit">Yleiset parametrit</h2>
+<p>Kaikki kutsut tukevat tiettyjä parametreja, joilla voidaan vaikuttaa vastauksen tietotyyppiin ja palautettavien tietojen laajuuteen.</p>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>Sallitut arvot</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apikey</td>
+<td><em>merkkijono</em></td>
+<td>Rajapinnan käyttämiseen vaadittu yksityinen avain</td>
+</tr>
+<tr>
+<td>lang</td>
+<td>fi, sv, se, en</td>
+<td>Palautettavan tietueen kieliversio [oletusarvo: kaikki kielet]</td>
+</tr>
+<tr>
+<td>format</td>
+<td>xml, json, jsonp</td>
+<td>Vastauksen tietotyyppi [oletusarvo: json]</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><em>merkkijono</em></td>
+<td>Jsonp-formaattia käytettäessä callback-funktion nimi</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><em>numero</em></td>
+<td>Rajoittaa tulosten määrää per sivu [oletusarvo: 50]</td>
+</tr>
+<tr>
+<td>start</td>
+<td><em>numero</em></td>
+<td>Sivutettujen tulosten aloittaminen n:nnen tietueen kohdalta.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tietotyypit">Tietotyypit</h2>
+<p>Tähän on listattu rajapinnan tukemat tietotyypit. Kaikille tietotyypeille pätevät yllä mainitut kaksi kutsuvaihtoehtoa.</p>
+<table>
+<thead>
+<tr>
+<th>Tyyppi</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>organisation</td>
+<td>Organisaatio eli kirjasto, kirjastoauto, osasto, jne.</td>
+</tr>
+<tr>
+<td>library</td>
+<td>Muuten sama kuin 'organisaatio', mutta sisältää vain kirjastojen toimipisteet ja kirjastoautot</td>
+</tr>
+<tr>
+<td>city</td>
+<td>Kunta (Helsinki, Kuopio, Rovaniemi, ...)</td>
+</tr>
+<tr>
+<td>consortium</td>
+<td>Kirjastokimppa (HelMet, Keski-kirjastot, Vaski-kirjastot, ...)</td>
+</tr>
+<tr>
+<td>opening_time</td>
+<td>Kirjastojen aukioloajat</td>
+</tr>
+<tr>
+<td>person</td>
+<td>Organisaation henkilökunta</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Maakunta-alue (Uusimaa, Pohjois-Savo, Lappi, ...)</td>
+</tr>
+<tr>
+<td>service</td>
+<td>Palvelu (esimerkiksi asiakaskäytössä oleva laite, lisäpalvelu tai tila)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sis-lt-jen-kielet-ja-kielikoodit">Sisältöjen kielet ja kielikoodit</h2>
+<table>
+<thead>
+<tr>
+<th>Kieli</th>
+<th>Koodi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Suomi</td>
+<td>fi</td>
+</tr>
+<tr>
+<td>Englanti</td>
+<td>en</td>
+</tr>
+<tr>
+<td>Ruotsi</td>
+<td>sv</td>
+</tr>
+<tr>
+<td>Saame</td>
+<td>se</td>
+</tr>
+<tr>
+<td>Venäjä</td>
+<td>ru</td>
+</tr>
+</tbody>
+</table>
+<h2 id="organisaatioiden-ja-kirjastojen-hakeminen">Organisaatioiden ja kirjastojen hakeminen</h2>
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v3/organisation?parametrit</code>
+    <code>http://api.kirjastot.fi/v3/library?parametrit</code></p>
+<p>Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatioita haettaessa haetaan oletuksena kaikista organisaatiotietueita, mutta library-tyypillä suoditaan pois muut kuin kirjastojen toimipisteet ja kirjastoautot. Tarkoituksena on kätevöittää toimipisteiden hakemista pudottamalla pois yksi ylimääräinen, alati toistuva parametri kyselyistä.</p>
+<h3 id="sallitut-parametrit">Sallitut parametrit</h3>
+<p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)</p>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>M</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>with</td>
+<td>X</td>
+<td>Valinnaisia tietolohkoja, joita ei siirrettävän tiedon optimoimiseksi sisällytetä oletuksena (ks. listaus alempana)</td>
+</tr>
+<tr>
+<td>sort</td>
+<td></td>
+<td>Lajitteluun käytetty kenttä; distance, name</td>
+</tr>
+<tr>
+<td>branch_type</td>
+<td>X</td>
+<td>Kirjaston toimipiste -tyyppisten (branchlibrary) tietueiden alakategoria ("millainen toimipiste?") (ks. listaus alempana)</td>
+</tr>
+<tr>
+<td>city</td>
+<td>X</td>
+<td>Kunnan id-tunniste</td>
+</tr>
+<tr>
+<td>city.name</td>
+<td>X</td>
+<td>Kunnan täsmällinen nimi. Haettaessa ruotsin kielellä käytetään ruotsalaista nimeä.</td>
+</tr>
+<tr>
+<td>consortium</td>
+<td>X</td>
+<td>Kirjastokimpan id-tunniste</td>
+</tr>
+<tr>
+<td>distance</td>
+<td></td>
+<td>Määrittää koordinaattihaussa sallitun etäisyyden määrätystä pisteestä; arvo kilometreinä (1 = 1 km, 100 = 100 km)</td>
+</tr>
+<tr>
+<td>geo</td>
+<td></td>
+<td>Koordinaattiparilla hakeminen (käytetään yhdessä distance-parametrin kanssa) (24.3434,71.1235)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>X</td>
+<td>Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa</td>
+</tr>
+<tr>
+<td>modified</td>
+<td></td>
+<td>Hakee tietueet, joita muokattu myöhemmin kuin määrättynä pvm:nä</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Hakee kirjastot, joiden nimi alkaa määrätyllä merkkijonolla. Riippuu valitusta kielestä.</td>
+</tr>
+<tr>
+<td>region</td>
+<td>X</td>
+<td>Maakunta-alueen id-tunniste</td>
+</tr>
+<tr>
+<td>region.name</td>
+<td>X</td>
+<td>Maakunta-alueen täsmällinen nimi. Riippuu valitusta kielestä.</td>
+</tr>
+<tr>
+<td>period.start</td>
+<td></td>
+<td>Kun sisällytetään aukiolotiedot, voidaan määrittää haettava väli</td>
+</tr>
+<tr>
+<td>period.end</td>
+<td></td>
+<td>Kun sisällytetään aukiolotiedot, voidaan määrittää haettava väli</td>
+</tr>
+<tr>
+<td>service</td>
+<td>X</td>
+<td>Organisaatioon liitetyn palvelun id-tunniste</td>
+</tr>
+<tr>
+<td>service.name</td>
+<td></td>
+<td>Hakee organisaatiot, joihin on liitetty palvelu, jonka (ei-täsmällinen) nimi alkaa määrätyllä merkkijonolla</td>
+</tr>
+<tr>
+<td>type</td>
+<td>X</td>
+<td>Tietuiden päätason tyyppi (ks. listaus alempana)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="valinnaisten-lohkojen-kuvaus-with-parametrin-arvot-">Valinnaisten lohkojen kuvaus (with-parametrin arvot)</h4>
+<table>
+<thead>
+<tr>
+<th>Tunniste</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accessibility</td>
+<td>Esteettömyystiedot</td>
+</tr>
+<tr>
+<td>extra</td>
+<td>Sekalaisia tietoja, jotka on siirrettävän datan määrän optimoimiseksi siirretty miljoonalaatikkoon</td>
+</tr>
+<tr>
+<td>links</td>
+<td>Linkkejä ulkoisiin palveluihin kuten some-palveluihin</td>
+</tr>
+<tr>
+<td>mail_address</td>
+<td>Mahdollinen toimipisteen sijainnista poikkeava postiosoite</td>
+</tr>
+<tr>
+<td>persons</td>
+<td>Lista organisaation tietueeseen liitetyistä työntekijöistä</td>
+</tr>
+<tr>
+<td>phone_numbers</td>
+<td>Lista puhelinnumeroista</td>
+</tr>
+<tr>
+<td>pictures</td>
+<td>Lista valokuvista</td>
+</tr>
+<tr>
+<td>services</td>
+<td>Lista palveluista</td>
+</tr>
+<tr>
+<td>schedules</td>
+<td>Aukiolotiedot määrätylle ajanjaksolle. Aikaväli määritetään lisäparametrein schedules.start ja schedules.end</td>
+</tr>
+</tbody>
+</table>
+<h4 id="organisaatiotietueiden-tyypit">Organisaatiotietueiden tyypit</h4>
+<table>
+<thead>
+<tr>
+<th>Tunniste</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>branchlibrary</td>
+<td>Kirjaston toimipiste ("kirjasto")</td>
+</tr>
+<tr>
+<td>department</td>
+<td>Osasto</td>
+</tr>
+<tr>
+<td>library</td>
+<td>Kirjastolaitos</td>
+</tr>
+<tr>
+<td>mobile_stop</td>
+<td>Kirjastoauton pysäkki</td>
+</tr>
+<tr>
+<td>organisation</td>
+<td>Muu organisaatio</td>
+</tr>
+<tr>
+<td>unit</td>
+<td>Keskitetty palvelu</td>
+</tr>
+</tbody>
+</table>
+<h4 id="kirjaston-toimipisteiden-alakategoriat">Kirjaston toimipisteiden alakategoriat</h4>
+<table>
+<thead>
+<tr>
+<th>Tunniste</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>childrens_library</td>
+<td>Lasten kirjasto</td>
+</tr>
+<tr>
+<td>default</td>
+<td>Kirjasto (yleinen kirjaston toimipiste)</td>
+</tr>
+<tr>
+<td>home_service</td>
+<td>Kotipalvelu</td>
+</tr>
+<tr>
+<td>institution_library</td>
+<td>Laitoskirjasto</td>
+</tr>
+<tr>
+<td>main_library</td>
+<td>Pääkirjasto</td>
+</tr>
+<tr>
+<td>mobile</td>
+<td>Kirjastoauto</td>
+</tr>
+<tr>
+<td>music_library</td>
+<td>Musiikkikirjasto</td>
+</tr>
+<tr>
+<td>other</td>
+<td>Muu kirjastoalan organisaatio</td>
+</tr>
+<tr>
+<td>polytechnic_library</td>
+<td>Ammattikorkeakoulukirjasto</td>
+</tr>
+<tr>
+<td>regional</td>
+<td>Aluekirjasto</td>
+</tr>
+<tr>
+<td>special_library</td>
+<td>Erikoiskirjasto</td>
+</tr>
+<tr>
+<td>university_library</td>
+<td>Yliopistokirjasto</td>
+</tr>
+<tr>
+<td>vocational_college_library</td>
+<td>Ammattioppilaitoskirjasto</td>
+</tr>
+</tbody>
+</table>
+<h4 id="kuvien-koot">Kuvien koot</h4>
+<p>Kirjastojen tietueisiin lisätyt kuvat ovat saatavilla valmiiksi muutamassa eri koossa. Pienempiä(kään) kokoja ei ole ns. cropattu mihinkään tiettyyn kuvasuhteeseen vaan alkuperäiset mittasuhteet on säilytetty. Kaikki kuvat on pakattu jpeg-muotoon.</p>
+<table>
+<thead>
+<tr>
+<th>Kokoluokka</th>
+<th>Resoluutio (max)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>small</td>
+<td>100 x 100 px</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>570 x 570 px</td>
+</tr>
+<tr>
+<td>large</td>
+<td>1980 x 1980 px</td>
+</tr>
+<tr>
+<td>huge</td>
+<td>3840 x 3840 px</td>
+</tr>
+</tbody>
+</table>
+<h3 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h3>
+<p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)
+    <code>http://api.kirjastot.fi/v3/library?city=14453,14502</code>
+    <code>http://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</code></p>
+<p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)
+    <code>http://api.kirjastot.fi/v3/library?region=906,917</code>
+    <code>http://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</code></p>
+<p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
+    <code>http://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
+<p>Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
+    <code>http://api.kirjastot.fi/v3/library?service=X,Y</code></p>
+<p>Pasilan kirjaston tietue sisältäen aukioloajat syyskuulle 2015.
+    <code>http://api.kirjastot.fi/v3/library/71895?with=schedules&amp;period.start=2015-09-01&amp;period.end=2015-09-30</code></p>
+<h2 id="palveluiden-hakeminen">Palveluiden hakeminen</h2>
+<p>Kutsun osoitteen muoto on seuraava:
+    <code>http://api.kirjastot.fi/v3/service?parametrit</code></p>
+<h3 id="sallitut-parametrit">Sallitut parametrit</h3>
+<p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)</p>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>M</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>X</td>
+<td>Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa</td>
+</tr>
+<tr>
+<td>modified</td>
+<td></td>
+<td>Hakee tietueet, joita muokattu myöhemmin kuin määrättynä pvm:nä</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Hakee tietueet, joiden nimi alkaa määrätyllä merkkijonolla</td>
+</tr>
+<tr>
+<td>type</td>
+<td>X</td>
+<td>Palvelun tyypin tunnisteella suotiminen</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kirjastojen-aukioloaikojen-hakeminen">Kirjastojen aukioloaikojen hakeminen</h2>
+<p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>M</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>organisation</td>
+<td>X</td>
+<td>Organisaation tietueen id-tunniste</td>
+</tr>
+<tr>
+<td>period.start</td>
+<td></td>
+<td>Aikavälin ensimmäinen päivä</td>
+</tr>
+<tr>
+<td>period.end</td>
+<td></td>
+<td>Aikavälin viimeinen päivä</td>
+</tr>
+</tbody>
+</table>
+<h2 id="organisaatioon-liitettyjen-henkil-iden-hakeminen">Organisaatioon liitettyjen henkilöiden hakeminen</h2>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>M</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>X</td>
+<td>Voi käyttää tunnettujen henkilötietueiden hakemiseen yhdellä kyselyllä</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td></td>
+<td>Etunimihaku</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td></td>
+<td>Sukunimihaku</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Yhdistetty nimihaku</td>
+</tr>
+<tr>
+<td>organisation</td>
+<td>X</td>
+<td>Sen organisaation id, johon henkilöt liitetty</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kuntien-listaaminen">Kuntien listaaminen</h2>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>M</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>X</td>
+<td>Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Hakee kunnat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)</td>
+</tr>
+<tr>
+<td>consortium</td>
+<td>X</td>
+<td>Kirjastokimpan id-tunniste</td>
+</tr>
+<tr>
+<td>region</td>
+<td>X</td>
+<td>Maakunnan id-tunniste</td>
+</tr>
+<tr>
+<td>provincial_library</td>
+<td>X</td>
+<td>Maakuntakirjastoalueen id-tunniste</td>
+</tr>
+</tbody>
+</table>
+<h2 id="maakuntien-listaaminen">Maakuntien listaaminen</h2>
+<table>
+<thead>
+<tr>
+<th>Parametri</th>
+<th>M</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>X</td>
+<td>Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä</td>
+</tr>
+<tr>
+<td>name</td>
+<td></td>
+<td>Hakee maakunnat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)</td>
+</tr>
+</tbody>
+</table>

@@ -210,7 +210,7 @@ id              | X | Voi käyttää tunnettujen henkilötietueiden hakemiseen y
 first_name      |   | Etunimihaku
 last_name       |   | Sukunimihaku
 name            |   | Yhdistetty nimihaku
-organisation    | X | Organisaation ID, johon henkilöt liitetty
+organisation    | X | Sen organisaation id, johon henkilöt liitetty
 
 ## Kuntien listaaminen
 Parametri           | M | Kuvaus
