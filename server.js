@@ -25,7 +25,7 @@ app.use("/v3", function(req, res, next) {
 
 app.use("/v3", function(req, res, next) {
   if ("with" in req.query) {
-    req.query.with = req.query.with.split(",");
+    req.query.with = req.query.with.split(",") || [];
   } else {
     req.query.with = [];
   }
