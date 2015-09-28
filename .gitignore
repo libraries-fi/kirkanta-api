@@ -1,3 +1,5 @@
 node_modules
 features.txt
 config.json
+node/*
+start.sh
