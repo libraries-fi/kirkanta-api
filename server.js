@@ -28,6 +28,13 @@ app.use("/v3", function(req, res, next) {
   next();
 });
 
+app.use("/v3", function(req, res, next) {
+  if (!("limit" in req.query)) {
+    req.query.limit = config.api.results_per_page;
+  }
+  next();
+});
+
 app.get("/", function(req, res) {
   // Index, documentation
   res.send("API INDEX");
