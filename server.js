@@ -63,7 +63,7 @@ app.get("/v3/:type/:id", function(req, res, next) {
 
 app.get("/v3/library", function(req, res, next) {
   req.params.type = "organisation";
-  req.query.type = (req.query.type + "," || "") + "branchlibrary";
+  req.query.type = (req.query.type + "," || "") + "library";
   controller.list.apply(controller, arguments);
 });
 
