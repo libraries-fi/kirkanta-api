@@ -18,7 +18,7 @@ if (config.api.require_authentication) {
 }
 
 app.use("/v3", function(req, res, next) {
-  req.query.lang = req.query.lang || "fi";
+  // req.query.lang = req.query.lang || "fi";
   req.query.format = req.query.format || "json";
   next();
 });
