@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="https://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <meta name="author" content="Kirjastot.fi"/>
@@ -179,11 +179,11 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen toimitus2@kirjasto
 <h1 id="rajapinnan-kutsut">Rajapinnan kutsut</h1>
 <p>Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää haettavan resurssin tyypin sekä mahdollisen id-tunnisteen. Muut parametrit määritetään pyyntöosoitteen <em>query string</em> -osassa. Suodinehdot on mahdollista muuttaa kieltäviksi eli not-muotoisiksi lisäämällä parametrin nimen perään miinusmerkki. Useita parametreja käytettäessä tulosjoukkoon sisältyvät ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin.</p>
 <p>Kutsujen muoto on seuraavanlainen:</p>
-<pre><code>http://api.kirjastot.fi/v3/:resurssi?parametrit
-http://api.kirjastot.fi/v3/:resurssi/:id?parametrit
+<pre><code>https://api.kirjastot.fi/v3/:resurssi?parametrit
+https://api.kirjastot.fi/v3/:resurssi/:id?parametrit
 </code></pre><p><strong>Esimerkkejä</strong></p>
-<pre><code>http://api.kirjastot.fi/v3/organisation?name=pasila&amp;format=jsonp&amp;callback=foo
-http://api.kirjastot.fi/v3/organisation/23423?format=jsonp&amp;callback=foo
+<pre><code>https://api.kirjastot.fi/v3/organisation?name=pasila&amp;format=jsonp&amp;callback=foo
+https://api.kirjastot.fi/v3/organisation/23423?format=jsonp&amp;callback=foo
 </code></pre><h2 id="tietotyypit">Tietotyypit</h2>
 <p>Tähän on listattu rajapinnan tukemat tietotyypit. Kaikille tietotyypeille pätevät yllä mainitut kaksi kutsuvaihtoehtoa.</p>
 <table>
@@ -313,8 +313,8 @@ http://api.kirjastot.fi/v3/organisation/23423?format=jsonp&amp;callback=foo
 <p>Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään valittua kieltä. Mikäli kieltä ei ole valittu, tulosjoukko sisältää arvot kaikilla kielillä, mutta suotiminen ja järjestäminen tehdään suomenkielisten arvojen perusteella.</p>
 <h2 id="organisaatioiden-ja-kirjastojen-hakeminen">Organisaatioiden ja kirjastojen hakeminen</h2>
 <p>Kutsun osoitteen muoto on seuraava:
-    <code>http://api.kirjastot.fi/v3/organisation?parametrit</code>
-    <code>http://api.kirjastot.fi/v3/library?parametrit</code></p>
+    <code>https://api.kirjastot.fi/v3/organisation?parametrit</code>
+    <code>https://api.kirjastot.fi/v3/library?parametrit</code></p>
 <p>Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatioita haettaessa haetaan oletuksena kaikista organisaatiotietueita, mutta library-tyypillä suoditaan pois muut kuin kirjastojen toimipisteet ja kirjastoautot. Tarkoituksena on kätevöittää toimipisteiden hakemista pudottamalla pois yksi ylimääräinen, alati toistuva parametri kyselyistä.</p>
 <h3 id="sallitut-parametrit">Sallitut parametrit</h3>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
@@ -674,20 +674,20 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </table>
 <h3 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h3>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)
-    <code>http://api.kirjastot.fi/v3/library?city=14453,14502</code>
-    <code>http://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</code></p>
+    <code>https://api.kirjastot.fi/v3/library?city=14453,14502</code>
+    <code>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</code></p>
 <p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)
-    <code>http://api.kirjastot.fi/v3/library?region=906,917</code>
-    <code>http://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</code></p>
+    <code>https://api.kirjastot.fi/v3/library?region=906,917</code>
+    <code>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</code></p>
 <p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
-    <code>http://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
+    <code>https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
 <p>Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
-    <code>http://api.kirjastot.fi/v3/library?service=X,Y</code></p>
+    <code>https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat syyskuulle 2015.
-    <code>http://api.kirjastot.fi/v3/library/71895?with=schedules&amp;period.start=2015-09-01&amp;period.end=2015-09-30</code></p>
+    <code>https://api.kirjastot.fi/v3/library/71895?with=schedules&amp;period.start=2015-09-01&amp;period.end=2015-09-30</code></p>
 <h2 id="palveluiden-hakeminen">Palveluiden hakeminen</h2>
 <p>Kutsun osoitteen muoto on seuraava:
-    <code>http://api.kirjastot.fi/v3/service?parametrit</code></p>
+    <code>https://api.kirjastot.fi/v3/service?parametrit</code></p>
 <h3 id="sallitut-parametrit">Sallitut parametrit</h3>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
