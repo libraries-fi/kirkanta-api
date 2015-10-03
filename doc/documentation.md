@@ -40,14 +40,14 @@ Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää
 
 Kutsujen muoto on seuraavanlainen:
 ```
-http://api.kirjastot.fi/v3/:resurssi?parametrit
-http://api.kirjastot.fi/v3/:resurssi/:id?parametrit
+https://api.kirjastot.fi/v3/:resurssi?parametrit
+https://api.kirjastot.fi/v3/:resurssi/:id?parametrit
 ```
 
 **Esimerkkejä**
 ```
-http://api.kirjastot.fi/v3/organisation?name=pasila&format=jsonp&callback=foo
-http://api.kirjastot.fi/v3/organisation/23423?format=jsonp&callback=foo
+https://api.kirjastot.fi/v3/organisation?name=pasila&format=jsonp&callback=foo
+https://api.kirjastot.fi/v3/organisation/23423?format=jsonp&callback=foo
 ```
 
 ## Tietotyypit
@@ -97,8 +97,8 @@ Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään 
 
 ## Organisaatioiden ja kirjastojen hakeminen
 Kutsun osoitteen muoto on seuraava:
-    `http://api.kirjastot.fi/v3/organisation?parametrit`
-    `http://api.kirjastot.fi/v3/library?parametrit`
+    `https://api.kirjastot.fi/v3/organisation?parametrit`
+    `https://api.kirjastot.fi/v3/library?parametrit`
 
 Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatioita haettaessa haetaan oletuksena kaikista organisaatiotietueita, mutta library-tyypillä suoditaan pois muut kuin kirjastojen toimipisteet ja kirjastoautot. Tarkoituksena on kätevöittää toimipisteiden hakemista pudottamalla pois yksi ylimääräinen, alati toistuva parametri kyselyistä.
 
@@ -190,25 +190,25 @@ huge        | 3840 x 3840 px
 
 ### Esimerkkejä kyselyistä
 Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)
-    `http://api.kirjastot.fi/v3/library?city=14453,14502`
-    `http://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi`
+    `https://api.kirjastot.fi/v3/library?city=14453,14502`
+    `https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi`
 
 Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)
-    `http://api.kirjastot.fi/v3/library?region=906,917`
-    `http://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo`
+    `https://api.kirjastot.fi/v3/library?region=906,917`
+    `https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo`
 
 Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
-    `http://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&distance=10&service.name=kopiokone`
+    `https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&distance=10&service.name=kopiokone`
 
 Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
-    `http://api.kirjastot.fi/v3/library?service=X,Y`
+    `https://api.kirjastot.fi/v3/library?service=X,Y`
 
 Pasilan kirjaston tietue sisältäen aukioloajat syyskuulle 2015.
-    `http://api.kirjastot.fi/v3/library/71895?with=schedules&period.start=2015-09-01&period.end=2015-09-30`
+    `https://api.kirjastot.fi/v3/library/71895?with=schedules&period.start=2015-09-01&period.end=2015-09-30`
 
 ## Palveluiden hakeminen
 Kutsun osoitteen muoto on seuraava:
-    `http://api.kirjastot.fi/v3/service?parametrit`
+    `https://api.kirjastot.fi/v3/service?parametrit`
 
 ### Sallitut parametrit
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
