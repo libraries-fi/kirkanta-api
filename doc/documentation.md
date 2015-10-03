@@ -8,6 +8,8 @@ Päiväys       | Rajapinnan versio | Muutoksen kuvaus
 
 Kirjastotietueiden type- ja branch_type-kenttien arvot ovat muuttuneet 02.10.2015.
 
+Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
+
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteistiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
 
