@@ -14,7 +14,7 @@ Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteistiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
 
 Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi'n tekniikkatiimiin: tekniikka@kirjastot.fi.
-Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen toimitus2@kirjastot.fi.
+Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.
 
 **HUOM**
  Testivaiheen aikana rajapinta (3.0) käyttää tuotantoversiosta erillistä tietokantaa, jonka tietoja ei yleisesti ottaen päivitetä. Lisäksi tietueiden tunnisteet tulevat vielä muuttumaan, kun rajapinta ja Kirjastohakemiston uusi ylläpito otetaan tuotantokäyttöön lokakuun aikana.
@@ -85,7 +85,7 @@ lang        | en, fi, ru, se, sv    | Palautettavan tietueen kieliversio [oletus
 format      | xml, json, jsonp      | Vastauksen tietotyyppi [oletusarvo: json]
 callback    | _merkkijono_          | Jsonp-formaattia käytettäessä callback-funktion nimi
 limit       | _numero_              | Rajoittaa tulosten määrää per sivu [oletusarvo: 50]
-start       | _numero_              | Sivutettujen tulosten aloittaminen n:nnen tietueen kohdalta.
+skip       | _numero_              | Sivutettujen tulosten aloittaminen n:nnen tietueen kohdalta.
 sort        | _lista_               | Tulosjoukon järjestämiseen käytetyt kentät
 
 ## Tulosjoukkojen järjestäminen ja suotiminen
@@ -109,6 +109,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 Parametri       | M | S | Kuvaus
 --------------- | - | - | ------
 with            | X |   | Valinnaisia tietolohkoja, joita ei siirrettävän tiedon optimoimiseksi sisällytetä oletuksena (ks. listaus alempana)
+refs            | X |   | Valittujen alitietueiden palauttaminen osana tulosta
 branch_type     | X | X | Kirjaston toimipiste -tyyppisten (branchlibrary) tietueiden alakategoria ("millainen toimipiste?") (ks. listaus alempana)
 created.after   |   |   | Hakee tietueet, jotka on luotu myöhemmin kuin määrättynä pvm:nä
 created.before  |   |   | Tietueiden viimeinen luonti-pvm
@@ -147,6 +148,16 @@ phone_numbers | Lista puhelinnumeroista
 pictures      | Lista valokuvista
 services      | Lista palveluista
 schedules     | Aukiolotiedot määrätylle ajanjaksolle. Aikaväli määritetään lisäparametrein period.start ja period.end
+
+#### Alitietueet (refs-parametrin arvot)
+Refs-parametrilla voidaan asettaa rajapinta palauttamaan viittaukset muihin tietueisiin osana tulosjoukkoa. Tällöin rajapinta palauttaa nämä alitietueet ryhmiteltynä tyypin perusteella tuloksen ylätasolla kentässä *references*.
+
+Tunniste            | Kuvaus
+------------------- | ------
+city                | Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat
+region              | Maakunnat (kuten yllä)
+provincial_library  | Maakuntakirjastoalueet (kuten yllä)
+consortium          | Kirjastokimpat (kuten yllä)
 
 #### Organisaatiotietueiden tyypit
 Tunniste            | Tunniste (api-v2)   | Kuvaus
