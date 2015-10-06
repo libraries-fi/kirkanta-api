@@ -91,7 +91,7 @@ app.use(encoders.encodeResponse);
  */
 app.use(function(req, res, next) {
   if ("data" in res.locals) {
-    res.send(res.locals.data);
+    res.status(res.locals.status).send(res.locals.data);
   } else {
     next();
   }
