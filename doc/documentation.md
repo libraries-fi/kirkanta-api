@@ -11,7 +11,7 @@ Kirjastotietueiden type- ja branch_type-kenttien arvot ovat muuttuneet 02.10.201
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
 # Johdanto
-Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteistiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
+Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
 
 Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi'n tekniikkatiimiin: tekniikka@kirjastot.fi.
 Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.
@@ -85,7 +85,7 @@ lang        | en, fi, ru, se, sv    | Palautettavan tietueen kieliversio [oletus
 format      | xml, json, jsonp      | Vastauksen tietotyyppi [oletusarvo: json]
 callback    | _merkkijono_          | Jsonp-formaattia käytettäessä callback-funktion nimi
 limit       | _numero_              | Rajoittaa tulosten määrää per sivu [oletusarvo: 50]
-skip       | _numero_              | Sivutettujen tulosten aloittaminen n:nnen tietueen kohdalta.
+skip        | _numero_              | Sivutettujen tulosten aloittaminen n:nnen tietueen kohdalta.
 sort        | _lista_               | Tulosjoukon järjestämiseen käytetyt kentät
 
 ## Tulosjoukkojen järjestäminen ja suotiminen
@@ -97,8 +97,10 @@ Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään 
 
 ## Organisaatioiden ja kirjastojen hakeminen
 Kutsun osoitteen muoto on seuraava:
-    `https://api.kirjastot.fi/v3/organisation?parametrit`
-    `https://api.kirjastot.fi/v3/library?parametrit`
+```
+https://api.kirjastot.fi/v3/organisation?parametrit
+https://api.kirjastot.fi/v3/library?parametrit
+```
 
 Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatioita haettaessa haetaan oletuksena kaikista organisaatiotietueita, mutta library-tyypillä suoditaan pois muut kuin kirjastojen toimipisteet ja kirjastoautot. Tarkoituksena on kätevöittää toimipisteiden hakemista pudottamalla pois yksi ylimääräinen, alati toistuva parametri kyselyistä.
 
@@ -107,10 +109,10 @@ M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
 Parametri       | M | S | Kuvaus
---------------- | - | - | ------
-with            | X |   | Valinnaisia tietolohkoja, joita ei siirrettävän tiedon optimoimiseksi sisällytetä oletuksena (ks. listaus alempana)
+--------------- | --- | --- | ------
+with            | X |   | Sisällyttää tietueisiin valinnaisia tietolohkoja (ks. listaus alempana)
 refs            | X |   | Valittujen alitietueiden palauttaminen osana tulosta
-branch_type     | X | X | Kirjaston toimipiste -tyyppisten (branchlibrary) tietueiden alakategoria ("millainen toimipiste?") (ks. listaus alempana)
+branch_type     | X | X | Kirjaston toimipiste -tyyppisten (branchlibrary) tietueiden alakategoria (ks. listaus alempana)
 created.after   |   |   | Hakee tietueet, jotka on luotu myöhemmin kuin määrättynä pvm:nä
 created.before  |   |   | Tietueiden viimeinen luonti-pvm
 city            | X | X | Kunnan id-tunniste
@@ -201,12 +203,16 @@ huge        | 3840 x 3840 px
 
 ### Esimerkkejä kyselyistä
 Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)
-    `https://api.kirjastot.fi/v3/library?city=14453,14502`
-    `https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi`
+```
+https://api.kirjastot.fi/v3/library?city=14453,14502
+https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi
+```
 
 Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)
-    `https://api.kirjastot.fi/v3/library?region=906,917`
-    `https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo`
+```
+https://api.kirjastot.fi/v3/library?region=906,917
+https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo
+```
 
 Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
     `https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&distance=10&service.name=kopiokone`
@@ -226,7 +232,7 @@ M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
 Parametri       | M | S | Kuvaus
---------------- | - | - | ------
+--------------- | --- | --- | ------
 id              | X | X | Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa
 created.after   |   |   | Hakee tietueet, jotka on luotu myöhemmin kuin määrättynä pvm:nä
 created.before  |   |   | Viimeinen luonti-pvm
@@ -242,7 +248,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.
 
 Parametri       | M | S | Kuvaus
---------------- | - | - | ------
+--------------- | --- | --- | ------
 organisation    | X | X | Organisaation tietueen id-tunniste
 period.start    |   |   | Aikavälin ensimmäinen päivä
 period.end      |   |   | Aikavälin viimeinen päivä
@@ -252,7 +258,7 @@ M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
 Parametri       | M | S | Kuvaus
-----------------| - | - | ------
+----------------| --- | --- | ------
 id              | X | X | Voi käyttää tunnettujen henkilötietueiden hakemiseen yhdellä kyselyllä
 first_name      |   | X | Etunimihaku
 last_name       |   | X | Sukunimihaku
@@ -264,7 +270,7 @@ M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
 Parametri           | M | S | Kuvaus
-------------------- | - | - | ------
+------------------- | --- | --- | ------
 id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä
 name                |   | X | Hakee kunnat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
 consortium          | X | X | Kirjastokimpan id-tunniste
@@ -276,6 +282,6 @@ M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
 Parametri           | M | S | Kuvaus
-------------------- | - | - | ------
+------------------- | --- | --- | ------
 id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä
 name                |   | X | Hakee maakunnat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
