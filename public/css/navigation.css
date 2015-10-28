@@ -1,0 +1,18 @@
+/* line 1, ../scss/navigation.scss */
+nav {
+  position: fixed;
+  left: 0;
+  background-color: white;
+  padding: 0.5em;
+  z-index: 999;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+/* line 11, ../scss/navigation.scss */
+nav ul {
+  list-style-type: none;
+}
+/* line 20, ../scss/navigation.scss */
+nav ul.active ul {
+  display: block;
+}

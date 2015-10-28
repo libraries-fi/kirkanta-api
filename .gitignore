@@ -3,3 +3,4 @@ features.txt
 config.json
 node/*
 start.sh
+.sass-cache

@@ -1,0 +1,149 @@
+/* line 2, ../scss/documentation.scss */
+* {
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-weight: normal;
+}
+
+/* line 8, ../scss/documentation.scss */
+body {
+  width: 80%;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: justify;
+  font: 13px/1.231 verdana, sans-serif;
+  counter-reset: lvl1;
+}
+
+/* line 16, ../scss/documentation.scss */
+ul {
+  padding-left: 20px;
+}
+
+/* line 19, ../scss/documentation.scss */
+li {
+  list-style-position: inside;
+}
+
+/* line 22, ../scss/documentation.scss */
+table,
+code {
+  width: 100%;
+  border-radius: 7px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+/* line 31, ../scss/documentation.scss */
+code {
+  background-color: #f5f5f5;
+  display: block;
+}
+
+/* line 35, ../scss/documentation.scss */
+table {
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8em;
+}
+
+/* line 40, ../scss/documentation.scss */
+th,
+td {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 10px;
+}
+
+/* line 45, ../scss/documentation.scss */
+td {
+  width: 180px;
+}
+
+/* line 48, ../scss/documentation.scss */
+td:last-child {
+  width: 6000px;
+}
+
+/* line 51, ../scss/documentation.scss */
+h1,
+h2,
+h3,
+h4,
+th,
+strong {
+  font-weight: bold;
+}
+
+/* line 59, ../scss/documentation.scss */
+h1:before,
+h2:before,
+h3:before {
+  color: #666;
+  font-size: 0.8em;
+}
+
+/* line 65, ../scss/documentation.scss */
+h1:first-of-type {
+  color: red;
+  font-size: 1.6rem;
+  border-bottom: 2px dashed #ddd;
+  padding-bottom: 30px;
+}
+
+/* line 71, ../scss/documentation.scss */
+h1 {
+  font-size: 1.4rem;
+  margin: 2rem 0 1rem;
+  counter-reset: lvl2;
+}
+
+/* line 76, ../scss/documentation.scss */
+h1:not(:first-of-type):before {
+  content: counter(lvl1) ". ";
+  counter-increment: lvl1;
+}
+
+/* line 80, ../scss/documentation.scss */
+h2 {
+  font-size: 1.2rem;
+  margin: 2em 0 1em;
+  counter-reset: lvl3;
+}
+
+/* line 85, ../scss/documentation.scss */
+h3 {
+  font-size: 1rem;
+  margin: 1.5em 0 0.8em;
+}
+
+/* line 89, ../scss/documentation.scss */
+h2:before {
+  content: counter(lvl1) "." counter(lvl2) ". ";
+  counter-increment: lvl2;
+}
+
+/* line 93, ../scss/documentation.scss */
+h3:before {
+  content: counter(lvl1) "." counter(lvl2) "." counter(lvl3) ". ";
+  counter-increment: lvl3;
+}
+
+/* line 97, ../scss/documentation.scss */
+h4 {
+  margin: 2em 0 1em;
+}
+
+/* line 100, ../scss/documentation.scss */
+p {
+  margin: 0 0 1em;
+}
+
+/* line 103, ../scss/documentation.scss */
+footer {
+  border-top: 2px dashed #ddd;
+  padding: 15px 0;
+  margin-top: 30px;
+}

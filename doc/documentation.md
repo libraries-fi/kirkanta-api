@@ -220,8 +220,8 @@ Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasema
 Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
     `https://api.kirjastot.fi/v3/library?service=X,Y`
 
-Pasilan kirjaston tietue sisältäen aukioloajat syyskuulle 2015.
-    `https://api.kirjastot.fi/v3/library/71895?with=schedules&period.start=2015-09-01&period.end=2015-09-30`
+Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
+    `https://api.kirjastot.fi/v3/library/81371?with=schedules&period.start=2015-11-01&period.end=2015-11-30`
 
 ## Palveluiden hakeminen
 Kutsun osoitteen muoto on seuraava:

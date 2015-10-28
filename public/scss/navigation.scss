@@ -1,0 +1,28 @@
+nav {
+  // width: 250px;
+  position: fixed;
+  left: 0;
+  background-color: white;
+  padding: 0.5em;
+  z-index: 999;
+  white-space: nowrap;
+  overflow-x: hidden;
+
+  ul {
+    list-style-type: none;
+
+    ul {
+      // display: none;
+    }
+  }
+
+  ul.active {
+    ul {
+      display: block;
+    }
+  }
+}
+
+nav + main {
+  // padding-right: 200px;
+}
