@@ -35,7 +35,7 @@ JSONP       | application/javascript    | jsonp
 
 Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla _callback_.
 
-# Rajapinnan kutsut
+## Rajapinnan kutsut
 Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää haettavan resurssin tyypin sekä mahdollisen id-tunnisteen. Muut parametrit määritetään pyyntöosoitteen _query string_ -osassa. Suodinehdot on mahdollista muuttaa kieltäviksi eli not-muotoisiksi lisäämällä parametrin nimen perään miinusmerkki. Useita parametreja käytettäessä tulosjoukkoon sisältyvät ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin.
 
 Kutsujen muoto on seuraavanlainen:
@@ -88,14 +88,14 @@ limit       | _numero_              | Rajoittaa tulosten määrää per sivu [ol
 skip        | _numero_              | Sivutettujen tulosten aloittaminen n:nnen tietueen kohdalta.
 sort        | _lista_               | Tulosjoukon järjestämiseen käytetyt kentät
 
-## Tulosjoukkojen järjestäminen ja suotiminen
+## Hakuehdot ja järjestäminen
 Useita hakuehtoja käytettäessä tulosjoukko sisältää ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin. Mikäli yksittäinen parametri hyväksyy monta arvoa (pilkuilla erotettuna listana), tietueiden tulee täsmätä johonkin kyseisen joukon arvoista. Hakuehdot voi kääntää kielteisiksi lisäämällä parametrin nimen **perään** miinusmerkin. (?city.name-=helsinki)
 
 Hakukyselyiden palauttamien tulosjoukkojen järjestämiseen voi käyttää pääsääntöisesti kaikkien suodinparametrien nimiä. Järjestäminen useamman kuin yhden parametrin avulla on sallittua. Järjestys on oletusarvoisesti pienimmästä suurimpaan, mutta sen voi kääntää ympäri parametrikohtaisesti liittämällä parametrin **eteen** miinusmerkin (?sort=city.name,-name).
 
 Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään valittua kieltä. Mikäli kieltä ei ole valittu, tulosjoukko sisältää arvot kaikilla kielillä, mutta suotiminen ja järjestäminen tehdään suomenkielisten arvojen perusteella.
 
-## Organisaatioiden ja kirjastojen hakeminen
+# Organisaatiot / kirjastot
 Kutsun osoitteen muoto on seuraava:
 ```
 https://api.kirjastot.fi/v3/organisation?parametrit
@@ -104,7 +104,7 @@ https://api.kirjastot.fi/v3/library?parametrit
 
 Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatioita haettaessa haetaan oletuksena kaikista organisaatiotietueita, mutta library-tyypillä suoditaan pois muut kuin kirjastojen toimipisteet ja kirjastoautot. Tarkoituksena on kätevöittää toimipisteiden hakemista pudottamalla pois yksi ylimääräinen, alati toistuva parametri kyselyistä.
 
-### Sallitut parametrit
+## Sallitut parametrit
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
@@ -138,7 +138,7 @@ type            | X | X | Tietuiden päätason tyyppi (ks. listaus alempana)
 
 Lisäksi tulokset voi järjestää ehdoilla _modified_ sekä _created_, jotka ilmaisevat muokkaus- ja luontipäivämääriä.
 
-#### Valinnaisten lohkojen kuvaus (with-parametrin arvot)
+### Valinnaiset tiedot (with)
 Tunniste      | Kuvaus
 ------------- | ------
 accessibility | Esteettömyystiedot
@@ -151,7 +151,7 @@ pictures      | Lista valokuvista
 services      | Lista palveluista
 schedules     | Aukiolotiedot määrätylle ajanjaksolle. Aikaväli määritetään lisäparametrein period.start ja period.end
 
-#### Alitietueet (refs-parametrin arvot)
+### Alitietueet (refs)
 Refs-parametrilla voidaan asettaa rajapinta palauttamaan viittaukset muihin tietueisiin osana tulosjoukkoa. Tällöin rajapinta palauttaa nämä alitietueet ryhmiteltynä tyypin perusteella tuloksen ylätasolla kentässä *references*.
 
 Tunniste            | Kuvaus
@@ -161,7 +161,7 @@ region              | Maakunnat (kuten yllä)
 provincial_library  | Maakuntakirjastoalueet (kuten yllä)
 consortium          | Kirjastokimpat (kuten yllä)
 
-#### Organisaatiotietueiden tyypit
+### Organisaatiotyypit
 Tunniste            | Tunniste (api-v2)   | Kuvaus
 ------------------- | ------------------- | ------
 library             | branchlibrary       | Kirjaston toimipiste ("kirjasto")
@@ -171,7 +171,7 @@ facility            | library             | Kirjastolaitos
 mobile_stop         | mobile_stop         | Kirjastoauton pysäkki
 other               | organisation        | Muu organisaatio
 
-#### Kirjaston toimipisteiden alakategoriat
+### Toimipisteiden alatyypit
 Tunniste            | Tunniste (api-v2)             | Kuvaus
 ------------------- | ----------------------------- | ------
 children            | childrens_library             | Lasten kirjasto
@@ -188,10 +188,10 @@ special             | special_library               | Erikoiskirjasto
 university          | university_library            | Yliopistokirjasto
 vocational_college  | vocational_college_library    | Ammattioppilaitoskirjasto
 
-#### Kirjastojen kuvausteksti
+### Kuvaustekstin muotoilut
 Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
 
-#### Kuvien koot
+### Kuvien koot
 Kirjastojen tietueisiin lisätyt kuvat ovat saatavilla valmiiksi muutamassa eri koossa. Pienempiä(kään) kokoja ei ole ns. cropattu mihinkään tiettyyn kuvasuhteeseen vaan alkuperäiset mittasuhteet on säilytetty. Kaikki kuvat on pakattu jpeg-muotoon.
 
 Kokoluokka  | Resoluutio (max)
@@ -201,7 +201,7 @@ medium      | 570 x 570 px
 large       | 1980 x 1980 px
 huge        | 3840 x 3840 px
 
-### Esimerkkejä kyselyistä
+## Esimerkkejä kyselyistä
 Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)
 ```
 https://api.kirjastot.fi/v3/library?city=14453,14502
@@ -223,11 +223,11 @@ Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
 Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
     `https://api.kirjastot.fi/v3/library/81371?with=schedules&period.start=2015-11-01&period.end=2015-11-30`
 
-## Palveluiden hakeminen
+# Palvelutiedot
 Kutsun osoitteen muoto on seuraava:
     `https://api.kirjastot.fi/v3/service?parametrit`
 
-### Sallitut parametrit
+## Sallitut parametrit
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
@@ -241,7 +241,7 @@ modified.before |   |   | Viimeinen muokkaus-pvm
 name            |   | X | Hakee tietueet, joiden nimi alkaa määrätyllä merkkijonolla. Arvo riippuu kielestä.
 type            | X | X | Palvelun tyypin tunnisteella suotiminen
 
-## Kirjastojen aukioloaikojen hakeminen
+# Toimipisteiden aukiolotiedot
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
@@ -253,7 +253,7 @@ organisation    | X | X | Organisaation tietueen id-tunniste
 period.start    |   |   | Aikavälin ensimmäinen päivä
 period.end      |   |   | Aikavälin viimeinen päivä
 
-## Organisaatioon liitettyjen henkilöiden hakeminen
+# Henkilökunta
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
@@ -265,7 +265,7 @@ last_name       |   | X | Sukunimihaku
 name            |   |   | Yhdistetty nimihaku
 organisation    | X | X | Sen organisaation id, johon henkilöt liitetty
 
-## Kuntien listaaminen
+# Kuntien listaaminen
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 
@@ -277,7 +277,7 @@ consortium          | X | X | Kirjastokimpan id-tunniste
 region              | X | X | Maakunnan id-tunniste
 provincial_library  | X | X | Maakuntakirjastoalueen id-tunniste
 
-## Maakuntien listaaminen
+# Maakuntien listaaminen
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 

@@ -1,18 +1,61 @@
 /* line 1, ../scss/navigation.scss */
 nav {
   position: fixed;
-  left: 0;
+  right: 5em;
   background-color: white;
-  padding: 0.5em;
+  padding: 1em 0;
   z-index: 999;
   white-space: nowrap;
   overflow-x: hidden;
+  font-size: x-small;
 }
-/* line 11, ../scss/navigation.scss */
+/* line 12, ../scss/navigation.scss */
+nav a {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5em;
+  display: block;
+  border-left: 1px solid white;
+  margin-left: -1px;
+}
+/* line 21, ../scss/navigation.scss */
+nav a.active {
+  background-color: #dfd;
+  border-left-color: green;
+}
+/* line 27, ../scss/navigation.scss */
 nav ul {
+  padding: 0;
+  margin: 0;
   list-style-type: none;
 }
-/* line 20, ../scss/navigation.scss */
+/* line 37, ../scss/navigation.scss */
+nav > ul {
+  padding-left: 1px;
+  margin-left: 1px;
+}
+/* line 41, ../scss/navigation.scss */
+nav > ul > li > a {
+  font-weight: bold;
+}
+/* line 46, ../scss/navigation.scss */
+nav li li > a {
+  padding-left: 1em;
+}
+/* line 50, ../scss/navigation.scss */
+nav li li li > a {
+  padding-left: 2em;
+}
+/* line 54, ../scss/navigation.scss */
+nav li li li li > a {
+  padding-left: 3em;
+}
+/* line 62, ../scss/navigation.scss */
 nav ul.active ul {
   display: block;
+}
+
+/* line 68, ../scss/navigation.scss */
+html {
+  padding-right: 200px;
 }

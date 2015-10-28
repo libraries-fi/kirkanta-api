@@ -187,14 +187,14 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 </tr>
 </tbody>
 </table>
-<h2 id="tulosjoukkojen-j-rjest-minen-ja-suotiminen">Tulosjoukkojen järjestäminen ja suotiminen</h2>
+<h2 id="hakuehdot-ja-j-rjest-minen">Hakuehdot ja järjestäminen</h2>
 <p>Useita hakuehtoja käytettäessä tulosjoukko sisältää ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin. Mikäli yksittäinen parametri hyväksyy monta arvoa (pilkuilla erotettuna listana), tietueiden tulee täsmätä johonkin kyseisen joukon arvoista. Hakuehdot voi kääntää kielteisiksi lisäämällä parametrin nimen <strong>perään</strong> miinusmerkin. (?city.name-=helsinki)</p>
 <p>Hakukyselyiden palauttamien tulosjoukkojen järjestämiseen voi käyttää pääsääntöisesti kaikkien suodinparametrien nimiä. Järjestäminen useamman kuin yhden parametrin avulla on sallittua. Järjestys on oletusarvoisesti pienimmästä suurimpaan, mutta sen voi kääntää ympäri parametrikohtaisesti liittämällä parametrin <strong>eteen</strong> miinusmerkin (?sort=city.name,-name).</p>
 <p>Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään valittua kieltä. Mikäli kieltä ei ole valittu, tulosjoukko sisältää arvot kaikilla kielillä, mutta suotiminen ja järjestäminen tehdään suomenkielisten arvojen perusteella.</p>
-<h2 id="organisaatioiden-ja-kirjastojen-hakeminen">Organisaatioiden ja kirjastojen hakeminen</h2>
+<h1 id="organisaatiot-kirjastot">Organisaatiot / kirjastot</h1>
 <p>Kutsun osoitteen muoto on seuraava:</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation?parametrit</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?parametrit</span></span></span></span></div></pre><p>Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatioita haettaessa haetaan oletuksena kaikista organisaatiotietueita, mutta library-tyypillä suoditaan pois muut kuin kirjastojen toimipisteet ja kirjastoautot. Tarkoituksena on kätevöittää toimipisteiden hakemista pudottamalla pois yksi ylimääräinen, alati toistuva parametri kyselyistä.</p>
-<h3 id="sallitut-parametrit">Sallitut parametrit</h3>
+<h2 id="sallitut-parametrit">Sallitut parametrit</h2>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -360,7 +360,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <p>Lisäksi tulokset voi järjestää ehdoilla <em>modified</em> sekä <em>created</em>, jotka ilmaisevat muokkaus- ja luontipäivämääriä.</p>
-<h4 id="valinnaisten-lohkojen-kuvaus-with-parametrin-arvot-">Valinnaisten lohkojen kuvaus (with-parametrin arvot)</h4>
+<h3 id="valinnaiset-tiedot-with-">Valinnaiset tiedot (with)</h3>
 <table>
 <thead>
 <tr>
@@ -407,7 +407,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h4 id="alitietueet-refs-parametrin-arvot-">Alitietueet (refs-parametrin arvot)</h4>
+<h3 id="alitietueet-refs-">Alitietueet (refs)</h3>
 <p>Refs-parametrilla voidaan asettaa rajapinta palauttamaan viittaukset muihin tietueisiin osana tulosjoukkoa. Tällöin rajapinta palauttaa nämä alitietueet ryhmiteltynä tyypin perusteella tuloksen ylätasolla kentässä <em>references</em>.</p>
 <table>
 <thead>
@@ -435,7 +435,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h4 id="organisaatiotietueiden-tyypit">Organisaatiotietueiden tyypit</h4>
+<h3 id="organisaatiotyypit">Organisaatiotyypit</h3>
 <table>
 <thead>
 <tr>
@@ -477,7 +477,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h4 id="kirjaston-toimipisteiden-alakategoriat">Kirjaston toimipisteiden alakategoriat</h4>
+<h3 id="toimipisteiden-alatyypit">Toimipisteiden alatyypit</h3>
 <table>
 <thead>
 <tr>
@@ -554,9 +554,9 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h4 id="kirjastojen-kuvausteksti">Kirjastojen kuvausteksti</h4>
+<h3 id="kuvaustekstin-muotoilut">Kuvaustekstin muotoilut</h3>
 <p>Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.</p>
-<h4 id="kuvien-koot">Kuvien koot</h4>
+<h3 id="kuvien-koot">Kuvien koot</h3>
 <p>Kirjastojen tietueisiin lisätyt kuvat ovat saatavilla valmiiksi muutamassa eri koossa. Pienempiä(kään) kokoja ei ole ns. cropattu mihinkään tiettyyn kuvasuhteeseen vaan alkuperäiset mittasuhteet on säilytetty. Kaikki kuvat on pakattu jpeg-muotoon.</p>
 <table>
 <thead>
@@ -584,7 +584,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h3 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h3>
+<h2 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h2>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=14453,14502</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region=906,917</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
@@ -593,10 +593,10 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
     <code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
     <code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
-<h2 id="palveluiden-hakeminen">Palveluiden hakeminen</h2>
+<h1 id="palvelutiedot">Palvelutiedot</h1>
 <p>Kutsun osoitteen muoto on seuraava:
     <code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/service?parametrit</code></p>
-<h3 id="sallitut-parametrit">Sallitut parametrit</h3>
+<h2 id="sallitut-parametrit">Sallitut parametrit</h2>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -653,7 +653,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h2 id="kirjastojen-aukioloaikojen-hakeminen">Kirjastojen aukioloaikojen hakeminen</h2>
+<h1 id="kirjastojen-aukiolotiedot">Kirjastojen aukiolotiedot</h1>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
@@ -687,7 +687,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h2 id="organisaatioon-liitettyjen-henkil-iden-hakeminen">Organisaatioon liitettyjen henkilöiden hakeminen</h2>
+<h1 id="henkil-kuntatiedot">Henkilökuntatiedot</h1>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -732,7 +732,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h2 id="kuntien-listaaminen">Kuntien listaaminen</h2>
+<h1 id="kuntien-listaaminen">Kuntien listaaminen</h1>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -777,7 +777,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h2 id="maakuntien-listaaminen">Maakuntien listaaminen</h2>
+<h1 id="maakuntien-listaaminen">Maakuntien listaaminen</h1>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
