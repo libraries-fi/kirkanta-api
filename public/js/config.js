@@ -5,12 +5,6 @@ requirejs.config({
   },
   shim: {
     "samufw/view": ["handlebars"],
-    "ckeditor": {
-      exports: "CKEDITOR",
-    },
-    "$": {
-      exports: "$",
-    }
   },
   packages: [
     {
