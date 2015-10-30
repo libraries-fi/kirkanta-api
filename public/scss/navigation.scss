@@ -1,7 +1,8 @@
+
 nav {
   // width: 250px;
   position: fixed;
-  right: 5em;
+  // right: 5em;
   background-color: white;
   padding: 1em 0;
   z-index: 999;
@@ -65,7 +66,4 @@ nav {
   }
 }
 
-html {
-  // margin-right: 000px;
-  padding-right: 200px;
-}
+@import "adaptive";

@@ -1,0 +1,47 @@
+@media (max-width: 800px) {
+  /* line 2, ../scss/adaptive.scss */
+  nav {
+    position: static;
+    float: left;
+  }
+}
+@media (max-width: 999px) {
+  /* line 9, ../scss/adaptive.scss */
+  body {
+    margin: 0;
+    padding: 1em;
+  }
+}
+@media (min-width: 800px) and (max-width: 999px) {
+  /* line 16, ../scss/adaptive.scss */
+  body {
+    width: 600px;
+  }
+
+  /* line 20, ../scss/adaptive.scss */
+  nav {
+    margin-left: 620px;
+  }
+}
+@media (min-width: 1000px) {
+  /* line 26, ../scss/adaptive.scss */
+  body {
+    width: 600px;
+  }
+
+  /* line 30, ../scss/adaptive.scss */
+  nav {
+    margin-left: 620px;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 36, ../scss/adaptive.scss */
+  body {
+    width: 800px;
+  }
+
+  /* line 40, ../scss/adaptive.scss */
+  nav {
+    margin-left: 820px;
+  }
+}

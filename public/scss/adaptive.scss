@@ -1,0 +1,43 @@
+@media (max-width: 800px) {
+  nav {
+    position: static;
+    float: left;
+  }
+}
+
+@media (max-width: 999px) {
+  body {
+    margin: 0;
+    padding: 1em;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 999px) {
+  body {
+    width: 600px;
+  }
+
+  nav {
+    margin-left: 620px;
+  }
+}
+
+@media (min-width: 1000px) {
+  body {
+    width: 600px;
+  }
+
+  nav {
+    margin-left: 620px;
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    width: 800px;
+  }
+
+  nav {
+    margin-left: 820px;
+  }
+}
