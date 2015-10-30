@@ -97,59 +97,60 @@ h1:first-of-type {
   color: red;
   font-size: 1.6rem;
   border-bottom: 2px dashed #ddd;
-  padding-bottom: 30px;
+  padding-bottom: 2rem;
+  margin-top: 1rem;
 }
 
-/* line 91, ../scss/documentation.scss */
+/* line 92, ../scss/documentation.scss */
 h1 {
   font-size: 1.4rem;
-  margin: 2rem 0 1rem;
+  margin: 4rem 0 1rem;
   counter-reset: lvl2;
 }
 
-/* line 97, ../scss/documentation.scss */
+/* line 98, ../scss/documentation.scss */
 h1:not(:first-of-type):before {
   content: counter(lvl1) ". ";
   counter-increment: lvl1;
 }
 
-/* line 102, ../scss/documentation.scss */
+/* line 103, ../scss/documentation.scss */
 h2 {
   font-size: 1.2rem;
   margin: 2em 0 1em;
   counter-reset: lvl3;
 }
 
-/* line 108, ../scss/documentation.scss */
+/* line 109, ../scss/documentation.scss */
 h3 {
   font-size: 1rem;
   margin: 1.5em 0 0.8em;
 }
 
-/* line 113, ../scss/documentation.scss */
+/* line 114, ../scss/documentation.scss */
 h2:before {
   content: counter(lvl1) "." counter(lvl2) ". ";
   counter-increment: lvl2;
 }
 
-/* line 118, ../scss/documentation.scss */
+/* line 119, ../scss/documentation.scss */
 h3:before {
   content: counter(lvl1) "." counter(lvl2) "." counter(lvl3) ". ";
   counter-increment: lvl3;
 }
 
-/* line 123, ../scss/documentation.scss */
+/* line 124, ../scss/documentation.scss */
 h4 {
   margin: 2em 0 1em;
 }
 
-/* line 127, ../scss/documentation.scss */
+/* line 128, ../scss/documentation.scss */
 p {
   margin: 0 0 1em;
   white-space: pre-line;
 }
 
-/* line 132, ../scss/documentation.scss */
+/* line 133, ../scss/documentation.scss */
 footer {
   border-top: 2px dashed #ddd;
   padding: 15px 0;
