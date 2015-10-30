@@ -1,4 +1,10 @@
 /* line 2, ../scss/navigation.scss */
+body {
+  max-width: none;
+  box-sizing: border-box;
+}
+
+/* line 7, ../scss/navigation.scss */
 nav {
   position: fixed;
   background-color: white;
@@ -8,7 +14,7 @@ nav {
   overflow-x: hidden;
   font-size: x-small;
 }
-/* line 13, ../scss/navigation.scss */
+/* line 19, ../scss/navigation.scss */
 nav a {
   color: #333;
   text-decoration: none;
@@ -17,39 +23,39 @@ nav a {
   border-left: 1px solid white;
   margin-left: -1px;
 }
-/* line 22, ../scss/navigation.scss */
+/* line 28, ../scss/navigation.scss */
 nav a.active {
   background-color: #dfd;
   border-left-color: green;
 }
-/* line 28, ../scss/navigation.scss */
+/* line 34, ../scss/navigation.scss */
 nav ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
-/* line 38, ../scss/navigation.scss */
+/* line 44, ../scss/navigation.scss */
 nav > ul {
   padding-left: 1px;
   margin-left: 1px;
 }
-/* line 42, ../scss/navigation.scss */
+/* line 48, ../scss/navigation.scss */
 nav > ul > li > a {
   font-weight: bold;
 }
-/* line 47, ../scss/navigation.scss */
+/* line 53, ../scss/navigation.scss */
 nav li li > a {
   padding-left: 1em;
 }
-/* line 51, ../scss/navigation.scss */
+/* line 57, ../scss/navigation.scss */
 nav li li li > a {
   padding-left: 2em;
 }
-/* line 55, ../scss/navigation.scss */
+/* line 61, ../scss/navigation.scss */
 nav li li li li > a {
   padding-left: 3em;
 }
-/* line 63, ../scss/navigation.scss */
+/* line 69, ../scss/navigation.scss */
 nav ul.active ul {
   display: block;
 }
@@ -64,40 +70,23 @@ nav ul.active ul {
 @media (max-width: 999px) {
   /* line 9, ../scss/adaptive.scss */
   body {
-    margin: 0;
     padding: 1em;
   }
 }
-@media (min-width: 800px) and (max-width: 999px) {
+@media (min-width: 800px) {
   /* line 16, ../scss/adaptive.scss */
-  body {
-    width: 600px;
+  main {
+    margin-right: 15%;
   }
 
-  /* line 20, ../scss/adaptive.scss */
+  /* line 19, ../scss/adaptive.scss */
   nav {
-    margin-left: 620px;
-  }
-}
-@media (min-width: 1000px) {
-  /* line 26, ../scss/adaptive.scss */
-  body {
-    width: 600px;
-  }
-
-  /* line 30, ../scss/adaptive.scss */
-  nav {
-    margin-left: 620px;
+    margin-left: 70%;
   }
 }
 @media (min-width: 1200px) {
-  /* line 36, ../scss/adaptive.scss */
-  body {
-    width: 800px;
-  }
-
-  /* line 40, ../scss/adaptive.scss */
+  /* line 45, ../scss/adaptive.scss */
   nav {
-    margin-left: 820px;
+    margin-left: 70%;
   }
 }

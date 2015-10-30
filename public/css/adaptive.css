@@ -8,40 +8,23 @@
 @media (max-width: 999px) {
   /* line 9, ../scss/adaptive.scss */
   body {
-    margin: 0;
     padding: 1em;
   }
 }
-@media (min-width: 800px) and (max-width: 999px) {
+@media (min-width: 800px) {
   /* line 16, ../scss/adaptive.scss */
-  body {
-    width: 600px;
+  main {
+    margin-right: 15%;
   }
 
-  /* line 20, ../scss/adaptive.scss */
+  /* line 19, ../scss/adaptive.scss */
   nav {
-    margin-left: 620px;
-  }
-}
-@media (min-width: 1000px) {
-  /* line 26, ../scss/adaptive.scss */
-  body {
-    width: 600px;
-  }
-
-  /* line 30, ../scss/adaptive.scss */
-  nav {
-    margin-left: 620px;
+    margin-left: 70%;
   }
 }
 @media (min-width: 1200px) {
-  /* line 36, ../scss/adaptive.scss */
-  body {
-    width: 800px;
-  }
-
-  /* line 40, ../scss/adaptive.scss */
+  /* line 45, ../scss/adaptive.scss */
   nav {
-    margin-left: 820px;
+    margin-left: 70%;
   }
 }

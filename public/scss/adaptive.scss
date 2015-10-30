@@ -7,37 +7,42 @@
 
 @media (max-width: 999px) {
   body {
-    margin: 0;
+    // margin: 0;
     padding: 1em;
   }
 }
 
-@media (min-width: 800px) and (max-width: 999px) {
-  body {
-    width: 600px;
+@media (min-width: 800px) {
+  main {
+    margin-right: 15%;
   }
-
   nav {
-    margin-left: 620px;
+    margin-left: 70%;
   }
+}
+
+@media (min-width: 860px) and (max-width: 999px) {
+  // main {
+  //   margin-right: 200px;
+  // }
+
+  // nav {
+  //   margin-left: 620px;
+  // }
 }
 
 @media (min-width: 1000px) {
-  body {
-    width: 600px;
-  }
+  // main {
+  //   margin-right
+  // }
 
-  nav {
-    margin-left: 620px;
-  }
+  // nav {
+  //   margin-left: 620px;
+  // }
 }
 
 @media (min-width: 1200px) {
-  body {
-    width: 800px;
-  }
-
   nav {
-    margin-left: 820px;
+    margin-left: 70%;
   }
 }
