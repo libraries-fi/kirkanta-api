@@ -197,22 +197,22 @@ large       | 1980 x 1980 px
 huge        | 3840 x 3840 px
 
 ## Esimerkkejä kyselyistä
-Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)
+Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)
 ```
-https://api.kirjastot.fi/v3/library?city=14453,14502
+https://api.kirjastot.fi/v3/library?city=15404,15453
 https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi
 ```
 
-Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)
+Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)
 ```
-https://api.kirjastot.fi/v3/library?region=906,917
+https://api.kirjastot.fi/v3/library?region=963,974
 https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo
 ```
 
-Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
+Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone.
 `https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&distance=10&service.name=kopiokone`
 
-Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
+Kirjastot joilla on palvelut (id-tunnisteet) X ja Y.
 `https://api.kirjastot.fi/v3/library?service=X,Y`
 
 Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
