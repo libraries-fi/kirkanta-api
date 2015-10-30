@@ -256,7 +256,7 @@ Valittavissa olevat osastot ovat kaikille kirjastoille samat. Toistaiseksi käyt
 Tunniste      | Kuvaus
 ------------- | ------
 magazines     | Lehtisali
-selfservices  | Omatoimikirjasto
+selfservice   | Omatoimikirjasto
 
 ## Kirjastoautojen reitit
 Kirjastohakemistossa kirjastoautojen pysäkit ovat itsenäisiä organisaatiotietueita. Niiden aukiolotiedot ovat siten haettavissa kuten kaikkien muidenkin organisaatiotietueiden. Useimmiten pysäkkien aukiolot kiinnostavat kuitenkin osana kirjastoauton kulkemaa reittiä. Tämän vuoksi kirjastoauton aukioloaikojen tietueissa on erikoistapauksena kenttä **route**, joka sisältää kyseisen päivän reittiin kuuluvat pysäkit kronologisessa järjestyksessä.
