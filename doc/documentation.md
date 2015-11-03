@@ -14,7 +14,7 @@ Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
 
-Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka on tarkoitus sulkea pysyvästi vuoden 2016 alkupuolella.
+Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka tullaan sulkemaan myöhemmin tulevaisuudessa käytön vähennyttyä.
 
 Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi'n tekniikkatiimiin: tekniikka@kirjastot.fi.
 Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.

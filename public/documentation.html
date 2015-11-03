@@ -42,7 +42,7 @@
 <p>Vanhat dokumentaatiot: <a href="/v2-doc.html">API V2</a>, <a href="/v1-doc.html">API V1</a></p>
 <h1 id="johdanto">Johdanto</h1>
 <p>Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa <a href="http://hakemisto.kirjastot.fi">http://hakemisto.kirjastot.fi</a>.</p>
-<p>Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka on tarkoitus sulkea pysyvästi vuoden 2016 alkupuolella.</p>
+<p>Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka tullaan sulkemaan myöhemmin tulevaisuudessa käytön vähennyttyä.</p>
 <p>Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi&#39;n tekniikkatiimiin: tekniikka@kirjastot.fi.
 Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.</p>
 <p><strong>HUOM</strong>
@@ -601,14 +601,14 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h2 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h2>
-<p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja (kunnan ID-tunniste testiympäristössä)</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=14453,14502</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja (maakunnan ID-tunniste testiympäristössä)</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region=906,917</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone
-<code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
-<p>Kirjastot joilla on palvelut X ja Y (id-tunnisteet)
-<code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
+<p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)</p>
+<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>
+<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region=963,974</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone.
+<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
+<p>Kirjastot joilla on palvelut (id-tunnisteet) X ja Y.
+<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
-<code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
+<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
 <h1 id="aukiolotiedot">Aukiolotiedot</h1>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/opening_time?parametrit</span></span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
 <p>Aukioloajat ilmoitetaan päiväkohtaisina tietueina. Yhdellä kyselyllä on mahdollista hakea monen organisaation aukiolotiedot samalla kertaa.</p>
@@ -669,7 +669,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <td>Lehtisali</td>
 </tr>
 <tr>
-<td>selfservices</td>
+<td>selfservice</td>
 <td>Omatoimikirjasto</td>
 </tr>
 </tbody>
