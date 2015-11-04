@@ -19,6 +19,7 @@ if (config.api.require_authentication) {
 
 app.use("/v3", function(req, res, next) {
   req.query.format = req.query.format || "json";
+  res.set('Access-Control-Allow-Origin', '*');
   next();
 });
 
