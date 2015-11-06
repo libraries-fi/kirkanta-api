@@ -3,6 +3,7 @@
   "description": "Restful API server for providing access to the Library Directory of Kirjastot.fi",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "elasticsearch": "^8.2.0",
     "express": "^4.13.3",
