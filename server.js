@@ -44,20 +44,30 @@ app.get("/v3/help", controller.helpIndex);
 app.get("/v3/help/:type", controller.helpType);
 
 app.get("/v3/:type", function(req, res, next) {
-  let types = searcher.searcher.types;
-  if (types.indexOf(req.params.type) >= 0) {
-    controller.list.apply(controller, arguments);
-  } else {
-    next();
+  try {
+    let types = searcher.searcher.types;
+    if (types.indexOf(req.params.type) >= 0) {
+      controller.list.apply(controller, arguments);
+    } else {
+      next();
+    }
+  } catch (error) {
+    res.status(500).send(error.toString());
+    console.error(error.stack);
   }
 });
 
 app.get("/v3/:type/:id", function(req, res, next) {
-  let types = searcher.searcher.types;
-  if (types.indexOf(req.params.type) >= 0) {
-    controller.fetch.apply(controller, arguments);
-  } else {
-    next();
+  try {
+    let types = searcher.searcher.types;
+    if (types.indexOf(req.params.type) >= 0) {
+      controller.fetch.apply(controller, arguments);
+    } else {
+      next();
+    }
+  } catch (error) {
+    res.status(500).send(error.toString());
+    console.error(error.stack);
   }
 });
 
