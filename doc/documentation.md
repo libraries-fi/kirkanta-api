@@ -372,7 +372,7 @@ id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hake
 name                |   | X | Hakee maakunnat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
 
 # Käyttöehdot
-Rajapinnan käyttö on ilmaista sekä kaupalliseen että ei-kaupalliseen käyttöön. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.
+Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.
 
 ## Sisältöjen lisenssi
-Rajapinnan palauttamat tiedot ("teokset") on lisensoitu [Creative Commons 4.0 Nimeä -lisenssillä](https://creativecommons.org/licenses/by/4.0/deed.fi).
+Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu [Creative Commons 4.0 Nimeä -lisenssillä](https://creativecommons.org/licenses/by/4.0/deed.fi).
