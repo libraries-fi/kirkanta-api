@@ -97,6 +97,6 @@ app.use(function(req, res, next) {
   }
 });
 
-process.on("uncaughtException", function(err) {
-  console.log("Exception", err);
+process.on("uncaughtException", error => {
+  console.error("process.exception:", error.stack);
 });
