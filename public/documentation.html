@@ -36,6 +36,11 @@
 <td>3.0 (beta)</td>
 <td>Dokumentaatio kirjoitettu uusiksi</td>
 </tr>
+<tr>
+<td>06.11.2015</td>
+<td>3.0 (beta)</td>
+<td>Lisätty suhteelliset aikavälit aikatauluhakuun</td>
+</tr>
 </tbody>
 </table>
 <p>Kirjastotietueiden type- ja branch_type-kenttien arvot ovat muuttuneet 02.10.2015.</p>
@@ -604,11 +609,11 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region=963,974</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone.
-<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
+<code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
 <p>Kirjastot joilla on palvelut (id-tunnisteet) X ja Y.
-<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
+<code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
-<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
+<code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
 <h1 id="aukiolotiedot">Aukiolotiedot</h1>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/opening_time?parametrit</span></span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
 <p>Aukioloajat ilmoitetaan päiväkohtaisina tietueina. Yhdellä kyselyllä on mahdollista hakea monen organisaation aukiolotiedot samalla kertaa.</p>
@@ -644,6 +649,136 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
+<h2 id="suhteelliset-aikav-lit">Suhteelliset aikavälit</h2>
+<p>Aikavälin rajoittamiseen voi käyttää myös suhteellisia arvoja. Referenssipisteenä käytetään aina kuluvaa päivää. Suhteellisen aikavälin määrittämiseen voi käyttää yksikköinä päiviä, viikkoja sekä kuukausia. Myös negatiiviset arvot sekä nollamääräiset arvot (&#39;0d&#39;, &#39;0w&#39;, &#39;0m&#39;) ovat sallittuja.</p>
+<table>
+<thead>
+<tr>
+<th>Yksikkö</th>
+<th>Koodi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kuluva päivä</td>
+<td>today</td>
+</tr>
+<tr>
+<td>päivä</td>
+<td>d</td>
+</tr>
+<tr>
+<td>viikko</td>
+<td>w</td>
+</tr>
+<tr>
+<td>kuukausi</td>
+<td>m</td>
+</tr>
+</tbody>
+</table>
+<h3 id="yksik-n-ja-parametrin-merkitys">Yksikön ja parametrin merkitys</h3>
+<p>Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end).</p>
+<table>
+<thead>
+<tr>
+<th>Yksikkö</th>
+<th>Parametri</th>
+<th>Esim.</th>
+<th>Tarkka arvo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>week</td>
+<td>period.start</td>
+<td>-2w</td>
+<td>kyseisen viikon maanantai</td>
+</tr>
+<tr>
+<td>week</td>
+<td>period.end</td>
+<td>4w</td>
+<td>kyseisen viikon sunnuntai</td>
+</tr>
+<tr>
+<td>month</td>
+<td>period.start</td>
+<td>2m</td>
+<td>kuukauden ensimmäinen päivä</td>
+</tr>
+<tr>
+<td>month</td>
+<td>period.end</td>
+<td>3m</td>
+<td>kuukauden viimeinen päivä</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Esimerkkejä</strong></p>
+<p>Taulukon esimerkkiarvot on laskettu käyttäen referenssipäivänä perjantaita 6.11.2015.</p>
+<table>
+<thead>
+<tr>
+<th>Alaraja</th>
+<th>Yläraja</th>
+<th>Aikaväli</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0d</td>
+<td>0d</td>
+<td>2015-11-06 – 2015-11-06</td>
+</tr>
+<tr>
+<td>0w</td>
+<td>0w</td>
+<td>2015-11-02 – 2015-11-08</td>
+</tr>
+<tr>
+<td>0m</td>
+<td>0m</td>
+<td>2015-11-01 – 2015-11-30</td>
+</tr>
+<tr>
+<td>0m</td>
+<td>2m</td>
+<td>2015-11-01 – 2016-01-31 (täysiä kuukausia)</td>
+</tr>
+<tr>
+<td>0d</td>
+<td>2m</td>
+<td>2015-11-06 – 2016-01-31 (kuluva päivä – kuun loppu)</td>
+</tr>
+<tr>
+<td>0w</td>
+<td>2m</td>
+<td>2015-11-02 – 2016-01-31 (maanantai – kuun loppu)</td>
+</tr>
+<tr>
+<td>0m</td>
+<td>2w</td>
+<td>2015-11-01 – 2015-11-22 (kuun alku – sunnuntai)</td>
+</tr>
+<tr>
+<td>-2d</td>
+<td>3d</td>
+<td>2015-11-04 – 2015-11-09 (ke-ma)</td>
+</tr>
+<tr>
+<td>-2w</td>
+<td>2w</td>
+<td>2015-10-19 – 2015-11-22 (täysiä viikkoja ma-su)</td>
+</tr>
+<tr>
+<td>-1m</td>
+<td>1m</td>
+<td>2015-10-01 – 2016-12-31 (täysiä kuukausia)</td>
+</tr>
+</tbody>
+</table>
+<p>Kuten yllä olevasta taulukosta huomataan, &quot;nollaa&quot; vastaava tarkka päivämäärä riippuu aina sen kanssa käytetystä yksiköstä. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä &quot;kalenterijaksoja&quot; eli täysiä viikkoja tai kalenterikuukausia.</p>
 <h2 id="monta-aukioloa-per-p-iv-">Monta aukioloa per päivä</h2>
 <p>Jotkin kirjastoista voivat olla hetkellisesti suljettuna keskellä päivää, mutta yleisesti ottaen tämä on harvinaista. Tämän vuoksi rajapinnan palauttamissa tietueissa aukiolot ilmoitetaan kahdella eri tavalla.</p>
 <ol>
@@ -853,6 +988,10 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
+<h1 id="k-ytt-ehdot">Käyttöehdot</h1>
+<p>Rajapinnan käyttö on ilmaista sekä kaupalliseen että ei-kaupalliseen käyttöön. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.</p>
+<h2 id="sis-lt-jen-lisenssi">Sisältöjen lisenssi</h2>
+<p>Rajapinnan palauttamat tiedot (&quot;teokset&quot;) on lisensoitu <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons 4.0 Nimeä -lisenssillä</a>.</p>
   </main>
   <footer>Palaute ja ongelmat: tekniikka@kirjastot.fi</footer>
   <script src="build/navigen.js"></script>

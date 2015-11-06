@@ -6,6 +6,7 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 03.09.2015      | 3.0 (beta)        | Ensimmäinen julkaisu
 02.10.2015      | 3.0 (beta)        | Päivitetty dokumentaatio
 30.10.2015      | 3.0 (beta)        | Dokumentaatio kirjoitettu uusiksi
+06.11.2015      | 3.0 (beta)        | Lisätty suhteelliset aikavälit aikatauluhakuun
 
 Kirjastotietueiden type- ja branch_type-kenttien arvot ovat muuttuneet 02.10.2015.
 
@@ -235,6 +236,45 @@ Parametri       | M | S | Kuvaus
 organisation    | X | X | Organisaation tietueen id-tunniste
 period.start    |   |   | Aikavälin ensimmäinen päivä
 period.end      |   |   | Aikavälin viimeinen päivä
+
+## Suhteelliset aikavälit
+Aikavälin rajoittamiseen voi käyttää myös suhteellisia arvoja. Referenssipisteenä käytetään aina kuluvaa päivää. Suhteellisen aikavälin määrittämiseen voi käyttää yksikköinä päiviä, viikkoja sekä kuukausia. Myös negatiiviset arvot sekä nollamääräiset arvot ('0d', '0w', '0m') ovat sallittuja.
+
+Yksikkö       | Koodi
+------------- | -----
+kuluva päivä  | today
+päivä         | d
+viikko        | w
+kuukausi      | m
+
+### Yksikön ja parametrin merkitys
+Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end).
+
+Yksikkö | Parametri     | Esim. | Tarkka arvo
+------- | ------------- | ----- | -----------
+week    | period.start  | -2w   | kyseisen viikon maanantai
+week    | period.end    | 4w    | kyseisen viikon sunnuntai
+month   | period.start  | 2m    | kuukauden ensimmäinen päivä
+month   | period.end    | 3m    | kuukauden viimeinen päivä
+
+**Esimerkkejä**
+
+Taulukon esimerkkiarvot on laskettu käyttäen referenssipäivänä perjantaita 6.11.2015.
+
+Alaraja | Yläraja | Aikaväli
+------- | ------- | --------
+0d      | 0d      | 2015-11-06 – 2015-11-06
+0w      | 0w      | 2015-11-02 – 2015-11-08
+0m      | 0m      | 2015-11-01 – 2015-11-30
+0m      | 2m      | 2015-11-01 – 2016-01-31 (täysiä kuukausia)
+0d      | 2m      | 2015-11-06 – 2016-01-31 (kuluva päivä – kuun loppu)
+0w      | 2m      | 2015-11-02 – 2016-01-31 (maanantai – kuun loppu)
+0m      | 2w      | 2015-11-01 – 2015-11-22 (kuun alku – sunnuntai)
+-2d     | 3d      | 2015-11-04 – 2015-11-09 (ke-ma)
+-2w     | 2w      | 2015-10-19 – 2015-11-22 (täysiä viikkoja ma-su)
+-1m     | 1m      | 2015-10-01 – 2016-12-31 (täysiä kuukausia)
+
+Kuten yllä olevasta taulukosta huomataan, "nollaa" vastaava tarkka päivämäärä riippuu aina sen kanssa käytetystä yksiköstä. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä "kalenterijaksoja" eli täysiä viikkoja tai kalenterikuukausia.
 
 ## Monta aukioloa per päivä
 Jotkin kirjastoista voivat olla hetkellisesti suljettuna keskellä päivää, mutta yleisesti ottaen tämä on harvinaista. Tämän vuoksi rajapinnan palauttamissa tietueissa aukiolot ilmoitetaan kahdella eri tavalla.
