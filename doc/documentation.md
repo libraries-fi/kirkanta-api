@@ -375,4 +375,4 @@ name                |   | X | Hakee maakunnat, joiden nimi alkaa määrätyllä 
 Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.
 
 ## Sisältöjen lisenssi
-Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu [Creative Commons 4.0 Nimeä -lisenssillä](https://creativecommons.org/licenses/by/4.0/deed.fi).
+Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu [Creative Commons 4.0 Nimeä -lisenssillä](https://creativecommons.org/licenses/by/4.0/deed.fi), joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).
