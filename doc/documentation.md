@@ -248,7 +248,7 @@ viikko        | w
 kuukausi      | m
 
 ### Yksikön ja parametrin merkitys
-Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end).
+Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end). Myös nolla-arvoa vastaava eksakti päivämäärä vaihtelee sen kanssa käytetyn yksikön mukaan. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä "kalenterijaksoja" eli täysiä viikkoja tai kalenterikuukausia.
 
 Yksikkö | Parametri     | Esim. | Tarkka arvo
 ------- | ------------- | ----- | -----------
@@ -273,8 +273,6 @@ Alaraja | Yläraja | Aikaväli
 -2d     | 3d      | 2015-11-04 – 2015-11-09 (ke-ma)
 -2w     | 2w      | 2015-10-19 – 2015-11-22 (täysiä viikkoja ma-su)
 -1m     | 1m      | 2015-10-01 – 2016-12-31 (täysiä kuukausia)
-
-Kuten yllä olevasta taulukosta huomataan, "nollaa" vastaava tarkka päivämäärä riippuu aina sen kanssa käytetystä yksiköstä. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä "kalenterijaksoja" eli täysiä viikkoja tai kalenterikuukausia.
 
 ## Monta aukioloa per päivä
 Jotkin kirjastoista voivat olla hetkellisesti suljettuna keskellä päivää, mutta yleisesti ottaen tämä on harvinaista. Tämän vuoksi rajapinnan palauttamissa tietueissa aukiolot ilmoitetaan kahdella eri tavalla.

@@ -665,7 +665,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h3 id="yksik-n-ja-parametrin-merkitys">Yksikön ja parametrin merkitys</h3>
-<p>Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end).</p>
+<p>Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end). Myös nolla-arvoa vastaava eksakti päivämäärä vaihtelee sen kanssa käytetyn yksikön mukaan. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä &quot;kalenterijaksoja&quot; eli täysiä viikkoja tai kalenterikuukausia.</p>
 <table>
 <thead>
 <tr>
@@ -765,7 +765,6 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<p>Kuten yllä olevasta taulukosta huomataan, &quot;nollaa&quot; vastaava tarkka päivämäärä riippuu aina sen kanssa käytetystä yksiköstä. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä &quot;kalenterijaksoja&quot; eli täysiä viikkoja tai kalenterikuukausia.</p>
 <h2 id="monta-aukioloa-per-p-iv-">Monta aukioloa per päivä</h2>
 <p>Jotkin kirjastoista voivat olla hetkellisesti suljettuna keskellä päivää, mutta yleisesti ottaen tämä on harvinaista. Tämän vuoksi rajapinnan palauttamissa tietueissa aukiolot ilmoitetaan kahdella eri tavalla.</p>
 <ol>
