@@ -41,7 +41,7 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
  Testivaiheen aikana rajapinta (3.0) käyttää tuotantoversiosta erillistä tietokantaa, jonka tietoja ei yleisesti ottaen päivitetä. Lisäksi tietueiden tunnisteet tulevat vielä muuttumaan, kun rajapinta ja Kirjastohakemiston uusi ylläpito otetaan tuotantokäyttöön loppuvuoden aikana.</p>
 <h1 id="rajapinnan-kuvaus">Rajapinnan kuvaus</h1>
 <p>Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina <em>http-pyyntöinä</em> ja kyselyn parametrit välitetään osoitteen <em>query-osassa</em> eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla <em>format</em>, jolla on korkeampi prioriteetti.</p>
-<p>Käytetty merkistö on utf-8.</p>
+<p>Käytetty merkistö on utf-8. Oletusarvoisesti rajapinta palauttaa 50 tulosta kerrallaan, sivutusta voi hallita parametrein <em>limit</em> ja <em>skip</em>.</p>
 <table>
 <thead>
 <tr>

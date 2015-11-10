@@ -26,7 +26,7 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 # Rajapinnan kuvaus
 Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina _http-pyyntöinä_ ja kyselyn parametrit välitetään osoitteen _query-osassa_ eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla _format_, jolla on korkeampi prioriteetti.
 
-Käytetty merkistö on utf-8.
+Käytetty merkistö on utf-8. Oletusarvoisesti rajapinta palauttaa 50 tulosta kerrallaan, sivutusta voi hallita parametrein *limit* ja *skip*.
 
 Tietotyyppi | Mime-tyyppi               | Format-parametri
 ----------- | ------------------------- | ----------------
