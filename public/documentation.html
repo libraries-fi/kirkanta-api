@@ -22,36 +22,22 @@
 </thead>
 <tbody>
 <tr>
-<td>03.09.2015</td>
-<td>3.0 (beta)</td>
-<td>Ensimmäinen julkaisu</td>
-</tr>
-<tr>
-<td>02.10.2015</td>
-<td>3.0 (beta)</td>
-<td>Päivitetty dokumentaatio</td>
-</tr>
-<tr>
-<td>30.10.2015</td>
-<td>3.0 (beta)</td>
-<td>Dokumentaatio kirjoitettu uusiksi</td>
-</tr>
-<tr>
-<td>06.11.2015</td>
-<td>3.0 (beta)</td>
-<td>Lisätty suhteelliset aikavälit aikatauluhakuun</td>
+<td>10.12.2015</td>
+<td>3.0</td>
+<td>Rajapinta julkaistu</td>
 </tr>
 </tbody>
 </table>
-<p>Kirjastotietueiden type- ja branch_type-kenttien arvot ovat muuttuneet 02.10.2015.</p>
 <p>Vanhat dokumentaatiot: <a href="/v2-doc.html">API V2</a>, <a href="/v1-doc.html">API V1</a></p>
 <h1 id="johdanto">Johdanto</h1>
 <p>Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa <a href="http://hakemisto.kirjastot.fi">http://hakemisto.kirjastot.fi</a>.</p>
 <p>Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka tullaan sulkemaan myöhemmin tulevaisuudessa käytön vähennyttyä.</p>
 <p>Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi&#39;n tekniikkatiimiin: tekniikka@kirjastot.fi.
 Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.</p>
-<p><strong>HUOM</strong>
- Testivaiheen aikana rajapinta (3.0) käyttää tuotantoversiosta erillistä tietokantaa, jonka tietoja ei yleisesti ottaen päivitetä. Lisäksi tietueiden tunnisteet tulevat vielä muuttumaan, kun rajapinta ja Kirjastohakemiston uusi ylläpito otetaan tuotantokäyttöön loppuvuoden aikana.</p>
+<h1 id="k-ytt-ehdot">Käyttöehdot</h1>
+<p>Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.</p>
+<h2 id="sis-lt-jen-lisenssi">Sisältöjen lisenssi</h2>
+<p>Rajapinnan avulla tuotetut tiedot (&quot;teokset&quot;) on lisensoitu <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons 4.0 Nimeä -lisenssillä</a>, joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).</p>
 <h1 id="rajapinnan-kuvaus">Rajapinnan kuvaus</h1>
 <p>Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina <em>http-pyyntöinä</em> ja kyselyn parametrit välitetään osoitteen <em>query-osassa</em> eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla <em>format</em>, jolla on korkeampi prioriteetti.</p>
 <p>Käytetty merkistö on utf-8. Oletusarvoisesti rajapinta palauttaa 50 tulosta kerrallaan, sivutusta voi hallita parametrein <em>limit</em> ja <em>skip</em>.</p>
@@ -615,7 +601,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
 <code style="font-family: bitstream vera sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
 <h1 id="aukiolotiedot">Aukiolotiedot</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/opening_time?parametrit</span></span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
+<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/opening</span></span><span>_time?parametrit</span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
 <p>Aukioloajat ilmoitetaan päiväkohtaisina tietueina. Yhdellä kyselyllä on mahdollista hakea monen organisaation aukiolotiedot samalla kertaa.</p>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
@@ -987,10 +973,6 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h1 id="k-ytt-ehdot">Käyttöehdot</h1>
-<p>Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.</p>
-<h2 id="sis-lt-jen-lisenssi">Sisältöjen lisenssi</h2>
-<p>Rajapinnan avulla tuotetut tiedot (&quot;teokset&quot;) on lisensoitu <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons 4.0 Nimeä -lisenssillä</a>, joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).</p>
   </main>
   <footer>Palaute ja ongelmat: tekniikka@kirjastot.fi</footer>
   <script src="build/navigen.js"></script>

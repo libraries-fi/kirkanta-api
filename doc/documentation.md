@@ -3,12 +3,7 @@ Kirjastohakemiston rajapinta v3
 
 Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 --------------- | ----------------- | ----------------
-03.09.2015      | 3.0 (beta)        | Ensimmäinen julkaisu
-02.10.2015      | 3.0 (beta)        | Päivitetty dokumentaatio
-30.10.2015      | 3.0 (beta)        | Dokumentaatio kirjoitettu uusiksi
-06.11.2015      | 3.0 (beta)        | Lisätty suhteelliset aikavälit aikatauluhakuun
-
-Kirjastotietueiden type- ja branch_type-kenttien arvot ovat muuttuneet 02.10.2015.
+10.12.2015      | 3.0               | Rajapinta julkaistu
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
@@ -20,8 +15,11 @@ Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka tullaan sulkemaan 
 Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi'n tekniikkatiimiin: tekniikka@kirjastot.fi.
 Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.
 
-**HUOM**
- Testivaiheen aikana rajapinta (3.0) käyttää tuotantoversiosta erillistä tietokantaa, jonka tietoja ei yleisesti ottaen päivitetä. Lisäksi tietueiden tunnisteet tulevat vielä muuttumaan, kun rajapinta ja Kirjastohakemiston uusi ylläpito otetaan tuotantokäyttöön loppuvuoden aikana.
+# Käyttöehdot
+Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.
+
+## Sisältöjen lisenssi
+Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu [Creative Commons 4.0 Nimeä -lisenssillä](https://creativecommons.org/licenses/by/4.0/deed.fi), joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).
 
 # Rajapinnan kuvaus
 Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina _http-pyyntöinä_ ja kyselyn parametrit välitetään osoitteen _query-osassa_ eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla _format_, jolla on korkeampi prioriteetti.
@@ -370,9 +368,3 @@ Parametri           | M | S | Kuvaus
 ------------------- | --- | --- | ------
 id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä
 name                |   | X | Hakee maakunnat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
-
-# Käyttöehdot
-Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.
-
-## Sisältöjen lisenssi
-Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu [Creative Commons 4.0 Nimeä -lisenssillä](https://creativecommons.org/licenses/by/4.0/deed.fi), joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).
