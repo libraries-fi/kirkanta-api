@@ -7,6 +7,9 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
+**HUOM**
+2015-12-18: Kentät extra.parking_instructions ja extra.transit_directions siirretty omaan lohkoonsa extra.transit. Samaan lohkoon lisätty myös kentät buses, trams ja trains, joihin on mahdollista listata kirjaston kautta kulkevat julkisen liikenteen yhteydet.
+
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
 
