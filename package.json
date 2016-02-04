@@ -1,5 +1,5 @@
 {
-  "name": "kifi-libdir-api",
+  "name": "kirkanta-api",
   "description": "Restful API server for providing access to the Library Directory of Kirjastot.fi",
   "version": "1.0.0",
   "private": true,
