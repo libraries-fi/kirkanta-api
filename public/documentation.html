@@ -602,6 +602,13 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
+<h2 id="liitettyjen-palveluiden-nimet">Liitettyjen palveluiden nimet</h2>
+<p>Organisaatioon liitetyissä palvelutiedoissa on kaksi kenttää palvelun nimelle. Pääasiallinen nimi on
+name-kentässä ja sen arvo on aina sama kuin palvelulla, johon id-kentän arvo viittaa. Lisäksi on olemassa
+kenttä custom_name vaihtoehtoiselle nimelle. Kyseistä nimeä voidaan käyttää silloin, kun palvelulle on
+haluttu määrittää täsmällisempi, organisaatiokohtainen nimi. Oletusarvo on <em>null</em>.</p>
+<p>Kirjastohakemistossa käyttötarkoitus custom_namelle on korvata palvelun alkuperäinen nimi kirjaston
+esittelysivulla. Yleisessä haussa palveluiden suotimiseen käytetään vain yleistä nimeä.</p>
 <h2 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h2>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>

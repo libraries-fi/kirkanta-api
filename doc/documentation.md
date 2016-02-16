@@ -204,6 +204,15 @@ medium      | 1000 x 1000 px
 large       | 1980 x 1980 px
 huge        | 3840 x 3840 px
 
+## Liitettyjen palveluiden nimet
+Organisaatioon liitetyissä palvelutiedoissa on kaksi kenttää palvelun nimelle. Pääasiallinen nimi on
+name-kentässä ja sen arvo on aina sama kuin palvelulla, johon id-kentän arvo viittaa. Lisäksi on olemassa
+kenttä custom_name vaihtoehtoiselle nimelle. Kyseistä nimeä voidaan käyttää silloin, kun palvelulle on
+haluttu määrittää täsmällisempi, organisaatiokohtainen nimi. Oletusarvo on *null*.
+
+Kirjastohakemistossa käyttötarkoitus custom_namelle on korvata palvelun alkuperäinen nimi kirjaston
+esittelysivulla. Yleisessä haussa palveluiden suotimiseen käytetään vain yleistä nimeä.
+
 ## Esimerkkejä kyselyistä
 Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)
 ```
