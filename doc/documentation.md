@@ -4,11 +4,17 @@ Kirjastohakemiston rajapinta v3
 Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 --------------- | ----------------- | ----------------
 10.12.2015      | 3.0               | Rajapinta julkaistu
+16.02.2016      | 3.0               | Korjattu kuvalinkit palvelu- ja henkilötietoihin
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
 **HUOM**
 2015-12-18: Kentät extra.parking_instructions ja extra.transit_directions siirretty omaan lohkoonsa extra.transit. Samaan lohkoon lisätty myös kentät buses, trams ja trains, joihin on mahdollista listata kirjaston kautta kulkevat julkisen liikenteen yhteydet.
+
+**HUOM**
+2016-02-16: Organisaatiotietueen palvelu- ja henkilötiedot sisältävät nyt picture-kentässä saatavilla
+olevat kuvakoot täydellisine www-osoitteineen. Rakenne on identtinen organisaatioon liitettyjen kuvien
+files-kentän kanssa. Lisäksi pienempien small- ja medium-kuvakokojen enimmäiskokoa on kasvatettu.
 
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
@@ -193,8 +199,8 @@ Kirjastojen tietueisiin lisätyt kuvat ovat saatavilla valmiiksi muutamassa eri 
 
 Kokoluokka  | Resoluutio (max)
 ----------- | ----------------
-small       | 100 x 100 px
-medium      | 570 x 570 px
+small       | 200 x 200 px
+medium      | 1000 x 1000 px
 large       | 1980 x 1980 px
 huge        | 3840 x 3840 px
 
