@@ -5,8 +5,12 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 --------------- | ----------------- | ----------------
 10.12.2015      | 3.0               | Rajapinta julkaistu
 16.02.2016      | 3.0               | Korjattu kuvalinkit palvelu- ja henkilötietoihin
+17.03.2016      | 3.0               | Uusi toimipistetyyppi school / koulukirjasto
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
+
+**HUOM**
+2016-03-17: Lisätty uusi toimipistetyyppi school / koulukirjasto.
 
 **HUOM**
 2015-12-18: Kentät extra.parking_instructions ja extra.transit_directions siirretty omaan lohkoonsa extra.transit. Samaan lohkoon lisätty myös kentät buses, trams ja trains, joihin on mahdollista listata kirjaston kautta kulkevat julkisen liikenteen yhteydet.
@@ -162,6 +166,7 @@ music               | music_library                 | Musiikkikirjasto
 other               | other                         | Muu kirjastoalan organisaatio
 polytechnic         | polytechnic_library           | Ammattikorkeakoulukirjasto
 regional            | regional                      | Aluekirjasto
+school              | -                             | Koulukirjasto
 special             | special_library               | Erikoiskirjasto
 university          | university_library            | Yliopistokirjasto
 vocational_college  | vocational_college_library    | Ammattioppilaitoskirjasto
