@@ -19,6 +19,7 @@
     "require_authentication": false,
     "results_per_page": 50,
     "default_language": "fi",
-    "languages": ["en", "ru", "se", "sv"]
+    "languages": ["en", "ru", "se", "sv"],
+    "resource_url": "https://kirkanta.kirjastot.fi"
   }
 }
