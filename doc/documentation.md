@@ -357,6 +357,21 @@ last_name       |   | X | Sukunimihaku
 name            |   |   | Koko nimellä hakeminen
 organisation    | X | X | Sen organisaation id, johon henkilöt liitetty
 
+# Kirjastokimpat
+```
+https://api.kirjastot.fi/v3/consortium?parametrit
+https://api.kirjastot.fi/v3/consortium/<id>
+```
+
+M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
+S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
+
+Parametri           | M | S | Kuvaus
+------------------- | --- | --- | ------
+id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä
+slug                | X | X | Kirjastokimpan url-tunniste
+name                |   | X | Hakee kimpat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
+
 # Kunnat
 ```
 https://api.kirjastot.fi/v3/city?parametrit
