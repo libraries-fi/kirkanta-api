@@ -203,6 +203,35 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 <p>Useita hakuehtoja käytettäessä tulosjoukko sisältää ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin. Mikäli yksittäinen parametri hyväksyy monta arvoa (pilkuilla erotettuna listana), tietueiden tulee täsmätä johonkin kyseisen joukon arvoista. Hakuehdot voi kääntää kielteisiksi lisäämällä parametrin nimen <strong>perään</strong> miinusmerkin. (?city.name-=helsinki)</p>
 <p>Hakukyselyiden palauttamien tulosjoukkojen järjestämiseen voi käyttää pääsääntöisesti kaikkien suodinparametrien nimiä. Järjestäminen useamman kuin yhden parametrin avulla on sallittua. Järjestys on oletusarvoisesti pienimmästä suurimpaan, mutta sen voi kääntää ympäri parametrikohtaisesti liittämällä parametrin <strong>eteen</strong> miinusmerkin (?sort=city.name,-name).</p>
 <p>Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään valittua kieltä. Mikäli kieltä ei ole valittu, tulosjoukko sisältää arvot kaikilla kielillä, mutta suotiminen ja järjestäminen tehdään suomenkielisten arvojen perusteella.</p>
+<h2 id="kuvat">Kuvat</h2>
+<p>Tietueisiin lisätyistä kuvista luodaan automaattisesti eri kokoja. Rajapinta luo automaattisesti linkit kaikkiin saatavilla oleviin kokoihin. Kuvatietojen arvo on joko <em>null</em>, mikäli kuvaa ei ole saatavilla, tai avain-arvo-pareista muodostuva hash, jolloin avaimena toimii kuvakoon tunniste ja arvona täysi osoite kuvaan.</p>
+<p>Ilmoitetut resoluutiot ovat enimmäisarvoja, eli mitat alittavia kuvia ei skaalata suuremmiksi. Pääsääntöisesti säilyttävät alkuperäiset mittasuhteensa kaikissa kokoluokissa.</p>
+<table>
+<thead>
+<tr>
+<th>Kuvakoko</th>
+<th>Resoluutio (max)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>small</td>
+<td>200 x 200 px</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>1000 x 1000 px</td>
+</tr>
+<tr>
+<td>large</td>
+<td>1980 x 1980 px</td>
+</tr>
+<tr>
+<td>huge</td>
+<td>3840 x 3840 px</td>
+</tr>
+</tbody>
+</table>
 <h1 id="organisaatiot-kirjastot">Organisaatiot / kirjastot</h1>
 <p>Kutsun osoitteen muoto on seuraava:</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation?parametrit</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?parametrit</span></span></span></span></div></pre><p>Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatio on geneerinen tyyppi, joka kattaa toimipisteiden ohella osastot, kirjastoautojen pysäkit sekä erilaiset metatietueet jne. Library-tyyppi on oikopolku, jolla suoditaan pois muut kuin toimipisteet ja kirjastoautot.</p>
@@ -573,34 +602,6 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </table>
 <h2 id="kuvaustekstin-muotoilut">Kuvaustekstin muotoilut</h2>
 <p>Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.</p>
-<h2 id="kuvien-koot">Kuvien koot</h2>
-<p>Kirjastojen tietueisiin lisätyt kuvat ovat saatavilla valmiiksi muutamassa eri koossa. Pienempiä(kään) kokoja ei ole ns. cropattu mihinkään tiettyyn kuvasuhteeseen vaan alkuperäiset mittasuhteet on säilytetty. Kaikki kuvat on pakattu jpeg-muotoon.</p>
-<table>
-<thead>
-<tr>
-<th>Kokoluokka</th>
-<th>Resoluutio (max)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>small</td>
-<td>200 x 200 px</td>
-</tr>
-<tr>
-<td>medium</td>
-<td>1000 x 1000 px</td>
-</tr>
-<tr>
-<td>large</td>
-<td>1980 x 1980 px</td>
-</tr>
-<tr>
-<td>huge</td>
-<td>3840 x 3840 px</td>
-</tr>
-</tbody>
-</table>
 <h2 id="liitettyjen-palveluiden-nimet">Liitettyjen palveluiden nimet</h2>
 <p>Organisaatioon liitetyissä palvelutiedoissa on kaksi kenttää palvelun nimelle. Pääasiallinen nimi on name-kentässä ja sen arvo on aina sama kuin palvelulla, johon id-kentän arvo viittaa. Lisäksi on olemassa kenttä custom_name vaihtoehtoiselle nimelle. Kyseistä nimeä voidaan käyttää silloin, kun palvelulle on haluttu määrittää täsmällisempi, organisaatiokohtainen nimi. Oletusarvo on <em>null</em>.</p>
 <p>Kirjastohakemistossa käyttötarkoitus custom_namelle on korvata palvelun alkuperäinen nimi kirjaston esittelysivulla. Yleisessä haussa palveluiden suotimiseen käytetään vain yleistä nimeä.</p>

@@ -101,6 +101,18 @@ Hakukyselyiden palauttamien tulosjoukkojen järjestämiseen voi käyttää pää
 
 Kieliriippuvaisten kenttien mukaan suotiessa ja järjestettäessä käytetään valittua kieltä. Mikäli kieltä ei ole valittu, tulosjoukko sisältää arvot kaikilla kielillä, mutta suotiminen ja järjestäminen tehdään suomenkielisten arvojen perusteella.
 
+## Kuvat
+Tietueisiin lisätyistä kuvista luodaan automaattisesti eri kokoja. Rajapinta luo automaattisesti linkit kaikkiin saatavilla oleviin kokoihin. Kuvatietojen arvo on joko *null*, mikäli kuvaa ei ole saatavilla, tai avain-arvo-pareista muodostuva hash, jolloin avaimena toimii kuvakoon tunniste ja arvona täysi osoite kuvaan.
+
+Ilmoitetut resoluutiot ovat enimmäisarvoja, eli mitat alittavia kuvia ei skaalata suuremmiksi. Pääsääntöisesti säilyttävät alkuperäiset mittasuhteensa kaikissa kokoluokissa.
+
+Kuvakoko    | Resoluutio (max)
+----------- | ----------------
+small       | 200 x 200 px
+medium      | 1000 x 1000 px
+large       | 1980 x 1980 px
+huge        | 3840 x 3840 px
+
 # Organisaatiot / kirjastot
 Kutsun osoitteen muoto on seuraava:
 ```
@@ -198,16 +210,6 @@ consortium          | Kirjastokimpat (kuten yllä)
 
 ## Kuvaustekstin muotoilut
 Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
-
-## Kuvien koot
-Kirjastojen tietueisiin lisätyt kuvat ovat saatavilla valmiiksi muutamassa eri koossa. Pienempiä(kään) kokoja ei ole ns. cropattu mihinkään tiettyyn kuvasuhteeseen vaan alkuperäiset mittasuhteet on säilytetty. Kaikki kuvat on pakattu jpeg-muotoon.
-
-Kokoluokka  | Resoluutio (max)
------------ | ----------------
-small       | 200 x 200 px
-medium      | 1000 x 1000 px
-large       | 1980 x 1980 px
-huge        | 3840 x 3840 px
 
 ## Liitettyjen palveluiden nimet
 Organisaatioon liitetyissä palvelutiedoissa on kaksi kenttää palvelun nimelle. Pääasiallinen nimi on name-kentässä ja sen arvo on aina sama kuin palvelulla, johon id-kentän arvo viittaa. Lisäksi on olemassa kenttä custom_name vaihtoehtoiselle nimelle. Kyseistä nimeä voidaan käyttää silloin, kun palvelulle on haluttu määrittää täsmällisempi, organisaatiokohtainen nimi. Oletusarvo on *null*.
