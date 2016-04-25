@@ -1,7 +1,7 @@
 {
   "name": "kirkanta-api",
   "description": "Restful API server for providing access to the Library Directory of Kirjastot.fi",
-  "version": "1.0.0",
+  "version": "3.1.0",
   "private": true,
   "license": "MIT",
   "dependencies": {

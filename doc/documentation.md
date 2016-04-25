@@ -3,9 +3,10 @@ Kirjastohakemiston rajapinta v3
 
 Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 --------------- | ----------------- | ----------------
-10.12.2015      | 3.0               | Rajapinta julkaistu
-16.02.2016      | 3.0               | Korjattu kuvalinkit palvelu- ja henkilötietoihin
-17.03.2016      | 3.0               | Uusi toimipistetyyppi school / koulukirjasto
+10.12.2015      | 3.0.0             | Rajapinta julkaistu
+16.02.2016      | 3.0.1             | Korjattu kuvalinkit palvelu- ja henkilötietoihin
+17.03.2016      | 3.0.2             | Uusi toimipistetyyppi school / koulukirjasto
+25.04.2016      | 3.1.0             | Lisätty aukiolojaksot (period) rajapintaan.
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
@@ -268,7 +269,7 @@ Kirjastot joilla on palvelut (id-tunnisteet) X ja Y.
 Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
 `https://api.kirjastot.fi/v3/library/81371?with=schedules&period.start=2015-11-01&period.end=2015-11-30`
 
-# Aukiolotiedot
+# Aukioloajat (opening_time)
 ```
 https://api.kirjastot.fi/v3/opening_time?parametrit
 ```
@@ -358,6 +359,20 @@ Kirjastohakemistossa kirjastoautojen pysäkit ovat itsenäisiä organisaatiotiet
 Tämän lisäksi tavallisista toimipisteistä tutut kentät **opens** ja **closes** ilmaisevat päivän ensimmäisen pysäkin saapumisajan ja viimeisen pysäkin lähtöajan. Jos kirjastoauto ei kierrä lainkaan, on päivätietueen **closed**-kentän arvo 'true' ja reittilista tyhjä.
 
 Päiväkohtaiset reittitiedot sisältävät siis vain ne pysäkit, joiden kautta kirjastoauto kyseisenä päivänä kulkee. (Siis pysäkit, jotka ovat auki tuolloin.) Mikäli halutaan selvittää kaikki mahdolliset kirjastoauton kiertämät pysäkit, ne voidaan hakea erillisellä organisaatiokyselyllä määrittämällä parent-parametrin arvoksi kirjastoauton id.
+
+# Aukiolojaksot (period)
+```
+https://api.kirjastot.fi/v3/period?parametrit
+https://api.kirjastot.fi/v3/period/<id>
+```
+
+Jaksotiedot ovat ikään kuin aukiolojen ryhmiä. Jokainen jakso määrää tietyn aikavälin aukiolot. Aikaväli voidaan määritellä joko suljetuksi tai loppupäästä avoimeksi (ns. oletusjakso), jolloin se on voimassa toistaiseksi. Jaksot voivat myös limittyä, jolloin korkein prioriteetti on 1) suljetulla jaksolla 2) myöhemmin alkavalla jaksolla.
+
+Pääsääntöisesti aukiolojaksot syötetään niin, että voimassa oleva puoliavoin jakso kertoo kirjaston tavalliset aukioloajat (talviajat) ja suljetut jaksot ovat lyhyitä poikkeuksia normaaliin.
+
+Parametri       | M | S | Kuvaus
+--------------- | --- | --- | ------
+id              | X | X | Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa
 
 # Yleiset palvelutiedot
 ```
