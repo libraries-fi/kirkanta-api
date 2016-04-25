@@ -1,5 +1,4 @@
-Kirjastohakemiston r
-ajapinta v3
+Kirjastohakemiston rajapinta v3
 ===============================
 
 Päiväys         | Rajapinnan versio | Muutoksen kuvaus
