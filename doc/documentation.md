@@ -201,7 +201,7 @@ schedules     | Aukiolotiedot määrätylle ajanjaksolle. Aikaväli määritetä
 ## Organisaatiokyselyn relaatiot (refs)
 Refs-parametrilla voidaan asettaa rajapinta palauttamaan linkitetyt tietueet osana tulosjoukkoa. Nämä tietueet löytyvät tuloksen juuresta kentästä *references*. Se käsittää joukon avain-arvo-pareja, missä avain on alitietueen tyyppi (esim. city) ja arvo on vastaavalla tavalla rakenteistettu joukko avain-arvo-pareja.
 
-#### Typistetty esimerkki
+**Typistetty esimerkki**
 ```
 {
   "total": 58,
