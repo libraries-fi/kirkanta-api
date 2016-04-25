@@ -573,9 +573,10 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 </tbody>
 </table>
-<h2 id="alitietueet-refs-">Alitietueet (refs)</h2>
-<p>Refs-parametrilla voidaan asettaa rajapinta palauttamaan viittaukset muihin tietueisiin osana tulosjoukkoa. Tällöin rajapinta palauttaa nämä alitietueet ryhmiteltynä tyypin perusteella tuloksen ylätasolla kentässä <em>references</em>.</p>
-<table>
+<h2 id="organisaatiokyselyn-relaatiot-refs-">Organisaatiokyselyn relaatiot (refs)</h2>
+<p>Refs-parametrilla voidaan asettaa rajapinta palauttamaan linkitetyt tietueet osana tulosjoukkoa. Nämä tietueet löytyvät tuloksen juuresta kentästä <em>references</em>. Se käsittää joukon avain-arvo-pareja, missä avain on alitietueen tyyppi (esim. city) ja arvo on vastaavalla tavalla rakenteistettu joukko avain-arvo-pareja.</p>
+<h4 id="typistetty-esimerkki">Typistetty esimerkki</h4>
+<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span>{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;total&quot;:&nbsp;58,</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>&nbsp;&nbsp;&quot;type&quot;:&nbsp;&quot;organisation&quot;,</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>&nbsp;&nbsp;&quot;items&quot;:&nbsp;[{...},&nbsp;{...},&nbsp;...],</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>&nbsp;&nbsp;&quot;references&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;city&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;16094&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;id&quot;:&nbsp;16094,</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;fi&quot;:&nbsp;&quot;Salo&quot;</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>}</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>},</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;16031&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;id&quot;:&nbsp;16031,</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>&quot;fi&quot;:&nbsp;&quot;Nurmes&quot;</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>}</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>}</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta paragraph text"><span>}</span></span></span></div><div class="line"><span class="text plain"><span>&nbsp;&nbsp;</span><span class="meta paragraph text"><span>}</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>}</span></span></span></div></pre><table>
 <thead>
 <tr>
 <th>Tunniste</th>
@@ -585,7 +586,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <tbody>
 <tr>
 <td>city</td>
-<td>Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat</td>
+<td>Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat.</td>
 </tr>
 <tr>
 <td>region</td>
@@ -598,6 +599,10 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <tr>
 <td>consortium</td>
 <td>Kirjastokimpat (kuten yllä)</td>
+</tr>
+<tr>
+<td>period</td>
+<td>Käytetään parametrin ?with=schedules kanssa; hakee aukioloihin liittyvät jaksotiedot.</td>
 </tr>
 </tbody>
 </table>
@@ -650,6 +655,22 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <td></td>
 <td></td>
 <td>Aikavälin viimeinen päivä</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aukiolokyselyn-relaatiot-refs-">Aukiolokyselyn relaatiot (refs)</h2>
+<p>Kuten organisaatiokyselyissä, tässäkin refs-parametrilla voidaan käskeä rajapintaa sisällyttämään valituntyyppiset linkitetyt tietueet tulokseen kenttään <em>references</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Tunniste</th>
+<th>Kuvaus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>period</td>
+<td>Aukiolojaksojen tiedot</td>
 </tr>
 </tbody>
 </table>

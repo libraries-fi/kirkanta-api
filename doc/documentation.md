@@ -199,15 +199,41 @@ pictures      | Lista valokuvista
 services      | Lista palveluista
 schedules     | Aukiolotiedot määrätylle ajanjaksolle. Aikaväli määritetään lisäparametrein period.start ja period.end
 
-## Alitietueet (refs)
-Refs-parametrilla voidaan asettaa rajapinta palauttamaan viittaukset muihin tietueisiin osana tulosjoukkoa. Tällöin rajapinta palauttaa nämä alitietueet ryhmiteltynä tyypin perusteella tuloksen ylätasolla kentässä *references*.
+## Organisaatiokyselyn relaatiot (refs)
+Refs-parametrilla voidaan asettaa rajapinta palauttamaan linkitetyt tietueet osana tulosjoukkoa. Nämä tietueet löytyvät tuloksen juuresta kentästä *references*. Se käsittää joukon avain-arvo-pareja, missä avain on alitietueen tyyppi (esim. city) ja arvo on vastaavalla tavalla rakenteistettu joukko avain-arvo-pareja.
+
+#### Typistetty esimerkki
+```
+{
+  "total": 58,
+  "type": "organisation",
+  "items": [{...}, {...}, ...],
+  "references": {
+    "city": {
+      "16094": {
+        "id": 16094,
+        "name": {
+          "fi": "Salo"
+        }
+      },
+      "16031": {
+        "id": 16031,
+        "name": {
+          "fi": "Nurmes"
+        }
+      }
+    }
+  }
+}
+```
 
 Tunniste            | Kuvaus
 ------------------- | ------
-city                | Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat
+city                | Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat.
 region              | Maakunnat (kuten yllä)
 provincial_library  | Maakuntakirjastoalueet (kuten yllä)
 consortium          | Kirjastokimpat (kuten yllä)
+period              | Käytetään parametrin ?with=schedules kanssa; hakee aukioloihin liittyvät jaksotiedot.
 
 ## Kuvaustekstin muotoilut
 Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
@@ -260,6 +286,13 @@ Parametri       | M | S | Kuvaus
 organisation    | X | X | Organisaation tietueen id-tunniste
 period.start    |   |   | Aikavälin ensimmäinen päivä
 period.end      |   |   | Aikavälin viimeinen päivä
+
+## Aukiolokyselyn relaatiot (refs)
+Kuten organisaatiokyselyissä, tässäkin refs-parametrilla voidaan käskeä rajapintaa sisällyttämään valituntyyppiset linkitetyt tietueet tulokseen kenttään *references*.
+
+Tunniste            | Kuvaus
+------------------- | ------
+period              | Aukiolojaksojen tiedot
 
 ## Suhteelliset aikavälit
 Aikavälin rajoittamiseen voi käyttää myös suhteellisia arvoja. Referenssipisteenä käytetään aina kuluvaa päivää. Suhteellisen aikavälin määrittämiseen voi käyttää yksikköinä päiviä, viikkoja sekä kuukausia. Myös negatiiviset arvot sekä nollamääräiset arvot ('0d', '0w', '0m') ovat sallittuja.
