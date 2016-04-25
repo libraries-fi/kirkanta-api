@@ -370,6 +370,9 @@ Jaksotiedot ovat ikään kuin aukiolojen ryhmiä. Jokainen jakso määrää tiet
 
 Pääsääntöisesti aukiolojaksot syötetään niin, että voimassa oleva puoliavoin jakso kertoo kirjaston tavalliset aukioloajat (talviajat) ja suljetut jaksot ovat lyhyitä poikkeuksia normaaliin.
 
+M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
+S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
+
 Parametri       | M | S | Kuvaus
 --------------- | --- | --- | ------
 id              | X | X | Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa
