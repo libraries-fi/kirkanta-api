@@ -1,4 +1,5 @@
-<h1 id="kirjastohakemiston-rajapinta-v3">Kirjastohakemiston rajapinta v3</h1>
+<p>Kirjastohakemiston r</p>
+<h1 id="ajapinta-v3">ajapinta v3</h1>
 <table>
 <thead>
 <tr>
@@ -602,9 +603,12 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </table>
 <h2 id="kuvaustekstin-muotoilut">Kuvaustekstin muotoilut</h2>
 <p>Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.</p>
-<h2 id="liitettyjen-palveluiden-nimet">Liitettyjen palveluiden nimet</h2>
+<h2 id="kirjastokohtaiset-palvelutiedot">Kirjastokohtaiset palvelutiedot</h2>
+<h3 id="palveluiden-nimet">Palveluiden nimet</h3>
 <p>Organisaatioon liitetyissä palvelutiedoissa on kaksi kenttää palvelun nimelle. Pääasiallinen nimi on name-kentässä ja sen arvo on aina sama kuin palvelulla, johon id-kentän arvo viittaa. Lisäksi on olemassa kenttä custom_name vaihtoehtoiselle nimelle. Kyseistä nimeä voidaan käyttää silloin, kun palvelulle on haluttu määrittää täsmällisempi, organisaatiokohtainen nimi. Oletusarvo on <em>null</em>.</p>
 <p>Kirjastohakemistossa käyttötarkoitus custom_namelle on korvata palvelun alkuperäinen nimi kirjaston esittelysivulla. Yleisessä haussa palveluiden suotimiseen käytetään vain yleistä nimeä.</p>
+<h3 id="muuta">Muuta</h3>
+<p>Upotetut palvelutiedot eroavat yleisistä palvelutiedoista siten, että niissä on lisäkenttiä, jotka kertovat palvelun saatavuudesta kyseisessä organisaatiossa (kirjastossa). Myös palvelun kuvausteksti vaihtelee toimipisteittäin. Upotetuissa palvelutiedoissa ilmoitettu palvelun ID-tunniste on sama kuin samannimisen palvelun tunniste yleisissä palvelutiedoissa.</p>
 <h2 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h2>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>
@@ -812,8 +816,9 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <p>Kirjastohakemistossa kirjastoautojen pysäkit ovat itsenäisiä organisaatiotietueita. Niiden aukiolotiedot ovat siten haettavissa kuten kaikkien muidenkin organisaatiotietueiden. Useimmiten pysäkkien aukiolot kiinnostavat kuitenkin osana kirjastoauton kulkemaa reittiä. Tämän vuoksi kirjastoauton aukioloaikojen tietueissa on erikoistapauksena kenttä <strong>route</strong>, joka sisältää kyseisen päivän reittiin kuuluvat pysäkit kronologisessa järjestyksessä.</p>
 <p>Tämän lisäksi tavallisista toimipisteistä tutut kentät <strong>opens</strong> ja <strong>closes</strong> ilmaisevat päivän ensimmäisen pysäkin saapumisajan ja viimeisen pysäkin lähtöajan. Jos kirjastoauto ei kierrä lainkaan, on päivätietueen <strong>closed</strong>-kentän arvo &#39;true&#39; ja reittilista tyhjä.</p>
 <p>Päiväkohtaiset reittitiedot sisältävät siis vain ne pysäkit, joiden kautta kirjastoauto kyseisenä päivänä kulkee. (Siis pysäkit, jotka ovat auki tuolloin.) Mikäli halutaan selvittää kaikki mahdolliset kirjastoauton kiertämät pysäkit, ne voidaan hakea erillisellä organisaatiokyselyllä määrittämällä parent-parametrin arvoksi kirjastoauton id.</p>
-<h1 id="palvelutiedot">Palvelutiedot</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/service?parametrit</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/service/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
+<h1 id="yleiset-palvelutiedot">Yleiset palvelutiedot</h1>
+<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/service?parametrit</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/service/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>Tällä kyselyllä haettavat palvelutiedot ovat niin sanottuna yleispohjia. Palvelutietoja voidaan käyttää esimerkiksi kirjastojen hakulomakkeen palvelulistan muodostamiseksi. Nämä palvelutiedot eroavat kirjastojen tietueisiin upotetuista palveluista siten, että kirjastojen tiedoissa palveluilla on enemmän kenttiä (hinta, lainattavissa, jne.) ja lisäksi palvelun kuvaustieto (description) voi olla kirjastokohtaisesti eri.</p>
+<p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
 <thead>

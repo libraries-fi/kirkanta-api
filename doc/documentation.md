@@ -1,4 +1,5 @@
-Kirjastohakemiston rajapinta v3
+Kirjastohakemiston r
+ajapinta v3
 ===============================
 
 Päiväys         | Rajapinnan versio | Muutoksen kuvaus
@@ -211,10 +212,14 @@ consortium          | Kirjastokimpat (kuten yllä)
 ## Kuvaustekstin muotoilut
 Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
 
-## Liitettyjen palveluiden nimet
+## Kirjastokohtaiset palvelutiedot
+### Palveluiden nimet
 Organisaatioon liitetyissä palvelutiedoissa on kaksi kenttää palvelun nimelle. Pääasiallinen nimi on name-kentässä ja sen arvo on aina sama kuin palvelulla, johon id-kentän arvo viittaa. Lisäksi on olemassa kenttä custom_name vaihtoehtoiselle nimelle. Kyseistä nimeä voidaan käyttää silloin, kun palvelulle on haluttu määrittää täsmällisempi, organisaatiokohtainen nimi. Oletusarvo on *null*.
 
 Kirjastohakemistossa käyttötarkoitus custom_namelle on korvata palvelun alkuperäinen nimi kirjaston esittelysivulla. Yleisessä haussa palveluiden suotimiseen käytetään vain yleistä nimeä.
+
+### Muuta
+Upotetut palvelutiedot eroavat yleisistä palvelutiedoista siten, että niissä on lisäkenttiä, jotka kertovat palvelun saatavuudesta kyseisessä organisaatiossa (kirjastossa). Myös palvelun kuvausteksti vaihtelee toimipisteittäin. Upotetuissa palvelutiedoissa ilmoitettu palvelun ID-tunniste on sama kuin samannimisen palvelun tunniste yleisissä palvelutiedoissa.
 
 ## Esimerkkejä kyselyistä
 Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)
@@ -322,11 +327,13 @@ Tämän lisäksi tavallisista toimipisteistä tutut kentät **opens** ja **close
 
 Päiväkohtaiset reittitiedot sisältävät siis vain ne pysäkit, joiden kautta kirjastoauto kyseisenä päivänä kulkee. (Siis pysäkit, jotka ovat auki tuolloin.) Mikäli halutaan selvittää kaikki mahdolliset kirjastoauton kiertämät pysäkit, ne voidaan hakea erillisellä organisaatiokyselyllä määrittämällä parent-parametrin arvoksi kirjastoauton id.
 
-# Palvelutiedot
+# Yleiset palvelutiedot
 ```
 https://api.kirjastot.fi/v3/service?parametrit
 https://api.kirjastot.fi/v3/service/<id>
 ```
+
+Tällä kyselyllä haettavat palvelutiedot ovat niin sanottuna yleispohjia. Palvelutietoja voidaan käyttää esimerkiksi kirjastojen hakulomakkeen palvelulistan muodostamiseksi. Nämä palvelutiedot eroavat kirjastojen tietueisiin upotetuista palveluista siten, että kirjastojen tiedoissa palveluilla on enemmän kenttiä (hinta, lainattavissa, jne.) ja lisäksi palvelun kuvaustieto (description) voi olla kirjastokohtaisesti eri.
 
 M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
