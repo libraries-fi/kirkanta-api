@@ -376,6 +376,11 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona
 Parametri       | M | S | Kuvaus
 --------------- | --- | --- | ------
 id              | X | X | Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa
+name            |   | X | Hakee tietueet, joiden nimi alkaa määrätyllä merkkijonolla. Arvo riippuu kielestä.
+organisation    | X | X | Organisaatio, jonka aukiolot tietue määrittää
+valid_from      | X | X | Tarkka jakson alkamispäivä
+valid_until     | X | X | Tarkka jakson päättymispäivä
+
 
 # Yleiset palvelutiedot
 ```
