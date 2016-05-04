@@ -213,7 +213,7 @@ period              | Käytetään parametrin ?with=schedules kanssa; hakee auki
 **Typistetty esimerkki**
 ```
 {
-  "total": 58,
+  "total": 2,
   "type": "organisation",
   "items": [{...}, {...}],
   "references": {
