@@ -215,7 +215,7 @@ period              | Käytetään parametrin ?with=schedules kanssa; hakee auki
 {
   "total": 58,
   "type": "organisation",
-  "items": [{...}, {...}, ...],
+  "items": [{...}, {...}],
   "references": {
     "city": {
       "16094": {
