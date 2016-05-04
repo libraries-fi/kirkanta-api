@@ -202,6 +202,14 @@ schedules     | Aukiolotiedot määrätylle ajanjaksolle. Aikaväli määritetä
 ## Organisaatiokyselyn relaatiot (refs)
 Refs-parametrilla voidaan asettaa rajapinta palauttamaan linkitetyt tietueet osana tulosjoukkoa. Nämä tietueet löytyvät tuloksen juuresta kentästä *references*. Se käsittää joukon avain-arvo-pareja, missä avain on alitietueen tyyppi (esim. city) ja arvo on vastaavalla tavalla rakenteistettu joukko avain-arvo-pareja.
 
+Tunniste            | Kuvaus
+------------------- | ------
+city                | Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat.
+region              | Maakunnat (kuten yllä)
+provincial_library  | Maakuntakirjastoalueet (kuten yllä)
+consortium          | Kirjastokimpat (kuten yllä)
+period              | Käytetään parametrin ?with=schedules kanssa; hakee aukioloihin liittyvät jaksotiedot.
+
 **Typistetty esimerkki**
 ```
 {
@@ -226,14 +234,6 @@ Refs-parametrilla voidaan asettaa rajapinta palauttamaan linkitetyt tietueet osa
   }
 }
 ```
-
-Tunniste            | Kuvaus
-------------------- | ------
-city                | Kunnat, joihin tulosjoukon organisaatiotietueet viittaavat.
-region              | Maakunnat (kuten yllä)
-provincial_library  | Maakuntakirjastoalueet (kuten yllä)
-consortium          | Kirjastokimpat (kuten yllä)
-period              | Käytetään parametrin ?with=schedules kanssa; hakee aukioloihin liittyvät jaksotiedot.
 
 ## Kuvaustekstin muotoilut
 Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
