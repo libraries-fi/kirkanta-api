@@ -236,7 +236,7 @@ period              | Käytetään parametrin ?with=schedules kanssa; hakee auki
 ```
 
 ## Kuvaustekstin muotoilut
-Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Useimmat kuvaukset voivat kuitenkin vaikuttaa edelleen plaintextiltä. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
+Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.
 
 ## Kirjastokohtaiset palvelutiedot
 ### Palveluiden nimet
