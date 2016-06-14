@@ -429,6 +429,7 @@ id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hake
 slug                | X | X | Kirjastokimpan url-tunniste
 name                |   | X | Hakee kimpat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
 special             |   |   | Boolean. False-arvo suotii pois ei-kirjastoalan kimpat, True-arvo toisin päin.
+finna:id            | X |   | Finna-palvelussa käytetty tunniste
 
 ## Kimppatietojen laajennukset
 Kirjastokimppojen tietueet voivat sisältää Finna-palvelua varten lisättyjä laajennuksia. Nämä laajennukset voi sisällyttää mukaan with-parametrilla.
