@@ -7,19 +7,12 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 16.02.2016      | 3.0.1             | Korjattu kuvalinkit palvelu- ja henkilötietoihin
 17.03.2016      | 3.0.2             | Uusi toimipistetyyppi school / koulukirjasto
 25.04.2016      | 3.1.0             | Lisätty aukiolojaksot (period) rajapintaan.
+14.06.2016      | 3.1.1             | Kimppatietoihin (consortium) Finna-laajennukset.
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
 **HUOM**
 2016-03-17: Lisätty uusi toimipistetyyppi school / koulukirjasto.
-
-**HUOM**
-2015-12-18: Kentät extra.parking_instructions ja extra.transit_directions siirretty omaan lohkoonsa extra.transit. Samaan lohkoon lisätty myös kentät buses, trams ja trains, joihin on mahdollista listata kirjaston kautta kulkevat julkisen liikenteen yhteydet.
-
-**HUOM**
-2016-02-16: Organisaatiotietueen palvelu- ja henkilötiedot sisältävät nyt picture-kentässä saatavilla
-olevat kuvakoot täydellisine www-osoitteineen. Rakenne on identtinen organisaatioon liitettyjen kuvien
-files-kentän kanssa. Lisäksi pienempien small- ja medium-kuvakokojen enimmäiskokoa on kasvatettu.
 
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
@@ -435,6 +428,14 @@ Parametri           | M | S | Kuvaus
 id                  | X | X | Voi käyttää tunnettujen kuntien tietueiden hakemiseen yhdellä kyselyllä
 slug                | X | X | Kirjastokimpan url-tunniste
 name                |   | X | Hakee kimpat, joiden nimi alkaa määrätyllä merkkijonolla (kieliriippuvainen)
+special             |   |   | Boolean. False-arvo suotii pois ei-kirjastoalan kimpat, True-arvo toisin päin.
+
+## Kimppatietojen laajennukset
+Kirjastokimppojen tietueet voivat sisältää Finna-palvelua varten lisättyjä laajennuksia. Nämä laajennukset voi sisällyttää mukaan with-parametrilla.
+
+Tunniste      | Kuvaus
+------------- | ------
+finna         | Finna-laajennukset
 
 # Kunnat
 ```
