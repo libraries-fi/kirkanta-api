@@ -431,7 +431,7 @@ name                |   | X | Hakee kimpat, joiden nimi alkaa määrätyllä mer
 special             |   |   | Boolean. False-arvo suotii pois ei-kirjastoalan kimpat, True-arvo toisin päin.
 finna:id            | X |   | Finna-palvelussa käytetty tunniste
 
-## Kimppatietojen laajennukset
+## Kimppatietojen laajennukset (with)
 Kirjastokimppojen tietueet voivat sisältää Finna-palvelua varten lisättyjä laajennuksia. Nämä laajennukset voi sisällyttää mukaan with-parametrilla.
 
 Tunniste      | Kuvaus
