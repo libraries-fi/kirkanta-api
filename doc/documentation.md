@@ -8,7 +8,7 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 17.03.2016      | 3.0.2             | Uusi toimipistetyyppi school / koulukirjasto
 25.04.2016      | 3.1.0             | Lisätty aukiolojaksot (period) rajapintaan.
 14.06.2016      | 3.1.1             | Kimppatietoihin (consortium) Finna-laajennukset.
-28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä"
+28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä" (.xml .json .jsonp)
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
