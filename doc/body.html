@@ -33,6 +33,11 @@
 <td>3.1.1</td>
 <td>Kimppatietoihin (consortium) Finna-laajennukset.</td>
 </tr>
+<tr>
+<td>28.06.2016</td>
+<td>3.1.2</td>
+<td>Datatyypin määritys &quot;tiedostopäätteillä&quot;</td>
+</tr>
 </tbody>
 </table>
 <p>Vanhat dokumentaatiot: <a href="/v2-doc.html">API V2</a>, <a href="/v1-doc.html">API V1</a></p>
@@ -49,6 +54,7 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 <p>Rajapinnan avulla tuotetut tiedot (&quot;teokset&quot;) on lisensoitu <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons 4.0 Nimeä -lisenssillä</a>, joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).</p>
 <h1 id="rajapinnan-kuvaus">Rajapinnan kuvaus</h1>
 <p>Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina <em>http-pyyntöinä</em> ja kyselyn parametrit välitetään osoitteen <em>query-osassa</em> eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla <em>format</em>, jolla on korkeampi prioriteetti.</p>
+<p>Lisäksi 28.06.2016 alkaen vastauksen tietotyypin voi määrittää käyttämällä &quot;tiedostopäätteitä&quot;. Tämä parantaa yhteensopivuutta joidenkin js-kirjastojen kanssa, jotka tunnistavat vastauksen tyypin ensisijaisesti www-osoitteen avulla.</p>
 <p>Käytetty merkistö on utf-8. Oletusarvoisesti rajapinta palauttaa 50 tulosta kerrallaan, sivutusta voi hallita parametrein <em>limit</em> ja <em>skip</em>.</p>
 <table>
 <thead>
@@ -76,11 +82,11 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 </tr>
 </tbody>
 </table>
-<p>Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla <em>callback</em>.</p>
+<p>Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla <em>callback</em>. Tyypit json ja jsonp ovat 28.06.2016 alkaen aliaksia toisilleen. Ainoa ero on se, että jsonp-tyypin kanssa callback-parametrin puuttuminen aiheuttaa virheen.</p>
 <h2 id="kyselyiden-rakenne">Kyselyiden rakenne</h2>
 <p>Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää haettavan resurssin tyypin sekä mahdollisen id-tunnisteen. Muut parametrit määritetään pyyntöosoitteen <em>query string</em> -osassa. Suodinehdot on mahdollista muuttaa kieltäviksi eli not-muotoisiksi lisäämällä parametrin nimen perään miinusmerkki. Kyselyn parametrit yhdistetään AND-konjunktiolla, eli tulosjoukkoon sisältyvät ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin. Mikäli yksittäiselle parametrille on annettu monta arvoa, riittää että tietue täsmää johonkin niistä.</p>
 <p>Kutsujen rakenne on seuraavanlainen:</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation?name=pasila&amp;city.name=helsinki&amp;format=jsonp&amp;callback=foo</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371?format=jsonp&amp;callback=foo</span></span></span></span></div></pre><h2 id="tietotyypit">Tietotyypit</h2>
+<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation?name=pasila&amp;city.name=helsinki&amp;format=jsonp&amp;callback=foo</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371?format=jsonp&amp;callback=foo</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371.json&amp;callback=foo</span></span></span></span></div></pre><h2 id="tietotyypit">Tietotyypit</h2>
 <p>Tähän on listattu rajapinnan tukemat tietotyypit. Kaikille tietotyypeille pätevät yllä mainitut kaksi kutsuvaihtoehtoa.</p>
 <table>
 <thead>
@@ -621,11 +627,11 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region=963,974</span></span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone.
-<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
+<code style="font-family: &apos;Droid Sans Mono&apos;, monospace;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
 <p>Kirjastot joilla on palvelut (id-tunnisteet) X ja Y.
-<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
+<code style="font-family: &apos;Droid Sans Mono&apos;, monospace;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
-<code style="font-family: dejavu sans mono;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
+<code style="font-family: &apos;Droid Sans Mono&apos;, monospace;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
 <h1 id="aukioloajat-opening_time-">Aukioloajat (opening_time)</h1>
 <pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span class="markup underline link https hyperlink"><span>https://api.kirjastot.fi/v3/opening_time?parametrit</span></span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
 <p>Aukioloajat ilmoitetaan päiväkohtaisina tietueina. Yhdellä kyselyllä on mahdollista hakea monen organisaation aukiolotiedot samalla kertaa.</p>

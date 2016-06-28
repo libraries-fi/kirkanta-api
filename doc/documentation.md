@@ -8,6 +8,7 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 17.03.2016      | 3.0.2             | Uusi toimipistetyyppi school / koulukirjasto
 25.04.2016      | 3.1.0             | Lisätty aukiolojaksot (period) rajapintaan.
 14.06.2016      | 3.1.1             | Kimppatietoihin (consortium) Finna-laajennukset.
+28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä"
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
@@ -31,6 +32,8 @@ Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu [Creative Commons 4.
 # Rajapinnan kuvaus
 Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina _http-pyyntöinä_ ja kyselyn parametrit välitetään osoitteen _query-osassa_ eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla _format_, jolla on korkeampi prioriteetti.
 
+Lisäksi 28.06.2016 alkaen vastauksen tietotyypin voi määrittää käyttämällä "tiedostopäätteitä". Tämä parantaa yhteensopivuutta joidenkin js-kirjastojen kanssa, jotka tunnistavat vastauksen tyypin ensisijaisesti www-osoitteen avulla.
+
 Käytetty merkistö on utf-8. Oletusarvoisesti rajapinta palauttaa 50 tulosta kerrallaan, sivutusta voi hallita parametrein *limit* ja *skip*.
 
 Tietotyyppi | Mime-tyyppi               | Format-parametri
@@ -39,7 +42,7 @@ XML         | application/xml           | xml
 JSON        | application/json          | json
 JSONP       | application/javascript    | jsonp
 
-Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla _callback_.
+Jsonp-muotoa käyttäessä täytyy myös määrittää ns. callback-funktion nimi get-parametrilla _callback_. Tyypit json ja jsonp ovat 28.06.2016 alkaen aliaksia toisilleen. Ainoa ero on se, että jsonp-tyypin kanssa callback-parametrin puuttuminen aiheuttaa virheen.
 
 ## Kyselyiden rakenne
 Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää haettavan resurssin tyypin sekä mahdollisen id-tunnisteen. Muut parametrit määritetään pyyntöosoitteen _query string_ -osassa. Suodinehdot on mahdollista muuttaa kieltäviksi eli not-muotoisiksi lisäämällä parametrin nimen perään miinusmerkki. Kyselyn parametrit yhdistetään AND-konjunktiolla, eli tulosjoukkoon sisältyvät ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin. Mikäli yksittäiselle parametrille on annettu monta arvoa, riittää että tietue täsmää johonkin niistä.
@@ -48,6 +51,8 @@ Kutsujen rakenne on seuraavanlainen:
 ```
 https://api.kirjastot.fi/v3/organisation?name=pasila&city.name=helsinki&format=jsonp&callback=foo
 https://api.kirjastot.fi/v3/organisation/81371?format=jsonp&callback=foo
+https://api.kirjastot.fi/v3/organisation/81371.json&callback=foo
+
 ```
 
 ## Tietotyypit
