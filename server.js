@@ -18,7 +18,7 @@ if (config.api.require_authentication) {
 }
 
 app.use("/v3", function(req, res, next) {
-  let match = req.url.match(/\.(\w+)$/);
+  let match = req.path.match(/\.(\w+)$/);
   if (match) {
     req.url = req.url.substr(0, match.index);
     req.query.format = match[1];
