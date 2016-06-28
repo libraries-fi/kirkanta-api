@@ -18,6 +18,15 @@ if (config.api.require_authentication) {
 }
 
 app.use("/v3", function(req, res, next) {
+  let match = req.url.match(/\.(\w+)$/);
+  if (match) {
+    req.url = req.url.substr(0, match.index);
+    req.query.format = match[1];
+  }
+  next();
+});
+
+app.use("/v3", function(req, res, next) {
   req.query.format = req.query.format || "json";
   res.set('Access-Control-Allow-Origin', '*');
   next();
