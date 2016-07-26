@@ -138,6 +138,7 @@ consortium      | X | X | Kirjastokimpan id-tunniste
 distance        |   | X | Määrittää koordinaattihaussa sallitun etäisyyden määrätystä pisteestä; arvo kilometreinä (1 = 1 km, 100 = 100 km)
 geo             |   |   | Koordinaattiparilla hakeminen (käytetään yhdessä distance-parametrin kanssa) (24.3434,71.1235)
 id              | X | X | Parametria voidaan käyttää, kun halutaan hakea monen tunnetun tietueen tiedot yhdellä kertaa
+identificator   | X |   | Kirjaston virallinen tunniste
 modified.after  |   | X | Hakee tietueet, joita muokattu myöhemmin kuin määrättynä pvm:nä
 modified.before |   |   | Tietueiden viimeinen muokkaus-pvm
 name            |   | X | Hakee kirjastot, joiden nimi alkaa määrätyllä merkkijonolla. Riippuu valitusta kielestä.
