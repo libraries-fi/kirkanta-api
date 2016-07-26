@@ -11,5 +11,9 @@
     "moment": "^2.10.6",
     "pg": "^4.4.2",
     "xml-escape": "^1.0.0"
+  },
+  "devDependencies": {
+    "frisby": "^0.8.5",
+    "jasmine-node": "^1.14.5"
   }
 }
