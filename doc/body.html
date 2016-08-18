@@ -38,9 +38,16 @@
 <td>3.1.2</td>
 <td>Datatyypin määritys &quot;tiedostopäätteillä&quot; (.xml .json .jsonp)</td>
 </tr>
+<tr>
+<td>17.08.2016</td>
+<td>3.2.0</td>
+<td>Organisaatioista tutut linkit kirjastokimppoihin; linkkiryhmät (link_groups)</td>
+</tr>
 </tbody>
 </table>
 <p>Vanhat dokumentaatiot: <a href="/v2-doc.html">API V2</a>, <a href="/v1-doc.html">API V1</a></p>
+<p><strong>HUOM</strong>
+2016-08-17: Verkkosivulinkkejä voi nyt jakaa ryhmiin. Lisäksi linkit on tuotu consortium-tietotyyppiin. Linkkiryhmät sisällytetään hakutuloksin parametrilla ?with=link_groups. Muutoksen johdosta organisaatiohaun parametri ?with=links on deprekoitu.</p>
 <p><strong>HUOM</strong>
 2016-03-17: Lisätty uusi toimipistetyyppi school / koulukirjasto.</p>
 <h1 id="johdanto">Johdanto</h1>
@@ -560,7 +567,11 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tr>
 <tr>
 <td>links</td>
-<td>Linkkejä ulkoisiin palveluihin kuten some-palveluihin</td>
+<td>Linkkejä ulkoisiin palveluihin kuten some-palveluihin (<strong>deprecated</strong>)</td>
+</tr>
+<tr>
+<td>link_groups</td>
+<td>Sama kuin yllä mutta linkit on jaoteltu ryhmiin.</td>
 </tr>
 <tr>
 <td>mail_address</td>
@@ -1049,7 +1060,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h2 id="kimppatietojen-laajennukset-with-">Kimppatietojen laajennukset (with)</h2>
-<p>Kirjastokimppojen tietueet voivat sisältää Finna-palvelua varten lisättyjä laajennuksia. Nämä laajennukset voi sisällyttää mukaan with-parametrilla.</p>
+<p>Kuten organisaatioiden / kirjastojen kanssa, myös kirjastokimpat sisältävät lohkoja, joita ei oletusarvoisesti sisällytetä hakutuloksiin.</p>
 <table>
 <thead>
 <tr>
@@ -1061,6 +1072,10 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <tr>
 <td>finna</td>
 <td>Finna-laajennukset</td>
+</tr>
+<tr>
+<td>link_groups</td>
+<td>Vapaasti määriteltäviä linkkejä ulkoisiin verkkosivustoihin.</td>
 </tr>
 </tbody>
 </table>

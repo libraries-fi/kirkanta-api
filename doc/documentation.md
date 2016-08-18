@@ -9,8 +9,12 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 25.04.2016      | 3.1.0             | Lisätty aukiolojaksot (period) rajapintaan.
 14.06.2016      | 3.1.1             | Kimppatietoihin (consortium) Finna-laajennukset.
 28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä" (.xml .json .jsonp)
+17.08.2016      | 3.2.0             | Organisaatioista tutut linkit kirjastokimppoihin; linkkiryhmät (link_groups)
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
+
+**HUOM**
+2016-08-17: Verkkosivulinkkejä voi nyt jakaa ryhmiin. Lisäksi linkit on tuotu consortium-tietotyyppiin. Linkkiryhmät sisällytetään hakutuloksin parametrilla ?with=link_groups. Muutoksen johdosta organisaatiohaun parametri ?with=links on deprekoitu.
 
 **HUOM**
 2016-03-17: Lisätty uusi toimipistetyyppi school / koulukirjasto.
@@ -190,7 +194,8 @@ Tunniste      | Kuvaus
 ------------- | ------
 accessibility | Esteettömyystiedot
 extra         | Sekalaisia tietoja, jotka on siirrettävän datan määrän optimoimiseksi siirretty miljoonalaatikkoon
-links         | Linkkejä ulkoisiin palveluihin kuten some-palveluihin
+links         | Linkkejä ulkoisiin palveluihin kuten some-palveluihin (**deprecated**)
+link_groups   | Sama kuin yllä mutta linkit on jaoteltu ryhmiin.
 mail_address  | Mahdollinen toimipisteen sijainnista poikkeava postiosoite
 persons       | Lista organisaation tietueeseen liitetyistä työntekijöistä
 phone_numbers | Lista puhelinnumeroista
@@ -438,11 +443,12 @@ special             |   |   | Boolean. False-arvo suotii pois ei-kirjastoalan ki
 finna:id            | X |   | Finna-palvelussa käytetty tunniste
 
 ## Kimppatietojen laajennukset (with)
-Kirjastokimppojen tietueet voivat sisältää Finna-palvelua varten lisättyjä laajennuksia. Nämä laajennukset voi sisällyttää mukaan with-parametrilla.
+Kuten organisaatioiden / kirjastojen kanssa, myös kirjastokimpat sisältävät lohkoja, joita ei oletusarvoisesti sisällytetä hakutuloksiin.
 
 Tunniste      | Kuvaus
 ------------- | ------
 finna         | Finna-laajennukset
+link_groups   | Vapaasti määriteltäviä linkkejä ulkoisiin verkkosivustoihin.
 
 # Kunnat
 ```
