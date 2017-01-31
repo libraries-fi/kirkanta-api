@@ -3,21 +3,24 @@ Kirjastohakemiston rajapinta v3
 
 Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 --------------- | ----------------- | ----------------
-10.12.2015      | 3.0.0             | Rajapinta julkaistu
-16.02.2016      | 3.0.1             | Korjattu kuvalinkit palvelu- ja henkilötietoihin
-17.03.2016      | 3.0.2             | Uusi toimipistetyyppi school / koulukirjasto
+10.12.2015      | 3.0.0             | Rajapinta julkaistu.
+16.02.2016      | 3.0.1             | Korjattu kuvalinkit palvelu- ja henkilötietoihin.
+17.03.2016      | 3.0.2             | Uusi toimipistetyyppi school / koulukirjasto.
 25.04.2016      | 3.1.0             | Lisätty aukiolojaksot (period) rajapintaan.
 14.06.2016      | 3.1.1             | Kimppatietoihin (consortium) Finna-laajennukset.
-28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä" (.xml .json .jsonp)
-17.08.2016      | 3.2.0             | Organisaatioista tutut linkit kirjastokimppoihin; linkkiryhmät (link_groups)
+28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä" (.xml .json .jsonp).
+17.08.2016      | 3.2.0             | Organisaatioista tutut linkit kirjastokimppoihin; linkkiryhmät (link_groups).
+31.01.2017      | 3.2.1.            | Tehty bugikorjaus.
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
 
 **HUOM**
-2016-08-17: Verkkosivulinkkejä voi nyt jakaa ryhmiin. Lisäksi linkit on tuotu consortium-tietotyyppiin. Linkkiryhmät sisällytetään hakutuloksin parametrilla ?with=link_groups. Muutoksen johdosta organisaatiohaun parametri ?with=links on deprekoitu.
+2017-01-31: Rajapintaan on tehty bugikorjaus. Organisation-tietueeseen upotetuissa palvelutiedoissa (services)
+ollut kenttä *website* on muutettu monikieliseksi, mikä sen on ollut tarkoituskin olla. Kenttä on aiemmin ollut
+kieletön, yksiarvoinen kenttä.
 
 **HUOM**
-2016-03-17: Lisätty uusi toimipistetyyppi school / koulukirjasto.
+2016-08-17: Verkkosivulinkkejä voi nyt jakaa ryhmiin. Lisäksi linkit on tuotu consortium-tietotyyppiin. Linkkiryhmät sisällytetään hakutuloksin parametrilla ?with=link_groups. Muutoksen johdosta organisaatiohaun parametri ?with=links on deprekoitu.
 
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
