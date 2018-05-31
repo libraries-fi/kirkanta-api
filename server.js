@@ -33,8 +33,8 @@ app.use("/v3", function(req, res, next) {
 });
 
 app.use("/v3", function(req, res, next) {
-  req.query.with = "with" in req.query ? req.query.with.split(",") : [];
-  req.query.refs = "refs" in req.query ? req.query.refs.split(",") : [];
+  req.query.with = "with" in req.query ? req.query.with.split(/[\s,]+/) : [];
+  req.query.refs = "refs" in req.query ? req.query.refs.split(/[\s,]+/) : [];
   next();
 });
 
