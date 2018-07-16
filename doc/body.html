@@ -36,7 +36,7 @@
 <tr>
 <td>28.06.2016</td>
 <td>3.1.2</td>
-<td>Datatyypin määritys &quot;tiedostopäätteillä&quot; (.xml .json .jsonp).</td>
+<td>Datatyypin määritys "tiedostopäätteillä" (.xml .json .jsonp).</td>
 </tr>
 <tr>
 <td>17.08.2016</td>
@@ -46,29 +46,40 @@
 <tr>
 <td>31.01.2017</td>
 <td>3.2.1.</td>
-<td>Tehty bugikorjaus.</td>
+<td>Tehty bugiksorjaus.</td>
+</tr>
+<tr>
+<td>31.05.2018</td>
+<td>3.3.0</td>
+<td>mm. pPostitoimipaikka käyntiosoitteisiin.</td>
 </tr>
 </tbody>
 </table>
 <p>Vanhat dokumentaatiot: <a href="/v2-doc.html">API V2</a>, <a href="/v1-doc.html">API V1</a></p>
 <p><strong>HUOM</strong>
+2018-05-31:</p>
+<ol>
+<li><p>Kirjastojen käyntiosoitteisiin on lisätty postitoimipaikka (kenttä <strong>area</strong>). Se on monikielinen tekstikenttä, johon voidaan syöttää tieto siitä, minkä postitoimipaikan alueella kirjasto sijaitsee.</p>
+</li>
+<li><p>Tunnistekentissä useamman arvon erottimena sallitaan nyt pilkun ohella myös välilyönti (ts. url-enkoodattuna <strong>+</strong> tai <strong>%20</strong>): ?id=123+456+789. Uudella merkintätavalla on sama merkitys kuin vanhalla. Tarkoitus on helpottaa rajapinnan käyttöä niissä tapauksissa, kun hakuehtoja luetaan html-attribuuteista, jolloin on luonnollista käyttää välilyöntiä arvojen erottimena.</p>
+</li>
+</ol>
+<p><strong>HUOM</strong>
 2017-01-31: Rajapintaan on tehty bugikorjaus. Organisation-tietueeseen upotetuissa palvelutiedoissa (services)
 ollut kenttä <em>website</em> on muutettu monikieliseksi, mikä sen on ollut tarkoituskin olla. Kenttä on aiemmin ollut
 kieletön, yksiarvoinen kenttä.</p>
-<p><strong>HUOM</strong>
-2016-08-17: Verkkosivulinkkejä voi nyt jakaa ryhmiin. Lisäksi linkit on tuotu consortium-tietotyyppiin. Linkkiryhmät sisällytetään hakutuloksin parametrilla ?with=link_groups. Muutoksen johdosta organisaatiohaun parametri ?with=links on deprekoitu.</p>
 <h1 id="johdanto">Johdanto</h1>
 <p>Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa <a href="http://hakemisto.kirjastot.fi">http://hakemisto.kirjastot.fi</a>.</p>
 <p>Rajapinnan kolmas versio korvaa kaikki aiemmat versiot, jotka tullaan sulkemaan myöhemmin tulevaisuudessa käytön vähennyttyä.</p>
-<p>Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi&#39;n tekniikkatiimiin: tekniikka@kirjastot.fi.
-Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjastot.fi.</p>
+<p>Teknisissä ongelmissa voi olla yhteydessä Kirjastot.fi'n tekniikkatiimiin: <a href="mailto:tekniikka@kirjastot.fi">tekniikka@kirjastot.fi</a>.
+Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen <a href="mailto:hakemisto@kirjastot.fi">hakemisto@kirjastot.fi</a>.</p>
 <h1 id="k-ytt-ehdot">Käyttöehdot</h1>
 <p>Rajapinnan käyttö on ilmaista sekä kaupallisessa että ei-kaupallisessa tarkoituksessa. Yleisiä käyttörajoituksia ei ole, mutta Kirjastot.fi varaa oikeuden estää kohtuutonta rasitusta aiheuttavien osapuolten pääsyn rajapintaan.</p>
 <h2 id="sis-lt-jen-lisenssi">Sisältöjen lisenssi</h2>
-<p>Rajapinnan avulla tuotetut tiedot (&quot;teokset&quot;) on lisensoitu <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons 4.0 Nimeä -lisenssillä</a>, joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).</p>
+<p>Rajapinnan avulla tuotetut tiedot ("teokset") on lisensoitu <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">Creative Commons 4.0 Nimeä -lisenssillä</a>, joka sallii tietojen muokkaamisen sekä jakamisen uudelleen eri medioissa. Tällöin täytyy mainita aineiston tarjoaja eli Kirjastot.fi, CC 4.0 -lisenssi sekä linkki rajapinnan etusivulle (tähän dokumentaatioon).</p>
 <h1 id="rajapinnan-kuvaus">Rajapinnan kuvaus</h1>
 <p>Rajapinta noudattaa rest-periaatetta. Kutsut tehdään tavallisina <em>http-pyyntöinä</em> ja kyselyn parametrit välitetään osoitteen <em>query-osassa</em> eli tavallisina get-parametreina. Pyyntöihin vastataan asiakasohjelman määrittämässä muodossa, joka voi olla xml, json tai jsonp. Vastaukseen käytettävän tietotyypin voi asettaa http-protokollan mukaisesti Accept-otsakkeella tai get-parametrilla <em>format</em>, jolla on korkeampi prioriteetti.</p>
-<p>Lisäksi 28.06.2016 alkaen vastauksen tietotyypin voi määrittää käyttämällä &quot;tiedostopäätteitä&quot;. Tämä parantaa yhteensopivuutta joidenkin js-kirjastojen kanssa, jotka tunnistavat vastauksen tyypin ensisijaisesti www-osoitteen avulla.</p>
+<p>Lisäksi 28.06.2016 alkaen vastauksen tietotyypin voi määrittää käyttämällä "tiedostopäätteitä". Tämä parantaa yhteensopivuutta joidenkin js-kirjastojen kanssa, jotka tunnistavat vastauksen tyypin ensisijaisesti www-osoitteen avulla.</p>
 <p>Käytetty merkistö on utf-8. Oletusarvoisesti rajapinta palauttaa 50 tulosta kerrallaan, sivutusta voi hallita parametrein <em>limit</em> ja <em>skip</em>.</p>
 <table>
 <thead>
@@ -100,7 +111,7 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 <h2 id="kyselyiden-rakenne">Kyselyiden rakenne</h2>
 <p>Kutsuissa käytettävät polut myötäilevät rest-filosofiaa. Polku sisältää haettavan resurssin tyypin sekä mahdollisen id-tunnisteen. Muut parametrit määritetään pyyntöosoitteen <em>query string</em> -osassa. Suodinehdot on mahdollista muuttaa kieltäviksi eli not-muotoisiksi lisäämällä parametrin nimen perään miinusmerkki. Kyselyn parametrit yhdistetään AND-konjunktiolla, eli tulosjoukkoon sisältyvät ne tietueet, jotka täsmäävät kaikkiin hakuehtoihin. Mikäli yksittäiselle parametrille on annettu monta arvoa, riittää että tietue täsmää johonkin niistä.</p>
 <p>Kutsujen rakenne on seuraavanlainen:</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation?name=pasila&amp;city.name=helsinki&amp;format=jsonp&amp;callback=foo</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371?format=jsonp&amp;callback=foo</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371.json&amp;callback=foo</span></span></span></span></div></pre><h2 id="tietotyypit">Tietotyypit</h2>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation?name=pasila&amp;city.name=helsinki&amp;format=jsonp&amp;callback=foo</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371?format=jsonp&amp;callback=foo</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation/81371.json&amp;callback=foo</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;</span></span></div></pre><h2 id="tietotyypit">Tietotyypit</h2>
 <p>Tähän on listattu rajapinnan tukemat tietotyypit. Kaikille tietotyypeille pätevät yllä mainitut kaksi kutsuvaihtoehtoa.</p>
 <table>
 <thead>
@@ -116,7 +127,7 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 </tr>
 <tr>
 <td>library</td>
-<td>Muuten sama kuin &#39;organisaatio&#39;, mutta sisältää vain kirjastojen toimipisteet ja kirjastoautot</td>
+<td>Muuten sama kuin 'organisaatio', mutta sisältää vain kirjastojen toimipisteet ja kirjastoautot</td>
 </tr>
 <tr>
 <td>city</td>
@@ -258,7 +269,7 @@ Sisältöjä koskevista virheistä voi ilmoittaa osoitteeseen hakemisto@kirjasto
 </table>
 <h1 id="organisaatiot-kirjastot">Organisaatiot / kirjastot</h1>
 <p>Kutsun osoitteen muoto on seuraava:</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?parametrit</span></span></span></span></div></pre><p>Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatio on geneerinen tyyppi, joka kattaa toimipisteiden ohella osastot, kirjastoautojen pysäkit sekä erilaiset metatietueet jne. Library-tyyppi on oikopolku, jolla suoditaan pois muut kuin toimipisteet ja kirjastoautot.</p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/organisation?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?parametrit</span></span></span></div></pre><p>Organisaation ja kirjaston (library) välinen ero type-parametrin oletusarvossa. Organisaatio on geneerinen tyyppi, joka kattaa toimipisteiden ohella osastot, kirjastoautojen pysäkit sekä erilaiset metatietueet jne. Library-tyyppi on oikopolku, jolla suoditaan pois muut kuin toimipisteet ja kirjastoautot.</p>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -443,7 +454,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <tr>
 <td>library</td>
 <td>branchlibrary</td>
-<td>Kirjaston toimipiste (&quot;kirjasto&quot;)</td>
+<td>Kirjaston toimipiste ("kirjasto")</td>
 </tr>
 <tr>
 <td>centralized_service</td>
@@ -555,7 +566,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h2 id="valinnaiset-tiedot-with-">Valinnaiset tiedot (with)</h2>
-<p>Siirrettävän tiedon optimoimiseksi organisaatiotietueet eivät oletuksena sisällä kaikkia vähemmän tarpeellisia tietolohkoja. Ne voidaan &#39;aktivoida&#39; antamalla with-parametrille taulukossa esiteltyjä arvoja. Kyseiset arvot vastaavat tietueessa samannimistä kenttää, jonka arvona on joko assosiatiivinen taulukko tai lista.</p>
+<p>Siirrettävän tiedon optimoimiseksi organisaatiotietueet eivät oletuksena sisällä kaikkia vähemmän tarpeellisia tietolohkoja. Ne voidaan 'aktivoida' antamalla with-parametrille taulukossa esiteltyjä arvoja. Kyseiset arvot vastaavat tietueessa samannimistä kenttää, jonka arvona on joko assosiatiivinen taulukko tai lista.</p>
 <table>
 <thead>
 <tr>
@@ -639,7 +650,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <p><strong>Typistetty esimerkki</strong></p>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;total&quot;:&nbsp;2,</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;&quot;type&quot;:&nbsp;&quot;organisation&quot;,</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;&quot;items&quot;:&nbsp;[{...},&nbsp;{...}],</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;&quot;references&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;city&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;16094&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;id&quot;:&nbsp;16094,</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;fi&quot;:&nbsp;&quot;Salo&quot;</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>}</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>},</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;16031&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;id&quot;:&nbsp;16031,</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:&nbsp;{</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>&quot;fi&quot;:&nbsp;&quot;Nurmes&quot;</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>}</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>}</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>}</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span>&nbsp;&nbsp;</span><span class="syntax--meta syntax--paragraph syntax--text"><span>}</span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span>}</span></span></span></div></pre><h2 id="kuvaustekstin-muotoilut">Kuvaustekstin muotoilut</h2>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;"total":&nbsp;2,</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;"type":&nbsp;"organisation",</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;"items":&nbsp;[{...},&nbsp;{...}],</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;"references":&nbsp;{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;"city":&nbsp;{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"16094":&nbsp;{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id":&nbsp;16094,</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fi":&nbsp;"Salo"</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"16031":&nbsp;{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id":&nbsp;16031,</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":&nbsp;{</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"fi":&nbsp;"Nurmes"</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>&nbsp;&nbsp;}</span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span>}</span></span></div></pre><h2 id="kuvaustekstin-muotoilut">Kuvaustekstin muotoilut</h2>
 <p>Kirjastojen kuvausteksti (extra.description) on html-muotoiltu merkkijono. Vanhat rajapinnat palauttivat kuvaustekstin plaintext-muodossa, mutta uudessa Kirjastohakemistossa kyseinen kuvaus on muutettu rikastekstiksi. Kuvauksen syöttämiseen käytetään CKEditor-tekstieditoria ja sen oletusmuotoiluja. Teksti voi sisältää linkkejä, listoja ja taulukoita.</p>
 <h2 id="kirjastokohtaiset-palvelutiedot">Kirjastokohtaiset palvelutiedot</h2>
 <h3 id="palveluiden-nimet">Palveluiden nimet</h3>
@@ -649,15 +660,15 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <p>Upotetut palvelutiedot eroavat yleisistä palvelutiedoista siten, että niissä on lisäkenttiä, jotka kertovat palvelun saatavuudesta kyseisessä organisaatiossa (kirjastossa). Myös palvelun kuvausteksti vaihtelee toimipisteittäin. Upotetuissa palvelutiedoissa ilmoitettu palvelun ID-tunniste on sama kuin samannimisen palvelun tunniste yleisissä palvelutiedoissa.</p>
 <h2 id="esimerkkej-kyselyist-">Esimerkkejä kyselyistä</h2>
 <p>Haetaan Oulussa ja Rovaniemellä sijaitsevia kirjastoja. (Kunnan ID-tunniste testiympäristössä.)</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?region=963,974</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone.
-<code style="font-family: &apos;Droid Sans Mono&apos;, monospace;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?city=15404,15453</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?city.name=oulu,rovaniemi</span></span></span></div></pre><p>Haetaan Uudenmaan ja Pohjois-Savon alueella sijaitsevia kirjastoja. (Maakunnan ID-tunniste testiympäristössä.)</p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?region=963,974</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/library?region.name=uusimaa,pohjois-savo</span></span></span></div></pre><p>Haetaan kirjastoja, jotka sijaitsevat 10 km:n säteellä Helsingin rautatieasemalta ja joista löytyy kopiokone.
+<code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">https://api.kirjastot.fi/v3/library?geo=60.171142,24.944387&amp;distance=10&amp;service.name=kopiokone</code></p>
 <p>Kirjastot joilla on palvelut (id-tunnisteet) X ja Y.
-<code style="font-family: &apos;Droid Sans Mono&apos;, monospace;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
+<code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">https://api.kirjastot.fi/v3/library?service=X,Y</code></p>
 <p>Pasilan kirjaston tietue sisältäen aukioloajat marraskuulle 2015.
-<code style="font-family: &apos;Droid Sans Mono&apos;, monospace;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
+<code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">https://api.kirjastot.fi/v3/library/81371?with=schedules&amp;period.start=2015-11-01&amp;period.end=2015-11-30</code></p>
 <h1 id="aukioloajat-opening_time-">Aukioloajat (opening_time)</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/opening_time?parametrit</span></span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/opening_time?parametrit</span></span></span></div></pre><p>Aukiolotietoja voi hakea erikseen massahakuna. Huomaa, että sivutus pätee myös aikatauluhaussa, joten suurilla aikaväleillä tai kirjastojen määrillä kaikkia tuloksia ei välttämättä näytetä yhdellä kertaa.</p>
 <p>Aukioloajat ilmoitetaan päiväkohtaisina tietueina. Yhdellä kyselyllä on mahdollista hakea monen organisaation aukiolotiedot samalla kertaa.</p>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
@@ -708,7 +719,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h2 id="suhteelliset-aikav-lit">Suhteelliset aikavälit</h2>
-<p>Aikavälin rajoittamiseen voi käyttää myös suhteellisia arvoja. Referenssipisteenä käytetään aina kuluvaa päivää. Suhteellisen aikavälin määrittämiseen voi käyttää yksikköinä päiviä, viikkoja sekä kuukausia. Myös negatiiviset arvot sekä nollamääräiset arvot (&#39;0d&#39;, &#39;0w&#39;, &#39;0m&#39;) ovat sallittuja.</p>
+<p>Aikavälin rajoittamiseen voi käyttää myös suhteellisia arvoja. Referenssipisteenä käytetään aina kuluvaa päivää. Suhteellisen aikavälin määrittämiseen voi käyttää yksikköinä päiviä, viikkoja sekä kuukausia. Myös negatiiviset arvot sekä nollamääräiset arvot ('0d', '0w', '0m') ovat sallittuja.</p>
 <table>
 <thead>
 <tr>
@@ -736,7 +747,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h3 id="yksik-n-ja-parametrin-merkitys">Yksikön ja parametrin merkitys</h3>
-<p>Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end). Myös nolla-arvoa vastaava eksakti päivämäärä vaihtelee sen kanssa käytetyn yksikön mukaan. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä &quot;kalenterijaksoja&quot; eli täysiä viikkoja tai kalenterikuukausia.</p>
+<p>Vaikka suhteellinen arvon lähtökohtana käytetään aina kuluvaa päivää, arvoa vastaava tarkka päivämäärä riippuu myös käytetystä yksiköstä sekä siitä, onko parametri alaraja (period.start) vai yläraja (period.end). Myös nolla-arvoa vastaava eksakti päivämäärä vaihtelee sen kanssa käytetyn yksikön mukaan. Suhteellisten aikavälien logiikka on ajateltu sellaiseksi, että ne palauttavat aina käytetyn yksikön mukaisesti täysiä "kalenterijaksoja" eli täysiä viikkoja tai kalenterikuukausia.</p>
 <table>
 <thead>
 <tr>
@@ -868,10 +879,10 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </table>
 <h2 id="kirjastoautojen-reitit">Kirjastoautojen reitit</h2>
 <p>Kirjastohakemistossa kirjastoautojen pysäkit ovat itsenäisiä organisaatiotietueita. Niiden aukiolotiedot ovat siten haettavissa kuten kaikkien muidenkin organisaatiotietueiden. Useimmiten pysäkkien aukiolot kiinnostavat kuitenkin osana kirjastoauton kulkemaa reittiä. Tämän vuoksi kirjastoauton aukioloaikojen tietueissa on erikoistapauksena kenttä <strong>route</strong>, joka sisältää kyseisen päivän reittiin kuuluvat pysäkit kronologisessa järjestyksessä.</p>
-<p>Tämän lisäksi tavallisista toimipisteistä tutut kentät <strong>opens</strong> ja <strong>closes</strong> ilmaisevat päivän ensimmäisen pysäkin saapumisajan ja viimeisen pysäkin lähtöajan. Jos kirjastoauto ei kierrä lainkaan, on päivätietueen <strong>closed</strong>-kentän arvo &#39;true&#39; ja reittilista tyhjä.</p>
+<p>Tämän lisäksi tavallisista toimipisteistä tutut kentät <strong>opens</strong> ja <strong>closes</strong> ilmaisevat päivän ensimmäisen pysäkin saapumisajan ja viimeisen pysäkin lähtöajan. Jos kirjastoauto ei kierrä lainkaan, on päivätietueen <strong>closed</strong>-kentän arvo 'true' ja reittilista tyhjä.</p>
 <p>Päiväkohtaiset reittitiedot sisältävät siis vain ne pysäkit, joiden kautta kirjastoauto kyseisenä päivänä kulkee. (Siis pysäkit, jotka ovat auki tuolloin.) Mikäli halutaan selvittää kaikki mahdolliset kirjastoauton kiertämät pysäkit, ne voidaan hakea erillisellä organisaatiokyselyllä määrittämällä parent-parametrin arvoksi kirjastoauton id.</p>
 <h1 id="aukiolojaksot-period-">Aukiolojaksot (period)</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/period?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/period/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>Jaksotiedot ovat ikään kuin aukiolojen ryhmiä. Jokainen jakso määrää tietyn aikavälin aukiolot. Aikaväli voidaan määritellä joko suljetuksi tai loppupäästä avoimeksi (ns. oletusjakso), jolloin se on voimassa toistaiseksi. Jaksot voivat myös limittyä, jolloin korkein prioriteetti on 1) suljetulla jaksolla 2) myöhemmin alkavalla jaksolla.</p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/period?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/period/</span></span><span>&lt;id&gt;</span></span></div></pre><p>Jaksotiedot ovat ikään kuin aukiolojen ryhmiä. Jokainen jakso määrää tietyn aikavälin aukiolot. Aikaväli voidaan määritellä joko suljetuksi tai loppupäästä avoimeksi (ns. oletusjakso), jolloin se on voimassa toistaiseksi. Jaksot voivat myös limittyä, jolloin korkein prioriteetti on 1) suljetulla jaksolla 2) myöhemmin alkavalla jaksolla.</p>
 <p>Pääsääntöisesti aukiolojaksot syötetään niin, että voimassa oleva puoliavoin jakso kertoo kirjaston tavalliset aukioloajat (talviajat) ja suljetut jaksot ovat lyhyitä poikkeuksia normaaliin.</p>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
@@ -918,7 +929,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h1 id="yleiset-palvelutiedot">Yleiset palvelutiedot</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/service?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/service/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>Tällä kyselyllä haettavat palvelutiedot ovat niin sanottuna yleispohjia. Palvelutietoja voidaan käyttää esimerkiksi kirjastojen hakulomakkeen palvelulistan muodostamiseksi. Nämä palvelutiedot eroavat kirjastojen tietueisiin upotetuista palveluista siten, että kirjastojen tiedoissa palveluilla on enemmän kenttiä (hinta, lainattavissa, jne.) ja lisäksi palvelun kuvaustieto (description) voi olla kirjastokohtaisesti eri.</p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/service?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/service/</span></span><span>&lt;id&gt;</span></span></div></pre><p>Tällä kyselyllä haettavat palvelutiedot ovat niin sanottuna yleispohjia. Palvelutietoja voidaan käyttää esimerkiksi kirjastojen hakulomakkeen palvelulistan muodostamiseksi. Nämä palvelutiedot eroavat kirjastojen tietueisiin upotetuista palveluista siten, että kirjastojen tiedoissa palveluilla on enemmän kenttiä (hinta, lainattavissa, jne.) ja lisäksi palvelun kuvaustieto (description) voi olla kirjastokohtaisesti eri.</p>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -976,7 +987,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h1 id="henkil-kunta">Henkilökunta</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/person?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/person/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>Henkilökuntatietojen kattavuus on vaihtelevaa. Pääsääntöisesti on toivottavaa, että vähintään avainhenkilöiden tiedot olisi syötetty.</p>
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/person?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/person/</span></span><span>&lt;id&gt;</span></span></div></pre><p>Henkilökuntatietojen kattavuus on vaihtelevaa. Pääsääntöisesti on toivottavaa, että vähintään avainhenkilöiden tiedot olisi syötetty.</p>
 <p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
@@ -1022,7 +1033,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h1 id="kirjastokimpat">Kirjastokimpat</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/consortium?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/consortium/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/consortium?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/consortium/</span></span><span>&lt;id&gt;</span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
 <thead>
@@ -1087,7 +1098,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h1 id="kunnat">Kunnat</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/city?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/city/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/city?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/city/</span></span><span>&lt;id&gt;</span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
 <thead>
@@ -1132,7 +1143,7 @@ S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 </tbody>
 </table>
 <h1 id="maakunnat">Maakunnat</h1>
-<pre class="editor-colors lang-text"><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/region?parametrit</span></span></span></span></div><div class="line"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/region/</span></span><span>&lt;id&gt;</span></span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
+<pre class="editor-colors lang-"><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/region?parametrit</span></span></span></div><div class="line"><span class="syntax--text syntax--plain syntax--null-grammar"><span class="syntax--markup syntax--underline syntax--link syntax--https syntax--hyperlink"><span>https://api.kirjastot.fi/v3/region/</span></span><span>&lt;id&gt;</span></span></div></pre><p>M := hyväksyy monta valintaa kerralla pilkuin erotettuna listana (foo,bar,baz)
 S := kenttää voi käyttää järjestämiseen sort-parametrin arvona</p>
 <table>
 <thead>

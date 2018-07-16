@@ -10,17 +10,21 @@ Päiväys         | Rajapinnan versio | Muutoksen kuvaus
 14.06.2016      | 3.1.1             | Kimppatietoihin (consortium) Finna-laajennukset.
 28.06.2016      | 3.1.2             | Datatyypin määritys "tiedostopäätteillä" (.xml .json .jsonp).
 17.08.2016      | 3.2.0             | Organisaatioista tutut linkit kirjastokimppoihin; linkkiryhmät (link_groups).
-31.01.2017      | 3.2.1.            | Tehty bugikorjaus.
+31.01.2017      | 3.2.1.            | Tehty bugiksorjaus.
+31.05.2018      | 3.3.0             | mm. pPostitoimipaikka käyntiosoitteisiin.
 
 Vanhat dokumentaatiot: [API V2](/v2-doc.html), [API V1](/v1-doc.html)
+
+**HUOM**
+2018-05-31:
+1. Kirjastojen käyntiosoitteisiin on lisätty postitoimipaikka (kenttä **area**). Se on monikielinen tekstikenttä, johon voidaan syöttää tieto siitä, minkä postitoimipaikan alueella kirjasto sijaitsee.
+
+2. Tunnistekentissä useamman arvon erottimena sallitaan nyt pilkun ohella myös välilyönti (ts. url-enkoodattuna **+** tai **%20**): ?id=123+456+789. Uudella merkintätavalla on sama merkitys kuin vanhalla. Tarkoitus on helpottaa rajapinnan käyttöä niissä tapauksissa, kun hakuehtoja luetaan html-attribuuteista, jolloin on luonnollista käyttää välilyöntiä arvojen erottimena.
 
 **HUOM**
 2017-01-31: Rajapintaan on tehty bugikorjaus. Organisation-tietueeseen upotetuissa palvelutiedoissa (services)
 ollut kenttä *website* on muutettu monikieliseksi, mikä sen on ollut tarkoituskin olla. Kenttä on aiemmin ollut
 kieletön, yksiarvoinen kenttä.
-
-**HUOM**
-2016-08-17: Verkkosivulinkkejä voi nyt jakaa ryhmiin. Lisäksi linkit on tuotu consortium-tietotyyppiin. Linkkiryhmät sisällytetään hakutuloksin parametrilla ?with=link_groups. Muutoksen johdosta organisaatiohaun parametri ?with=links on deprekoitu.
 
 # Johdanto
 Kirjastot.fi tarjoaa ilmaisen ja julkisen rajapinnan Kirjastohakemiston tietojen käyttöön kolmannen osapuolen sovelluksissa. Kirjastohakemisto sisältää yleisten kirjastojen, kirjastoautojen sekä oppilaitos- ja muiden erikoiskirjastojen esittelyt ja yhteystiedot. Kirjastohakemiston julkisivu sijaitsee osoitteessa http://hakemisto.kirjastot.fi.
