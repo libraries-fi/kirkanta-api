@@ -2,9 +2,9 @@
   "debug": true,
   "database": {
     "host": "127.0.0.1",
-    "username": "vagrant",
-    "password": "vagrantpw",
-    "dbname": "kirkanta"
+    "username": "dbuser",
+    "password": "dbpw",
+    "dbname": "somedb"
   },
   "languages": ["fi", "en", "sv", "se", "ru"],
   "fallbackLanguage": "fi"
