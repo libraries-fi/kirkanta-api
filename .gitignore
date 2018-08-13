@@ -1,7 +1,2 @@
-/node_modules
-/features.txt
 /config.json
-/node/*
-/start.sh
-/public/.sass-cache
-/tests/config.json
+node_modules

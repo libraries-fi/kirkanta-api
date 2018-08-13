@@ -1,19 +1,16 @@
 {
   "name": "kirkanta-api",
-  "description": "Restful API server for providing access to the Library Directory of Kirjastot.fi",
-  "version": "3.1.0",
-  "private": true,
-  "license": "MIT",
-  "dependencies": {
-    "elasticsearch": "^8.2.0",
-    "express": "^4.13.3",
-    "knex": "^0.8.6",
-    "moment": "^2.10.6",
-    "pg": "^4.4.2",
-    "xml-escape": "^1.0.0"
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "frisby": "^0.8.5",
-    "jasmine-node": "^1.14.5"
+  "author": "Samu Juvonen <samu.juvonen@kirjastot.fi>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
+    "pg": "^7.4.3"
   }
 }

@@ -1,25 +1,11 @@
 {
-  "server": {
-    "address": "localhost",
-    "port": 8000
+  "debug": true,
+  "database": {
+    "host": "127.0.0.1",
+    "username": "vagrant",
+    "password": "vagrantpw",
+    "dbname": "kirkanta"
   },
-  "elastic": {
-    "address": "localhost",
-    "port": 9200,
-    "index": "library_directory"
-  },
-  "postgres": {
-    "address": "localhost",
-    "port": 5433,
-    "database": "library_directory",
-    "user": "root",
-    "password": ""
-  },
-  "api": {
-    "require_authentication": false,
-    "results_per_page": 50,
-    "default_language": "fi",
-    "languages": ["en", "ru", "se", "sv"],
-    "resource_url": "https://kirkanta.kirjastot.fi"
-  }
+  "languages": ["fi", "en", "sv", "se", "ru"],
+  "fallbackLanguage": "fi"
 }
