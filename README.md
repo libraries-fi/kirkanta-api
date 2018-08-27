@@ -10,7 +10,11 @@ but internally we've ditched the hybrid Elasticsearch-PostgreSQL approach and in
 the latter.
 
 ## Deployment
-Install dependencies using *npm install* and run the app with *node .*.
+Install dependencies using *npm install* and run the app with *node .*
+
+## Progress
+Missing features:
+- Results in XML format.
 
 ## Kirkanta repository family
 - [Kirjastohakemisto](https://github.com/libraries-fi/kirjastohakemisto) -- frontend
