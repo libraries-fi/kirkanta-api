@@ -70,6 +70,9 @@ for (let type of searcher.supportedTypes) {
   });
 }
 
-app.listen(8000, '0.0.0.0', () => {
+const port = config.server.port;
+const addr = config.server.address;
+
+app.listen(port, addr, () => {
   console.log('Server started');
 });
