@@ -73,32 +73,3 @@ for (let type of searcher.supportedTypes) {
 app.listen(8000, '0.0.0.0', () => {
   console.log('Server started');
 });
-
-
-setTimeout(() => {
-  let query = {
-    limit: 10,
-    lang: 'fi',
-
-    // id: '84924',
-    name: 'Pasila',
-    with: 'pictures',
-    refs: 'consortium',
-    sort: 'name',
-
-    // consortium: 2093,
-
-    // 'city.slug': 'helsinki',
-
-    // geo: '62.89794,26.96789',
-    // distance: 10,
-
-
-    // 'service': 55586,
-    // 'service.name': '3d-tulostin'
-  };
-
-  const options = extractOptions(query);
-
-  searcher.search('library', query, options).then(result => console.log('=>', result.result.map(o => o.name)));
-}, 100);
