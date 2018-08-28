@@ -45,7 +45,8 @@ keyed by the type of the sub-document.
 
 Example response
 ```
-https://api.kirjastot.fi/v4/library?id=84924,84925
+https://api.kirjastot.fi/v4/library?id=84924,84925&refs=city
+
 {
     "total": 2,
     "type": "library",
