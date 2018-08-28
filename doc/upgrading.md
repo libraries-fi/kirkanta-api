@@ -14,7 +14,7 @@ purposes it is possible to enable 'pretty output' using parameter `pretty`.
 ## CamelCased property names
 Property names are now camelCased instead of snake_cased as a move towards more JS-̬ǫ̸̢̱͎͕͉͕̘͍͈͎̳̏̿̍̾͂̕͝͠r̸̼͍͍͎̮̦͇͚̊͊̔̅͘ḯ̷̡̯̥̦̲̥̰̬̎͊͂̌͜͠͝e̵̠̬̼͛̍̉̌͌̄n̶̨̘͉̩͙̗̼̆̂̈́t̷̜͎͙̞̑̊̉̏̓̀̈́͠͝è̵͉̻̣͈͖̝̗͈̒̓̃̅͗͆͒̆͋̾͑͑̃͝ͅd̸̢̯̜̞̊̃̈́͆͒͘͝ ̷̡͍̠̭͔̅̍͒̌̒̏̄̊͗̐̔̽̚͜͝Ą̴̬̯͓̪͇̻̥͍̲̂̂̅͛̈́͒̽̌̎̚P̷̢͔̭̼͉͍̪̺̲͓̈́̿̈́̅͑̈́̓͘ͅI̷̧̡͈̥̻̩͚̥͙͚͌͒̈̋́͋̀̈̀̏̎̍͘ͅ.̶̬̤̓̂̾̏̋̉̒̉͒́̃͆̊̃̈́
 
-# Result set changes
+## Result set changes
 The top-level key `items` has been renamed to `result`. This same structure now applied to independent
 documents fetched using endpoints `/<id>` as well. Therefore `refs` are also available when fetching
 single documents as well.
