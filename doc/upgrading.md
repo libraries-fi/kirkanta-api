@@ -11,6 +11,11 @@ All responses will now utilize compression.
 JSON responses are now compact, i.e. there is no additional white-space for formatting. For development
 purposes it is possible to enable 'pretty output' using parameter `pretty`.
 
+## Separators for multi-value parameters
+API v3 supported comma `,` as the separator for multiple values. From now on also values that translate
+to a space (` `, `+`, `%20`) are valid separators. This is to make it more convenient to read
+parameters from HTML attributes.
+
 ## Organisations are now Service Points
 The endpoint `/organisation` has been renamed to `/service_point`. This endpoint can be used to query
 libraries, mobile libraries, museums and archives.
@@ -20,7 +25,7 @@ libraries, mobile libraries, museums and archives.
 /service_point/{id}
 ```
 
-The separation between each type is made with property `type`.
+The distinction between each type is made with property `type`.
 
 For libraries there exists various types. Museums, archives and "anonymous" service points have one
 type each.
