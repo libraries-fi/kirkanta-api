@@ -14,6 +14,11 @@ purposes it is possible to enable 'pretty output' using parameter `pretty`.
 ## CamelCased property names
 Property names are now camelCased instead of snake_cased as a move towards more JS-̬ǫ̸̢̱͎͕͉͕̘͍͈͎̳̏̿̍̾͂̕͝͠r̸̼͍͍͎̮̦͇͚̊͊̔̅͘ḯ̷̡̯̥̦̲̥̰̬̎͊͂̌͜͠͝e̵̠̬̼͛̍̉̌͌̄n̶̨̘͉̩͙̗̼̆̂̈́t̷̜͎͙̞̑̊̉̏̓̀̈́͠͝è̵͉̻̣͈͖̝̗͈̒̓̃̅͗͆͒̆͋̾͑͑̃͝ͅd̸̢̯̜̞̊̃̈́͆͒͘͝ ̷̡͍̠̭͔̅̍͒̌̒̏̄̊͗̐̔̽̚͜͝Ą̴̬̯͓̪͇̻̥͍̲̂̂̅͛̈́͒̽̌̎̚P̷̢͔̭̼͉͍̪̺̲͓̈́̿̈́̅͑̈́̓͘ͅI̷̧̡͈̥̻̩͚̥͙͚͌͒̈̋́͋̀̈̀̏̎̍͘ͅ.̶̬̤̓̂̾̏̋̉̒̉͒́̃͆̊̃̈́
 
+# Result set changes
+The top-level key `items` has been renamed to `result`. This same structure now applied to independent
+documents fetched using endpoints `/<id>` as well. Therefore `refs` are also available when fetching
+single documents as well.
+
 ## Separators for multi-value parameters
 API v3 supported comma `,` as the separator for multiple values. From now on also values that translate
 to a space (` `, `+`, `%20`) are valid separators. This is to make it more convenient to read

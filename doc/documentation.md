@@ -50,7 +50,7 @@ https://api.kirjastot.fi/v4/library?id=84924,84925&refs=city
 {
     "total": 2,
     "type": "library",
-    "items": [{...}, {...}],
+    "result": [{...}, {...}],
     "references": {
         "city": {
             "15863": {
