@@ -225,6 +225,7 @@ contains a list of service times. Days can contain multiple time entries, becaus
 either in self-service mode without staff, or while the staff is present as usual.
 
 - Some libraries are closed during the day, resulting in gaps in time definitions.
+- When library is closed for the whole day, `times` will be `NULL` and `closed` will be `TRUE`.
 
 ### Parameters
 Name            | Description
