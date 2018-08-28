@@ -94,8 +94,8 @@ of time when the library operates in self-service mode, and `true` when library 
 ### Distinction between library consortiums and Finna organisations
 From now on Finna organisations are served from their own endpoint.
 
-Any consortium that is also a Finna organisation will be available on both endpoints, but the data
-specific to Finna is available from through `/finna_organisation`.
+Any consortium that is also a Finna organisation will be available on both endpoints, but
+the additional data specific to Finna is available ONLY through `/finna_organisation`.
 
 Any Finna organisation that is NOT a library consortium will not be available through `/consortium`.
 
