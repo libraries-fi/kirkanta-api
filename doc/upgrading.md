@@ -38,11 +38,11 @@ The distinction between each type is made with property `type`.
 For libraries there exists various types. Museums, archives and "anonymous" service points have one
 type each.
 
-Type    | Description
-------- | -----------
-archive | Archive
-museum  | Museum
-other   | Unspecified type
+Identifier  | Type name
+----------- | -----------
+archive     | Archive
+museum      | Museum
+other       | Unspecified type
 
 Available types for libraries are listed on the [main documentation](#fooo).
 
@@ -58,7 +58,7 @@ different document types. Therefore the original `type` parameter/property has b
 
 #### (Branch) types `regional` and `main_library`
 The two special types `regional` and `main_library` have been turned into their own parameters in order
-to gather all regular municipal libraries under a single type.
+to gather all regular municipal libraries under a single type. `[UNIMPLEMENTED]`
 
 ### Additional notes
 The endpoint no more returns other types of documents such as mobile library stops, departments under
@@ -68,7 +68,7 @@ service points or so-called meta organisations.
 Library can be considered as a supertype of the more generic service point. (To be elaborated more.)
 
 ## Translations in documents
-Whereas the older APIs returned fields for every language supported by the system, form now on only
+Whereas the older APIs returned fields for every language supported by the system, from now on only
 those languages will be returned for which a translation exists. This means that different documents
 (libraries etc.) might contain different sets of languages.
 
