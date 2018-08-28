@@ -78,7 +78,7 @@ for querying libraries only.
 
 ```
 /library
-/library/{id}
+/library/<id>
 ```
 
 ## Opening times structure

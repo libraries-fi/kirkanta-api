@@ -45,7 +45,7 @@ keyed by the type of the sub-document.
 
 Example response
 ```
-https://api.kirjastot.fi/v4/library?id=84924,84925&refs=city
+https://api.kirjastot.fi/v4/library?id=84834,84925&refs=city
 
 {
     "total": 2,
@@ -56,8 +56,8 @@ https://api.kirjastot.fi/v4/library?id=84924,84925&refs=city
             "15863": {
                 "id": 15863,
                 "name": {
-                    "en": "Helsinki",
-                    "fi": "Helsinki",
+                    "en": "Espoo",
+                    "fi": "Espoo",
                     "sv": "Esbo",
                 }
             }
@@ -67,7 +67,7 @@ https://api.kirjastot.fi/v4/library?id=84924,84925&refs=city
 
 ```
 
-### Richtext in documents
+### Rich text in documents
 Some fields, e.g. `library.description` and `consortium.description`, contain HTML-formatted text. We
 allow use of basic formatting such as `<b>`, `<i>`, `<blockquote>` and lists `<ul>` and `<ol>`. Text is
 structured using headings `<h1>` to `<h6>` and paragraphs `<p>`.
@@ -224,8 +224,8 @@ Opening times are provided for libraries and service points. The data consists o
 contains a list of service times. Days can contain multiple time entries, because libraries can service
 either in self-service mode without staff, or while the staff is present as usual.
 
-- Some libraries are closed during the day, resulting in gaps in time definitions.
-- When library is closed for the whole day, `times` will be `NULL` and `closed` will be `TRUE`.
+- Some libraries are closed during the day, resulting in gaps between time entries.
+- When a library is closed for the whole day, `times` will be `NULL` and `closed` will be `TRUE`.
 
 ### Parameters
 Name            | Description
