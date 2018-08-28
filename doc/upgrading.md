@@ -7,6 +7,10 @@ The API is available only via secure HTTPS.
 ## Gzip compression
 All responses will now utilize compression.
 
+## Compact output
+JSON responses are now compact, i.e. there is no additional white-space for formatting. For development
+purposes it is possible to enable 'pretty output' using parameter `pretty`.
+
 ## Organisations are now Service Points
 The endpoint `/organisation` has been renamed to `/service_point`. This endpoint can be used to query
 libraries, mobile libraries, museums and archives.
@@ -63,6 +67,15 @@ for querying libraries only.
 /library
 /library/{id}
 ```
+
+## Opening times structure
+The endpoint `/opening_time` is replaced with `/schedules`. This new endpoint returns data in which
+each row represents a day of a library or service point.
+
+### Self-service schedules
+Times for self-service are now merged into 'regular opening times'. Each time entry of a day consists
+of three fields: `from`, `to` and a boolean field `staff`. This boolean flag is `false` for periods
+of time when the library operates in self-service mode, and `true` when library is in 'regular mode'.
 
 ## Library consortiums
 ### Distinction between library consortiums and Finna organisations

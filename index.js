@@ -48,15 +48,17 @@ function get_encoder(req) {
 for (let type of searcher.supportedTypes) {
   app.get(`/v4/${type}`, (req, res, next) => {
     const options = extractOptions(req.query);
+
+    const encode_options = {
+      pretty: 'pretty' in req.query
+    };
+
     searcher.search(type, req.query, options).then((result) => {
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
-      res.send(encode(result, options.langcode));
+      res.send(encode(result, options.langcode, encode_options));
     });
-
-
-    searcher.search(type, req.query, options);
   });
 
   app.get(`/v4/${type}/:id`, (req, res, next) => {
@@ -65,7 +67,7 @@ for (let type of searcher.supportedTypes) {
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
-      res.send(encode({type, data}, options.langcode));
+      res.send(encode({type, data}, options.langcode, encode_options));
     });
   });
 }
