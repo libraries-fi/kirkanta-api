@@ -16,7 +16,7 @@ Property names are now camelCased instead of snake_cased as a move towards more 
 
 ## Result set changes
 The top-level key `items` has been renamed to `result`. This same structure now applied to independent
-documents fetched using endpoints `/<id>` as well. Therefore `refs` are also available when fetching
+documents fetched using endpoints `/foo/<id>` as well. Therefore `refs` are also available when fetching
 single documents as well.
 
 ## Separators for multi-value parameters
