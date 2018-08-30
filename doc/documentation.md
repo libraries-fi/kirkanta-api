@@ -104,6 +104,7 @@ id              | List of library IDs.
 name            | Name of the library. Varies by `langcode`.
 slug            | URL identifier. Varies by `langcode`.
 type            | Type of library.
+status          | Filter by live status of the library. (`open` or `closed`)
 --              | --
 city            | List of city IDs.
 city.name       | Name of the city. Varies by `langcode`.
@@ -112,8 +113,8 @@ consortium.name | Name of library consortium.
 service         | List of service IDs offered by libraries.
 service.name    | Search using a service's name.
 --              | --
-geo             | Reference point for geographic search. (`lat,lon`)
-distance        | Distance from the reference point in kilometers. (`1` = 1 km, `100` = 100 km)
+geo.pos         | Reference point for geographic search. (`lat,lon`)
+geo.dist        | Distance from the reference point in kilometers. (`1` = 1 km, `100` = 100 km)
 --              | --
 created.after   | Lower bound for the date the document was created.
 created.before  | Upper bound for the date the document was created.
@@ -124,6 +125,7 @@ with            | Return additional data blocks.
 refs            | Collect specified linked data.
 
 - Consortium is applicable only to municipal libraries.
+- When using `geo.pos`, calculated distance is returned in field `distance`.
 
 ### Types of libraries
 Identifier          | Description

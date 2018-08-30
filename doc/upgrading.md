@@ -60,9 +60,12 @@ different document types. Therefore the original `type` parameter/property has b
 The two special types `regional` and `main_library` have been turned into their own parameters in order
 to gather all regular municipal libraries under a single type. `[UNIMPLEMENTED]`
 
+### Regarding parameters `geo` and `distance`
+Corresponding parameters in the new API are `geo.pos` and `geo.dist`.
+
 ### Additional notes
 The endpoint no more returns other types of documents such as mobile library stops, departments under
-service points or so-called meta organisations.
+service points or so-called meta organisations. This also applies to endpoint `/service_point`.
 
 ### Different schemas
 Library can be considered as a supertype of the more generic service point. (To be elaborated more.)
