@@ -53,7 +53,9 @@ for (let type of searcher.supportedTypes) {
       pretty: 'pretty' in req.query
     };
 
-    searcher.search(type, req.query, options).then((result) => {
+    let { pretty, ...values } = req.query;
+
+    searcher.search(type, values, options).then((result) => {
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);

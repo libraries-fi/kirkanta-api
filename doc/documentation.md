@@ -227,12 +227,29 @@ either in self-service mode without staff, or while the staff is present as usua
 - Some libraries are closed during the day, resulting in gaps between time entries.
 - When a library is closed for the whole day, `times` will be `NULL` and `closed` will be `TRUE`.
 
+### Live status
+To return live status for libraries, use parameter `live`. With this parameter, returned rows will
+contain an additional field `liveStatus` that represents the status of the library.
+
+- `0` means the library is closed.
+- `1` means the library is open and has staff.
+- `2` means the library is in self-service mode (no staff).
+
+Parameter `live` can be used with OR without value.
+- Value `open` returns libraries for which `liveStatus >= 1`.
+- Value `closed` returns libraries for which `liveStatus = 0`.
+- When value is omitted, result contains current day schedules for all libraries.
+
 ### Parameters
 Name            | Description
 --------------- | -----------
-library         | Filter by ID of a library or a service point.
-period.start    | Return results starting from this date.
-period.end      | Return results until this date.
+library         | List of library or service point IDs.
+period.start    | Return results starting from this date. (`YYYY-MM-DD`)
+period.end      | Return results until this date. (`YYYY-MM-DD`)
+live            | Returns live status for libraries.
+
+- When omitted, `period.start` and `period.end` default to `0d`.
+- When using `live`, parameters `period.start` and `period.end` are ignored.
 
 ### Relative date ranges
 Date ranges can be defined as exact dates or using relative values.
