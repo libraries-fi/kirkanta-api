@@ -78,8 +78,8 @@ structured using headings `<h1>` to `<h6>` and paragraphs `<p>`.
 Endpoint        | Description
 --------------- | -----------
 /library        | Libraries including mobile libraries.
-/consortiums    | Library consortiums.
-/services       | Common service data.
+/consortium     | Library consortiums.
+/service        | Common service data.
 /schedules      | Opening times for libraries and service points.
 /city           | Cities.
 
