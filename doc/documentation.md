@@ -161,6 +161,7 @@ departments     | List of departments attached to the library.
 schedules       | Service times for specified period of time. See endpoint `/schedules`.
 
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
+- Note that the maximum number of schedules per request is limited internally to 5 000 rows.
 
 ### Related data
 Include related data into the results using parameter `refs`.
