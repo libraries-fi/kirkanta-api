@@ -1,4 +1,7 @@
-axios.get("/doc/documentation.md").then((response) => {
+import axios from 'axios';
+import showdown from 'showdown';
+
+axios.get("dist/documentation.md").then((response) => {
   let compiler = new showdown.Converter({
     tables: true,
     ghCodeBlocks: true,
