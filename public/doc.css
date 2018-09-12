@@ -23,6 +23,7 @@ body {
   text-align: justify;
   font: 13px/1.231 verdana, sans-serif;
   counter-reset: lvl1;
+  padding-bottom: 4rem;
 }
 
 ul,

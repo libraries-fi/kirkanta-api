@@ -90,7 +90,7 @@ These extensions have been created to allow for better integration with Finna.fi
 
 Endpoint            | Description
 ------------------- | -----------
-/service_point      | Libraries and non-library service points.
+/service_point      | Combines both libraries and non-library service points.
 /finna_organisation | Extension of `/consortium`. Provides additional Finna-specific data.
 
 # Libraries
@@ -174,23 +174,6 @@ city            | List of municipalities (based on `library.city`)
 consortium      | List of consortiums (based on `library.consortium`)
 period          | List of opening time templates (based on `library.schedules.period`)
 
-## Other service points
-```urls
-https://api.kirjastot.fi/v4/service_point
-https://api.kirjastot.fi/v4/service_point/<id>
-```
-
-All service points (including libraries) can be queried using endpoint `/service_point`. This
-endpoint shares the parameters of `/library`, **however**, non-library service points do not contain
-service nor staff data. Here the parameter `type` has additional possible values.
-
-## Service point types
-Type    | Description
-------- | -----------
-archive | Archive
-museum  | Museum
-other   | Unspecified type
-
 # Library consortiums
 ```urls
 https://api.kirjastot.fi/v4/consortium
@@ -206,19 +189,6 @@ Name    | Description
 id      | List of consortium IDs.
 name    | Consortium name. Varies by `langcode`.
 slug    | URL identifier. Varies by `langcode`.
-
-## Finna extension
-```urls
-https://api.kirjastot.fi/v4/finna_organisation
-https://api.kirjastot.fi/v4/finna_organisation/<id>
-```
-
-This endpoint returns consortiums and consortium-like documents that are published on Finna. In addition,
-each document also contains some extra fields.
-
-- If a consortium is not using Finna, it is not available via this endpoint.
-- The endpoint accepts same parameters as `/consortium`.
-- Filtering by Finna identifier is possible using `finna:id`.
 
 # Service hours
 ```
@@ -288,3 +258,36 @@ Lower bound   | Upper bound   | Resulting period of time
 -1w           | 1w            | 2018-08-20 – 2018-09-02 (full weeks)
 0m            | 2m            | 2018-08-01 – 2018-10-31 (full months)
 0d            | 0w            | 2018-08-30 – 2018-09-02 (from today to end of week)
+
+# Finna organisations
+## Definition
+```urls
+https://api.kirjastot.fi/v4/finna_organisation
+https://api.kirjastot.fi/v4/finna_organisation/<id>
+```
+This endpoint combines library consortiums and consortium-like "organisations" to be published
+on Finna. In addition, each document comtains some extra fields.
+
+Behaviour is similar to that of endpoint `/consortium`.
+
+- If a consortium is not using Finna, it is not available via this endpoint.
+- Filtering by Finna identifier is possible using `finna:id`.
+
+# Finna service points
+```urls
+https://api.kirjastot.fi/v4/service_point
+https://api.kirjastot.fi/v4/service_point/<id>
+```
+
+This endpoint combines libraries and non-library service points together. Behavior is similar to
+endpoint `/library`, **however** non-library service points contain less fields, most notably
+missing service and staff data.
+
+- Here parameter `type` has additional possible values.
+
+## Service point types
+Type    | Description
+------- | -----------
+archive | Archive
+museum  | Museum
+other   | Unspecified type
