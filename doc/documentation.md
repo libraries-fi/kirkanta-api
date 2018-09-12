@@ -18,6 +18,11 @@ The API can be used free of charge and without authentication. There are no usag
 but we reserve the right to block any clients deemed to be generating excessive amounts of
 *dumb queries*.
 
+## Available languages
+Content is produced independently by libraries. For the most part content is provided in Finnish,
+while availability of English and Swedish translations is regional. Russian and Sami languages
+are also present but in a very restricted manner.
+
 # Endpoints
 ## Standard endpoints
 
@@ -46,9 +51,6 @@ By default every query returns at most 10 records. Pagination can be controlled 
 `limit` for result size and `skip` for starting from nth record.
 
 ### Content language
-Content is produced by libraries alone and available translations depend on their own decisions.
-For the most part content is available in Finnish, while English and Swedish availability is regional.
-
 Identifier  | Language
 ----------- | --------
 fi          | Finnish
