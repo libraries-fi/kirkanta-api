@@ -1,18 +1,15 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: {
-    doc: [
-      "./public/init.webpack.js"
-    ]
-  },
+  entry: "./public/init.webpack.js",
   output: {
-    path: path.resolve(__dirname, "public/dist"),
-    filename: "[name].js"
+    path: path.resolve(__dirname, "public"),
+    filename: "dist/[name].js"
   },
   module: {
-    // noParse: [/\.min\.js/],
     rules: [
       {
         test: /\.css$/,
@@ -25,14 +22,18 @@ module.exports = {
         test: /\.md$/,
         use: [
           {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              context: path.resolve("../doc")
-            }
-          },
+            loader: "raw-loader"
+          }
         ]
-      },
+      }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      title: "Kirkanta API v4",
+      inlineSource: /\.(js|css|md)$/
+    }),
+    new HtmlWebpackInlineSourcePlugin
+  ]
 };

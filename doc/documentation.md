@@ -207,21 +207,20 @@ id      | List of consortium IDs.
 name    | Consortium name. Varies by `langcode`.
 slug    | URL identifier. Varies by `langcode`.
 
-## Consortiums as Finna organisations
+## Finna extension
 ```urls
 https://api.kirjastot.fi/v4/finna_organisation
 https://api.kirjastot.fi/v4/finna_organisation/<id>
 ```
 
-This endpoint returns consortiums as well as consortium-like documents that are special to Finna.fi.
-In addition, each document contains extra fields. The endpoint accepts same parameters as `/consortium`.
+This endpoint returns consortiums and consortium-like documents that are published on Finna. In addition,
+each document also contains some extra fields.
 
 - If a consortium is not using Finna, it is not available via this endpoint.
+- The endpoint accepts same parameters as `/consortium`.
+- Filtering by Finna identifier is possible using `finna:id`.
 
-## Additional parameters
-Filtering by Finna identifier is possible using `finna:id`.
-
-# Library service hours
+# Service hours
 ```
 https://api.kirjastot.fi/v4/schedules
 ```

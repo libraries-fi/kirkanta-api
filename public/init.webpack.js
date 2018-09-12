@@ -1,2 +1,2 @@
-import "../doc/documentation.md";
 import "./render.js";
+import "./style.css";

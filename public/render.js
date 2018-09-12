@@ -1,47 +1,55 @@
-import axios from 'axios';
 import showdown from 'showdown';
+import documentation from "../doc/documentation.md";
 
-axios.get("dist/documentation.md").then((response) => {
-  let compiler = new showdown.Converter({
-    tables: true,
-    ghCodeBlocks: true,
-    omitExtraWLInCodeBlocks: true,
-    simpleLineBreaks: false,
-  });
-
-  let html = compiler.makeHtml(response.data);
-  // document.querySelector('[data-markdown-here]').appendChild(buildArticle(html));
-  document.querySelector('[data-markdown-here]').innerHTML = html;
+const compiler = new showdown.Converter({
+  ghCodeBlocks: true,
+  omitExtraWLInCodeBlocks: true,
+  simpleLineBreaks: false,
+  tables: true,
 });
 
-function buildArticle(html) {
-  let article = document.createElement("article");
-  article.innerHTML = html;
+let html = compiler.makeHtml(documentation);
+let article = document.createElement("article");
 
-  buildLevel(article, "section", "h1:not(:first-of-type)");
-  buildLevel(article, "div", "h2");
+article.innerHTML = html;
+document.body.appendChild(article);
 
-  return article;
+let nav = buildNavigation(article, "nav");
+document.body.insertBefore(nav, article);
+
+function e(tag) {
+  return document.createElement(tag);
 }
 
-function buildLevel(article, tag_name, selector) {
-  let levels = [...article.querySelectorAll(selector), article.lastChild];
+function buildNavigation(container, id) {
+  let headings = container.querySelectorAll("h1:not(:first-child),h2");
+  let root = e("ul");
 
-  for (let i = 1; i < levels.length; i++) {
-    let node = levels[i];
-    let container = document.createElement(tag_name);
-    node.parentNode.insertBefore(container, node);
+  for (let h of headings) {
+    let link = e("a");
+    link.href = `#${h.id}`;
+    link.innerHTML = h.innerHTML;
 
-    while (node.nextElementSibling != levels[i+1]) {
-      if (node.nextElementSibling) {
-        container.appendChild(node.nextElementSibling);
-      } else {
+    let node = e("li");
+    node.appendChild(link);
+
+    switch (h.tagName) {
+      case "H1":
+        root.appendChild(node);
         break;
-      }
+
+      case "H2":
+        if (root.lastElementChild.lastElementChild.tagName != "UL") {
+          root.lastElementChild.appendChild(e("ul"));
+        }
+        root.lastElementChild.lastElementChild.appendChild(node);
+        break;
     }
-
-    container.insertBefore(node, container.childNodes[0]);
-
-    // container.insertBefore(node, container.childNodes[0]);
   }
+
+  let nav = e("nav");
+  nav.appendChild(root);
+  nav.id = id;
+
+  return nav;
 }
