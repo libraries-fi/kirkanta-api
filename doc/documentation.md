@@ -18,11 +18,34 @@ The API can be used free of charge and without authentication. There are no usag
 but we reserve the right to block any clients deemed to be generating excessive amounts of
 *dumb queries*.
 
-## Pagination
+# Endpoints
+## Standard endpoints
+
+Endpoint        | Description
+--------------- | -----------
+/library        | Libraries including mobile libraries.
+/consortium     | Library consortiums.
+/service        | Common service data.
+/schedules      | Opening times for libraries and service points.
+/city           | Cities.
+
+## Non-library extensions
+These extensions have been created to allow for better integration with Finna.fi.
+
+Endpoint            | Description
+------------------- | -----------
+/service_point      | Combines both libraries and non-library service points.
+/finna_organisation | Extension of `/consortium`. Provides additional Finna-specific data.
+
+## Common parameters
+### More comprehensible output
+Improve readability of generated JSON by using parameter `pretty`.
+
+### Pagination
 By default every query returns at most 10 records. Pagination can be controlled with parameters
 `limit` for result size and `skip` for starting from nth record.
 
-## Content language
+### Content language
 Content is produced by libraries alone and available translations depend on their own decisions.
 For the most part content is available in Finnish, while English and Swedish availability is regional.
 
@@ -41,12 +64,12 @@ but from one record to another the set of fields might vary.
 By default queries return data for all available languages. To fetch only one language at a time,
 it is possible to use parameter `langcode`.
 
-## Inclusion of related data
+### Inclusion of related data
 Queries allow fetching some relations within the same query. When parameter `refs` is applied, the
 result set will contain an additional property `references` that contains a map of each relation
 keyed by the type of the sub-document.
 
-## Example response
+#### Example response
 ```json
 https://api.kirjastot.fi/v4/library?id=84834,84925&refs=city
 
@@ -73,25 +96,6 @@ https://api.kirjastot.fi/v4/library?id=84834,84925&refs=city
 Some fields, e.g. `library.description` and `consortium.description`, contain HTML-formatted text. We
 allow use of basic formatting such as `<b>`, `<i>`, `<blockquote>` and lists `<ul>` and `<ol>`. Text is
 structured using headings `<h1>` to `<h6>` and paragraphs `<p>`.
-
-# Endpoints
-## Standard endpoints
-
-Endpoint        | Description
---------------- | -----------
-/library        | Libraries including mobile libraries.
-/consortium     | Library consortiums.
-/service        | Common service data.
-/schedules      | Opening times for libraries and service points.
-/city           | Cities.
-
-## Non-library extensions
-These extensions have been created to allow for better integration with Finna.fi.
-
-Endpoint            | Description
-------------------- | -----------
-/service_point      | Combines both libraries and non-library service points.
-/finna_organisation | Extension of `/consortium`. Provides additional Finna-specific data.
 
 # Libraries
 ```urls
