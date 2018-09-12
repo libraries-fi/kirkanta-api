@@ -30,7 +30,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
+      filename: "documentation.html",
       title: "Kirkanta API v4",
       inlineSource: /\.(js|css|md)$/
     }),
