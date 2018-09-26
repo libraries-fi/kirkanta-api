@@ -279,6 +279,13 @@ Behaviour is similar to that of endpoint `/consortium`.
 - If a consortium is not using Finna, it is not available via this endpoint.
 - Filtering by Finna identifier is possible using `finna:id`.
 
+## Additional data blocks
+These blocks can be included into the results using parameter `with`.
+
+Identifier      | Description
+--------------- | -----------
+links           | Links to websites related to this organisation.
+
 # Finna service points
 ```urls
 https://api.kirjastot.fi/v4/service_point

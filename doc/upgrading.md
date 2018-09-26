@@ -102,6 +102,15 @@ the additional data specific to Finna is available ONLY through `/finna_organisa
 
 Any Finna organisation that is NOT a library consortium will not be available through `/consortium`.
 
+### Links to websites (`links` and `links_groups`)
+Links and link groups are removed from library consortiums and links are a property of
+Finna Organisations only. Link groups are removed as a sub-record. Instead `links` only contain
+a field `category` that corresponds to link_groups.identifier from API V3.
+
+Labeling these link groups is up to the client application.
+
+Include links in the result set by using `with=links`.
+
 ## Services
 ### No more parameter helmet:type_priority
 This parameter has been removed. To fetch only services that are available at HelMet libraries, use
