@@ -286,6 +286,8 @@ Identifier      | Description
 --------------- | -----------
 links           | Links to websites related to this organisation.
 
+Links contain a `category` field that can be used to group links into semantic groups. 
+
 # Finna service points
 ```urls
 https://api.kirjastot.fi/v4/service_point
