@@ -1,6 +1,10 @@
 Upgrading from API v3
 =====================
 
+Changes to this documentation:
+- 2018-09-26
+  - : Added notes regarding `link_groups` in consortiums and Finna organisations.
+
 ## SSL enforced
 The API is available only via secure HTTPS.
 

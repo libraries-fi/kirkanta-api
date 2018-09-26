@@ -4,6 +4,7 @@ Kirkanta API v4
 Date        | API version     | Summary of changes
 ----------- | --------------- | ------------------
 2018-08-27  | 4.0.0-preview   | Published a preview version.
+2018-09-26  | 4.0.0-preview   | Added `links` block on `/finna_organisation`.
 
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
@@ -286,7 +287,7 @@ Identifier      | Description
 --------------- | -----------
 links           | Links to websites related to this organisation.
 
-Links contain a `category` field that can be used to group links into semantic groups. 
+Links contain a `category` field that can be used to group links into semantic groups.
 
 # Finna service points
 ```urls
