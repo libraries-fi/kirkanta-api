@@ -65,7 +65,12 @@ for (let type of searcher.supportedTypes) {
 
   app.get(`/v4/${type}/:id`, (req, res, next) => {
     const options = extractOptions(req.query);
-    searcher.fetch(type, req.params.id).then((data) => {
+
+    const encode_options = {
+      pretty: 'pretty' in req.query
+    };
+
+    searcher.fetch(type, req.params.id, options).then((data) => {
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
