@@ -3,7 +3,10 @@ Upgrading from API v3
 
 Changes to this documentation:
 - 2018-09-26
-  - : Added notes regarding `link_groups` in consortiums and Finna organisations.
+  - Added notes regarding `link_groups` in consortiums and Finna organisations.
+
+- 2018-10-12
+  - Mentioned that HTML is enabled in service.description 
 
 ## SSL enforced
 The API is available only via secure HTTPS.
@@ -119,3 +122,6 @@ Include links in the result set by using `with=links`.
 ### No more parameter helmet:type_priority
 This parameter has been removed. To fetch only services that are available at HelMet libraries, use
 parameters `consortium` or `consortium.name`.
+
+### Description is now HTML-formatted text
+Previously `description` was plaintext, but now service descriptions utilize HTML. Short description is still plaintext.

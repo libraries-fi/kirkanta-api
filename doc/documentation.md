@@ -5,6 +5,8 @@ Date        | API version     | Summary of changes
 ----------- | --------------- | ------------------
 2018-08-27  | 4.0.0-preview   | Published a preview version.
 2018-09-26  | 4.0.0-preview   | Added `links` block on `/finna_organisation`.
+2018-10-12  | 4.0.0-preview   | Enabled HTML in service.description.
+2018-10-17  | 4.0.0-preview   | New sections for libraries: `emailAddresses` and `links`.
 
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
