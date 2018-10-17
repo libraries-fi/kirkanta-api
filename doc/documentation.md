@@ -8,6 +8,7 @@ Date        | API version     | Summary of changes
 2018-10-12  | 4.0.0-preview   | Enabled HTML in service.description.
 2018-10-17  | 4.0.0-preview   | New sections for libraries: `emailAddresses` and `links`.
 2018-10-17  | 4.0.0-preview   | Image entries now contain resolution and filesize information.
+2018-10-17  | 4.0.0-preview   | Added `library.coverPhoto`.
 
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
