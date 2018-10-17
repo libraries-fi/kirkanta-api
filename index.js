@@ -45,37 +45,49 @@ function get_encoder(req) {
   }
 }
 
+app.get('*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+})
+
 for (let type of searcher.supportedTypes) {
-  app.get(`/v4/${type}`, (req, res, next) => {
-    const options = extractOptions(req.query);
+  app.get(`/v4/${type}`, async (req, res, next) => {
+    try {
+      const options = extractOptions(req.query);
 
-    const encode_options = {
-      pretty: 'pretty' in req.query
-    };
+      const encode_options = {
+        pretty: 'pretty' in req.query
+      };
 
-    let { pretty, ...values } = req.query;
+      let { pretty, ...values } = req.query;
 
-    searcher.search(type, values, options).then((result) => {
+      let result = await searcher.search(type, values, options);
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
       res.send(encode(result, options.langcode, encode_options));
-    });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
   });
 
-  app.get(`/v4/${type}/:id`, (req, res, next) => {
-    const options = extractOptions(req.query);
+  app.get(`/v4/${type}/:id`, async (req, res, next) => {
+    try {
+      const options = extractOptions(req.query);
 
-    const encode_options = {
-      pretty: 'pretty' in req.query
-    };
+      const encode_options = {
+        pretty: 'pretty' in req.query
+      };
 
-    searcher.fetch(type, req.params.id, options).then((data) => {
+      let data = await searcher.fetch(type, req.params.id, options);
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
       res.send(encode({type, data}, options.langcode, encode_options));
-    });
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
   });
 }
 
