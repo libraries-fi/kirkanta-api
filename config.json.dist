@@ -1,11 +1,13 @@
 {
   "debug": true,
+  "cache": 120,
   "server": {
     "address": "127.0.0.1",
     "port": 8000
   },
   "database": {
     "host": "127.0.0.1",
+    "port": 5432,
     "username": "dbuser",
     "password": "dbpw",
     "dbname": "somedb"

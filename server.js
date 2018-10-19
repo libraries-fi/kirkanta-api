@@ -46,8 +46,17 @@ function get_encoder(req) {
 }
 
 app.get('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+})
+
+app.get('*', (req, res, next) => {
+  if (!Number.isNaN(config.cache)) {
+    // console.log('EXPIRE', expires, config.cache);
+    res.set('Cache-Control', `public, max-age=${config.cache}`);
+  }
+
   next();
 })
 
