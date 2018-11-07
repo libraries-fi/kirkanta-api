@@ -77,7 +77,7 @@ for (let type of searcher.supportedTypes) {
       res.type(content_type);
       res.send(encode(result, options.langcode, encode_options));
     } catch (err) {
-      res.status(500).send(err.message);
+      res.status(500).send(config.debug ? err.stack : err.message);
     }
   });
 
@@ -95,7 +95,7 @@ for (let type of searcher.supportedTypes) {
       res.type(content_type);
       res.send(encode({type, data}, options.langcode, encode_options));
     } catch (err) {
-      res.status(500).send(err.message);
+      res.status(500).send(config.debug ? err.stack : err.message);
     }
   });
 }
