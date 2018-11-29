@@ -10,7 +10,7 @@ app.set('env', config.debug ? 'development' : 'production');
 
 function extractOptions(query) {
   const options = {
-    langcode: query.lang,
+    langcode: query.lang || config.fallbackLanguage,
     limit: query.limit,
     skip: query.skip || 0,
     sort: stringToTerms(query.sort),
