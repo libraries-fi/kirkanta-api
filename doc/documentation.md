@@ -13,6 +13,11 @@ Date        | API version       | Summary of changes
 2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
 2018-12-17  | 4.0.0-beta        | Remove type `main_library` and rename `library` to `municipal`.
 
+**Documentation for old API versions (in Finnish)**:
+[API V3](https://api.kirjastot.fi/v3-doc.html),
+[API V2](https://api.kirjastot.fi/v2-doc.html),
+[API V1](https://api.kirjastot.fi/v1-doc.html)
+
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
 database consists of municipal libraries as well as mobile libraries and faculty libraries of
