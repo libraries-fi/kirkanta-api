@@ -6,7 +6,7 @@ Changes to this documentation:
   - Added notes regarding `link_groups` in consortiums and Finna organisations.
 
 - 2018-10-12
-  - Mentioned that HTML is enabled in service.description 
+  - Mentioned that HTML is enabled in service.description
 
 ## SSL enforced
 The API is available only via secure HTTPS.
@@ -20,6 +20,19 @@ purposes it is possible to enable 'pretty output' using parameter `pretty`.
 
 ## CamelCased property names
 Property names are now camelCased instead of snake_cased as a move towards more JS-̬ǫ̸̢̱͎͕͉͕̘͍͈͎̳̏̿̍̾͂̕͝͠r̸̼͍͍͎̮̦͇͚̊͊̔̅͘ḯ̷̡̯̥̦̲̥̰̬̎͊͂̌͜͠͝e̵̠̬̼͛̍̉̌͌̄n̶̨̘͉̩͙̗̼̆̂̈́t̷̜͎͙̞̑̊̉̏̓̀̈́͠͝è̵͉̻̣͈͖̝̗͈̒̓̃̅͗͆͒̆͋̾͑͑̃͝ͅd̸̢̯̜̞̊̃̈́͆͒͘͝ ̷̡͍̠̭͔̅̍͒̌̒̏̄̊͗̐̔̽̚͜͝Ą̴̬̯͓̪͇̻̥͍̲̂̂̅͛̈́͒̽̌̎̚P̷̢͔̭̼͉͍̪̺̲͓̈́̿̈́̅͑̈́̓͘ͅI̷̧̡͈̥̻̩͚̥͙͚͌͒̈̋́͋̀̈̀̏̎̍͘ͅ.̶̬̤̓̂̾̏̋̉̒̉͒́̃͆̊̃̈́
+
+## Option to have multi-language responses has been removed
+In the previous API it was possible to omit parameter `lang` and have all languages for translatable
+fields be present in the documents. This option has now been removed. The reason for this is that it
+is no more guaranteed that documents themselves even contain all the possible language options anymore.
+
+Previously all the languages were present regardless of data for them existing or not. This resulted
+in complication in deducing what languages actually were present and some other administrative difficulties. From now on librarians will add a language option to a library when they are ready to actually fill in
+required details as well.
+
+Further complications arise when nested or referenced documents (e.g. a city inside a library) contain a different set of translations.
+
+Due to this change, Finnish is now the fallback option in case that `lang` is not explicitly defined.
 
 ## Result set changes
 The top-level key `items` has been renamed to `result`. This same structure now applied to independent

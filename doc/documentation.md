@@ -1,14 +1,16 @@
 Kirkanta API v4
 ===============
 
-Date        | API version     | Summary of changes
------------ | --------------- | ------------------
-2018-08-27  | 4.0.0-preview   | Published a preview version.
-2018-09-26  | 4.0.0-preview   | Added `links` block on `/finna_organisation`.
-2018-10-12  | 4.0.0-preview   | Enabled HTML in service.description.
-2018-10-17  | 4.0.0-preview   | New sections for libraries: `emailAddresses` and `links`.
-2018-10-17  | 4.0.0-preview   | Image entries now contain resolution and filesize information.
-2018-10-17  | 4.0.0-preview   | Added `library.coverPhoto`.
+Date        | API version       | Summary of changes
+----------- | ----------------- | ------------------
+2018-08-27  | 4.0.0-preview     | Published a preview version.
+2018-09-26  | 4.0.0-preview     | Added `links` block on `/finna_organisation`.
+2018-10-12  | 4.0.0-preview     | Enabled HTML in service.description.
+2018-10-17  | 4.0.0-preview     | New sections for libraries: `emailAddresses` and `links`.
+2018-10-17  | 4.0.0-preview     | Image entries now contain resolution and filesize information.
+2018-10-17  | 4.0.0-preview     | Added `library.coverPhoto`.
+2018-11-29  | 4.0.0-beta        | Dropped option for returning all translations in a single query.
+2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
 
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
@@ -69,7 +71,7 @@ provided for. Every translatable field inside a record will contain the same set
 but from one record to another the set of fields might vary.
 
 By default queries return data for all available languages. To fetch only one language at a time,
-it is possible to use parameter `langcode`.
+it is possible to use parameter `lang`.
 
 ### Inclusion of related data
 Queries allow fetching some relations within the same query. When parameter `refs` is applied, the
