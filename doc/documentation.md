@@ -11,6 +11,7 @@ Date        | API version       | Summary of changes
 2018-10-17  | 4.0.0-preview     | Added `library.coverPhoto`.
 2018-11-29  | 4.0.0-beta        | Dropped option for returning all translations in a single query.
 2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
+2018-12-17  | 4.0.0-beta        | Remove type `main_library` and rename `library` to `municipal`.
 
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
@@ -146,13 +147,12 @@ refs            | Collect specified linked data.
 ## Types of libraries
 Identifier          | Description
 ------------------- | ------
-library             | Regular municipal library
+municipal           | Regular municipal library
 mobile              | Mobile library (a car)
 --                  | --
 children            | Children's library
 home_service        | A home service library
 institutional       | Institutional library
-main_library        | Main library
 music               | Music library
 special             | Special library
 --                  | --

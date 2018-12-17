@@ -80,6 +80,8 @@ different document types. Therefore the original `type` parameter/property has b
 The two special types `regional` and `main_library` have been turned into their own parameters in order
 to gather all regular municipal libraries under a single type. `[UNIMPLEMENTED]`
 
+As an attempt to clear confusion between typenames, `library` is renamed to `municipal`. 
+
 ### Regarding parameters `geo` and `distance`
 Corresponding parameters in the new API are `geo.pos` and `geo.dist`.
 
