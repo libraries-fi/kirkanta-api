@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "build-doc": "npx webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Samu Juvonen <samu.juvonen@kirjastot.fi>",
