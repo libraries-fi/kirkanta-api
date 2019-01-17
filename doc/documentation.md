@@ -4,19 +4,27 @@ Kirkanta API v4
 Date        | API version       | Summary of changes
 ----------- | ----------------- | ------------------
 2018-08-27  | 4.0.0-preview     | Published a preview version.
-2018-09-26  | 4.0.0-preview     | Added `links` block on `/finna_organisation`.
+2018-09-26  | 4.0.0-preview     | Added `finna_organisation.links`.
 2018-10-12  | 4.0.0-preview     | Enabled HTML in service.description.
-2018-10-17  | 4.0.0-preview     | New sections for libraries: `emailAddresses` and `links`.
+2018-10-17  | 4.0.0-preview     | Added `library.emailAddresses` and `library.links`.
 2018-10-17  | 4.0.0-preview     | Image entries now contain resolution and filesize information.
 2018-10-17  | 4.0.0-preview     | Added `library.coverPhoto`.
 2018-11-29  | 4.0.0-beta        | Dropped option for returning all translations in a single query.
 2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
-2018-12-17  | 4.0.0-beta        | Remove type `main_library` and rename `library` to `municipal`.
+2018-12-17  | 4.0.0-beta        | Removed type `main_library` and renamed `library` to `municipal`.
+2019-01-18  | 4.0.0-beta        | Added `library.primaryContactInfo`.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
 [API V2](https://api.kirjastot.fi/v2-doc.html),
 [API V1](https://api.kirjastot.fi/v1-doc.html)
+
+**PLEASE NOTE**
+There are known issues WRT reporting the total size of the result set for some queries.
+For example using `status` with library queries causes `size` to be reported as 1 regardless of
+the actual result set size.
+
+When querying for schedules, `size` will be reported as `NULL`.
 
 # Introduction
 Kirjastot.fi offers a free and public API for accessing data of all Finnish libraries. The library
@@ -34,7 +42,7 @@ but we reserve the right to block any clients deemed to be generating excessive 
 ## Available languages
 Content is produced independently by libraries. For the most part content is provided in Finnish,
 while availability of English and Swedish translations is regional. Russian and Sami languages
-are also present but in a very restricted manner.
+are also present but on a very limited scale.
 
 # Endpoints
 ## Standard endpoints
@@ -169,16 +177,17 @@ vocational_college  | Vocational college library
 ## Additional data blocks
 These blocks can be included into the results using parameter `with`.
 
-Identifier      | Description
---------------- | -----------
-mail_address    | Mail address of the library.
-phone_numbers   | List of phone numbers.
-persons         | List of staff.
-pictures        | List of photos.
-links           | Links to websites related to this library.
-services        | List of services provided by the library.
-departments     | List of departments attached to the library.
-schedules       | Service times for specified period of time. See endpoint `/schedules`.
+Identifier          | Description
+------------------- | -----------
+primaryContactInfo  | Primary contact info entries (email, homepage, phone number   )
+mailAddress         | Mail address of the library.
+phoneNumbers        | List of phone numbers.
+persons             | List of staff.
+pictures            | List of photos.
+links               | Links to websites related to this library.
+services            | List of services provided by the library.
+departments         | List of departments attached to the library.
+schedules           | Service hours for specified period of time. See endpoint `/schedules`.
 
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
 - Note that the maximum number of schedules per request is limited internally to 5 000 rows.
@@ -198,7 +207,7 @@ https://api.kirjastot.fi/v4/consortium
 https://api.kirjastot.fi/v4/consortium/<id>
 ```
 
-Library consortiums join municipal libraries from different municipalities together. Note that
+Library consortiums are regional collaborations of municipal libraries. Note that
 consortiums are defined only for municipal libraries and not other types of libraries.
 
 ## Parameters
@@ -243,6 +252,7 @@ status          | Returns status status for libraries.
 
 - When omitted, `period.start` and `period.end` default to `0d`.
 - When using `status`, parameters `period.start` and `period.end` are ignored.
+- Note that **common paging IS APPLIED**, hence use of `limit` parameter is highly recommended.
 
 ## Relative date ranges
 Date ranges can be defined as exact dates or using relative values.
