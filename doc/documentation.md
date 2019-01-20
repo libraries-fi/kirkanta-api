@@ -237,7 +237,7 @@ Services could be physical utilities and devices, spaces for work or study or
 assistance and guidance.
 
 Data provided by this end point is generic data and does not contain any information
-specific to any one library. However, for convenience it is possible to search services using city or a consortium as a filter.
+specific to any one library. However, for convenience it is possible to search services using city or consortium as a filter.
 
 ## Query parameters
 Name            | Description
