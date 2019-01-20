@@ -13,6 +13,7 @@ Date        | API version       | Summary of changes
 2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
 2018-12-17  | 4.0.0-beta        | Removed type `main_library` and renamed `library` to `municipal`.
 2019-01-18  | 4.0.0-beta        | Added `library.primaryContactInfo`.
+2019-01-20  | 4.0.0-beta        | Added `library.transitInfo`.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -179,7 +180,7 @@ These blocks can be included into the results using parameter `with`.
 
 Identifier          | Description
 ------------------- | -----------
-primaryContactInfo  | Primary contact info entries (email, homepage, phone number   )
+primaryContactInfo  | Primary contact info entries (email, homepage, phone number)
 mailAddress         | Mail address of the library.
 phoneNumbers        | List of phone numbers.
 persons             | List of staff.
@@ -188,6 +189,7 @@ links               | Links to websites related to this library.
 services            | List of services provided by the library.
 departments         | List of departments attached to the library.
 schedules           | Service hours for specified period of time. See endpoint `/schedules`.
+transitInfo         | Fields related to public transportation and parking.
 
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
 - Note that the maximum number of schedules per request is limited internally to 5 000 rows.
