@@ -60,6 +60,11 @@ app.get('*', (req, res, next) => {
   next();
 })
 
+app.get('/v4/schedules/:foo', function(req, res) {
+  const id = req.params.foo;
+  res.status(404).send(`This endpoint does not exist. Maybe try /v4/schedules?library=${id} instead?`);
+});
+
 for (let type of searcher.supportedTypes) {
   app.get(`/v4/${type}`, async (req, res, next) => {
     try {
