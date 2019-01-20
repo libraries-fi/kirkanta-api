@@ -272,7 +272,7 @@ https://api.kirjastot.fi/v4/consortium/<id>
 Library consortiums are regional collaborations of municipal libraries. Note that
 consortiums are defined only for municipal libraries and not other types of libraries.
 
-## Parameters
+## Query parameters
 Name    | Description
 ------- | -----------
 id      | List of consortium IDs.
@@ -289,7 +289,7 @@ https://api.kirjastot.fi/v4/city/<id>
 
 This endpoint is provided mostly for the sake of data completeness.
 
-## Parameters
+## Query parameters
 Name            | Description
 --------------- | -----------
 id              | List of consortium IDs.
@@ -323,7 +323,7 @@ Parameter `status` can be used with OR without value.
 - Value `closed` returns libraries for which `liveStatus = 0`.
 - When value is omitted, result contains current day schedules for all libraries.
 
-## Parameters
+## Query parameters
 Name            | Description
 --------------- | -----------
 library         | List of library or service point IDs.
