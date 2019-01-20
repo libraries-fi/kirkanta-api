@@ -209,7 +209,7 @@ period          | List of opening time templates (based on `library.schedules.pe
 
 ## Notes regarding service data
 Service data returned with `with=services` differs a bit from that of endpoint `/service`.
-Each service entry contains additional fields that are have data specific to that one library.
+Each service entry contains additional fields that have data specific to that one library.
 
 However, the `id` and `slug` of a service entry refers to the shared service data,
 so it is possible that many entries even within one library have the same `id` and `slug`.
