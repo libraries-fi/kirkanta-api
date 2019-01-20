@@ -13,7 +13,9 @@ Date        | API version       | Summary of changes
 2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
 2018-12-17  | 4.0.0-beta        | Removed type `main_library` and renamed `library` to `municipal`.
 2019-01-18  | 4.0.0-beta        | Added `library.primaryContactInfo`.
+2019-01-20  | 4.0.0-beta        | Added documentation for `/service` and `/city` endpoints.
 2019-01-20  | 4.0.0-beta        | Added `library.transitInfo`.
+2019-01-20  | 4.0.0-beta        | Allowed `slug` as an identifier for `/library/<id>` etc.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -127,6 +129,8 @@ https://api.kirjastot.fi/v4/library
 https://api.kirjastot.fi/v4/library/<id>
 ```
 
+**NOTE**: <id> can be either `id` or `slug`.
+
 ## Query parameters
 Name            | Description
 --------------- | -----------
@@ -203,11 +207,67 @@ city            | List of municipalities (based on `library.city`)
 consortium      | List of consortiums (based on `library.consortium`)
 period          | List of opening time templates (based on `library.schedules.period`)
 
+## Notes regarding service data
+Service data returned with `with=services` differs a bit from that of endpoint `/service`.
+Each service entry contains additional fields that are have data specific to that one library.
+
+However, the `id` and `slug` of a service entry refers to the shared service data,
+so it is possible that many entries even within one library have the same `id` and `slug`.
+
+Libraries can override the name of the service. This custom name is stored in `name`
+and is null when there is no custom name. The global name of that service is stored
+in `standardName` and will always be defined.
+
+There is no exact definition for the purpose of `name` or `standardName`. The broad
+idea is that standard names are less specific and libraries can create "instances" of
+services and give them more descriptive name to suit the purpose.
+
+One possible way to utilize the naming options would be to consider `standardName` as
+a grouping parameter and a title for a category.
+
+# Services
+```urls
+https://api.kirjastot.fi/v4/service
+https://api.kirjastot.fi/v4/service/<id>
+```
+
+**NOTE**: <id> can be either `id` or `slug`.
+
+Services could be physical utilities and devices, spaces for work or study or
+assistance and guidance.
+
+Data provided by this end point is generic data and does not contain any information
+specific to any one library. However, for convenience it is possible to search service
+instances using city or a consortium as a filter.
+
+## Query parameters
+Name            | Description
+--------------- | -----------
+id              | List of service IDs.
+name            | Name of the service. Varies by `langcode`.
+slug            | URL identifier. Varies by `langcode`.
+type            | Type of service.
+--              | --
+city            | List of city IDs.
+city.name       | Name of the city. Varies by `langcode`.
+consortium      | List of consortium IDs.
+consortium.name | Name of library consortium.
+--              | --
+created.after   | Lower bound for the date the document was created.
+created.before  | Upper bound for the date the document was created.
+modified.after  | Lower bound for document modification date.
+modified.before | Upper bound for document modification date.
+--              | --
+with            | Return additional data blocks.
+refs            | Collect specified linked data.
+
 # Library consortiums
 ```urls
 https://api.kirjastot.fi/v4/consortium
 https://api.kirjastot.fi/v4/consortium/<id>
 ```
+
+**NOTE**: <id> can be either `id` or `slug`.
 
 Library consortiums are regional collaborations of municipal libraries. Note that
 consortiums are defined only for municipal libraries and not other types of libraries.
@@ -218,6 +278,25 @@ Name    | Description
 id      | List of consortium IDs.
 name    | Consortium name. Varies by `langcode`.
 slug    | URL identifier. Varies by `langcode`.
+
+# Cities
+```urls
+https://api.kirjastot.fi/v4/city
+https://api.kirjastot.fi/v4/city/<id>
+```
+
+**NOTE**: <id> can be either `id` or `slug`.
+
+This endpoint is provided mostly for the sake of data completeness.
+
+## Parameters
+Name            | Description
+--------------- | -----------
+id              | List of consortium IDs.
+name            | Consortium name. Varies by `langcode`.
+slug            | URL identifier. Varies by `langcode`.
+consortium      | List of consortium IDs.
+consortium.name | Consortium name. Varies by `langcode`.
 
 # Service hours
 ```
@@ -317,6 +396,8 @@ Links contain a `category` field that can be used to group links into semantic g
 https://api.kirjastot.fi/v4/service_point
 https://api.kirjastot.fi/v4/service_point/<id>
 ```
+
+**NOTE**: <id> can be either `id` or `slug`.
 
 This endpoint combines libraries and non-library service points together. Behavior is similar to
 endpoint `/library`, **however** non-library service points contain less fields, most notably
