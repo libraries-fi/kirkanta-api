@@ -129,7 +129,7 @@ https://api.kirjastot.fi/v4/library
 https://api.kirjastot.fi/v4/library/<id>
 ```
 
-**NOTE**: <id> can be either `id` or `slug`.
+**NOTE**: `<id>` can be either `id` or `slug`.
 
 ## Query parameters
 Name            | Description
@@ -231,7 +231,7 @@ https://api.kirjastot.fi/v4/service
 https://api.kirjastot.fi/v4/service/<id>
 ```
 
-**NOTE**: <id> can be either `id` or `slug`.
+**NOTE**: `<id>` can be either `id` or `slug`.
 
 Services could be physical utilities and devices, spaces for work or study or
 assistance and guidance.
@@ -266,7 +266,7 @@ https://api.kirjastot.fi/v4/consortium
 https://api.kirjastot.fi/v4/consortium/<id>
 ```
 
-**NOTE**: <id> can be either `id` or `slug`.
+**NOTE**: `<id>` can be either `id` or `slug`.
 
 Library consortiums are regional collaborations of municipal libraries. Note that
 consortiums are defined only for municipal libraries and not other types of libraries.
@@ -284,7 +284,7 @@ https://api.kirjastot.fi/v4/city
 https://api.kirjastot.fi/v4/city/<id>
 ```
 
-**NOTE**: <id> can be either `id` or `slug`.
+**NOTE**: `<id>` can be either `id` or `slug`.
 
 This endpoint is provided mostly for the sake of data completeness.
 
@@ -396,7 +396,7 @@ https://api.kirjastot.fi/v4/service_point
 https://api.kirjastot.fi/v4/service_point/<id>
 ```
 
-**NOTE**: <id> can be either `id` or `slug`.
+**NOTE**: `<id>` can be either `id` or `slug`.
 
 This endpoint combines libraries and non-library service points together. Behavior is similar to
 endpoint `/library`, **however** non-library service points contain less fields, most notably
