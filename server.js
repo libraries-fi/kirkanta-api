@@ -89,7 +89,8 @@ for (let type of searcher.supportedTypes) {
         pretty: 'pretty' in req.query
       };
 
-      let data = await searcher.fetch(type, req.params.id, options);
+      let field = parseInt(req.params.id) ? 'id' : 'slug';
+      let data = await searcher.fetchBy(type, field, req.params.id, options);
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
