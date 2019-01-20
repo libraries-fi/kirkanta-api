@@ -106,9 +106,20 @@ for (let type of searcher.supportedTypes) {
   });
 }
 
-const port = config.server.port;
-const addr = config.server.address;
 
-app.listen(port, addr, () => {
+const cluster = require('cluster');
+const cpuCount = require('os').cpus().length;
+
+if (cluster.isMaster) {
   console.log('Server started');
-});
+  for (let i = 0; i < cpuCount; i++) {
+    cluster.fork();
+  }
+} else {
+  const port = config.server.port;
+  const addr = config.server.address;
+
+  app.listen(port, addr, () => {
+    console.log(`Worker ${process.pid} is up`);
+  });
+}
