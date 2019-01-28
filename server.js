@@ -53,7 +53,6 @@ app.get('*', (req, res, next) => {
 
 app.get('*', (req, res, next) => {
   if (!Number.isNaN(config.cache)) {
-    // console.log('EXPIRE', expires, config.cache);
     res.set('Cache-Control', `public, max-age=${config.cache}`);
   }
 
@@ -95,11 +94,11 @@ for (let type of searcher.supportedTypes) {
       };
 
       let field = parseInt(req.params.id) ? 'id' : 'slug';
-      let data = await searcher.fetchBy(type, field, req.params.id, options);
+      let result = await searcher.fetchBy(type, field, req.params.id, options);
       let [content_type, encode] = get_encoder(req);
 
       res.type(content_type);
-      res.send(encode({type, data}, options.langcode, encode_options));
+      res.send(encode(result, options.langcode, encode_options));
     } catch (err) {
       res.status(500).send(config.debug ? err.stack : err.message);
     }
