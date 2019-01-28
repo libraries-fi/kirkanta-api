@@ -115,12 +115,13 @@ for (let type of searcher.supportedTypes) {
       result.data = result.items[0];
       delete result.items;
 
-      if (!result.data) {
-        throw new Error(`Requested ${type} was not found (${field}=${req.params.id})`);
+      if (result.data) {
+        res.type(content_type);
+        res.send(encode(result, options.langcode, encode_options));
+      } else {
+        res.status(400).send(`Requested ${type} was not found (${field}=${req.params.id})`);
       }
 
-      res.type(content_type);
-      res.send(encode(result, options.langcode, encode_options));
     } catch (err) {
       res.status(500).send(config.debug ? err.stack : err.message);
     }
