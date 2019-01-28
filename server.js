@@ -88,14 +88,32 @@ for (let type of searcher.supportedTypes) {
   app.get(`/v4/${type}/:id`, async (req, res, next) => {
     try {
       const options = extractOptions(req.query);
+      options.limit = 1;
 
       const encode_options = {
-        pretty: 'pretty' in req.query
+        pretty: 'pretty' in req.query,
       };
 
       let field = parseInt(req.params.id) ? 'id' : 'slug';
-      let result = await searcher.fetchBy(type, field, req.params.id, options);
+      const values = {[field]: req.params.id};
+
+      switch (type) {
+        case 'library':
+        case 'service_point':
+          if ('status' in req.query) {
+            /**
+             * NOTE: For consistency we don't want to allow FILTERING by status,
+             * but simply include calculated liveStatus value.
+             */
+            values.status = '';
+          }
+      }
+
+      let result = await searcher.search(type, values, options);
       let [content_type, encode] = get_encoder(req);
+
+      result.data = result.items[0];
+      delete result.items;
 
       res.type(content_type);
       res.send(encode(result, options.langcode, encode_options));
