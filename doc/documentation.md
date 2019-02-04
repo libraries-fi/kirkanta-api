@@ -92,6 +92,11 @@ but from one record to another the set of fields might vary.
 By default queries return data for all available languages. To fetch only one language at a time,
 it is possible to use parameter `lang`.
 
+#### Identifying translatable fields
+Basically any field with a user-readable string value is considered translatable. In rare cases other type of data such as nested objects could also be translatable (e.g. `library.primaryContactInfo`). Due to lack of human power we do not provide schemas here.
+
+One can visit our repository for [Kirkanta](https://github.com/libraries-fi/kirkanta/tree/master/src/Entity) and look at the source code to understand, which fields should be expected to vary by language. The base entity classes contain all non-translatable fields whereas their "EntityData" counterparts contain all those fields that are to be translated.
+
 ### Inclusion of related data
 Queries allow fetching some relations within the same query. When parameter `refs` is applied, the
 result set will contain an additional property `references` that contains a map of each relation
@@ -109,11 +114,7 @@ https://api.kirjastot.fi/v4/library?id=84834,84925&refs=city
         "city": {
             "15863": {
                 "id": 15863,
-                "name": {
-                    "en": "Espoo",
-                    "fi": "Espoo",
-                    "sv": "Esbo",
-                }
+                "name": "Espoo"
             }
         }
     }
