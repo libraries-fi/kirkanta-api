@@ -18,6 +18,7 @@ Date        | API version       | Summary of changes
 2019-01-20  | 4.0.0-beta        | Allowed `slug` as an identifier for `/library/<id>` etc.
 2019-01-28  | 4.0.0-beta        | `refs` and `liveStatus` are now returned for a single-record endpoints e.g. `/library/<id>`.
 2019-02-04  | 4.0.0-beta        | Added `library.customData`.
+2019-02-04  | 4.0.0-beta        | Restored `info` on schedule day rows.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
