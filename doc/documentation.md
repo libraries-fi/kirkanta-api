@@ -201,6 +201,13 @@ customData          | Key-value pairs that provide additional data for e.g. inte
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
 - Note that the maximum number of schedules per request is limited internally to 5 000 rows.
 
+### Custom Data
+Custom data entries (`with=customData`) consist of a `value` and optional `title` and `id`. Either a `title` or `id` **SHOULD** be defined but it is also okay to define them both. The distinction between these two is that `title` is translatable and `id` is not, and therefore a machine-readable identifier should be defined as `id` and a human-readable label as `title`.
+
+Field `value` can contain an arbitrary **string**. It is up to the client application to convert it to another data type should it be required.
+
+Since `value` is translatable but the actual value will quite often not be translated, for convenience it will be automatically filled for each language for which a user-defined value does not exist. This automatic value will be taken from another translation (by random). Therefore it is enough for users to input the value for a single language only and it will be present for every language automatically.
+
 ## Related data
 Include related data into the results using parameter `refs`.
 
