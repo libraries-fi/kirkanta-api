@@ -10,7 +10,7 @@ but internally we've ditched the hybrid Elasticsearch-PostgreSQL approach and in
 the latter.
 
 ## Deployment
-Install dependencies using *npm install* and run the app with *node .*
+Install dependencies using *npm install* and run the app with *npm start*.
 
 ## Progress
 Missing features:

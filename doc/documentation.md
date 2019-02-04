@@ -17,6 +17,7 @@ Date        | API version       | Summary of changes
 2019-01-20  | 4.0.0-beta        | Added `library.transitInfo`.
 2019-01-20  | 4.0.0-beta        | Allowed `slug` as an identifier for `/library/<id>` etc.
 2019-01-28  | 4.0.0-beta        | `refs` and `liveStatus` are now returned for a single-record endpoints e.g. `/library/<id>`.
+2019-02-04  | 4.0.0-beta        | Added `library.customData`.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -195,6 +196,7 @@ services            | List of services provided by the library.
 departments         | List of departments attached to the library.
 schedules           | Service hours for specified period of time. See endpoint `/schedules`.
 transitInfo         | Fields related to public transportation and parking.
+customData          | Key-value pairs that provide additional data for e.g. integration to other systems.
 
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
 - Note that the maximum number of schedules per request is limited internally to 5 000 rows.
