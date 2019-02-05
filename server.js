@@ -107,6 +107,14 @@ for (let type of searcher.supportedTypes) {
              */
             values.status = '';
           }
+
+          if ('period.start' in req.query) {
+            values['period.start'] = req.query['period.start'];
+          }
+
+          if ('period.end' in req.query) {
+            values['period.end'] = req.query['period.end'];
+          }
       }
 
       let result = await searcher.search(type, values, options);
