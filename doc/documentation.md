@@ -27,7 +27,7 @@ Date        | API version       | Summary of changes
 [API V1](https://api.kirjastot.fi/v1-doc.html)
 
 **RECENT CHANGES**
-- 2019-02-06: Service hours now always have `times` as an array -- even when the library is closed.
+- 2019-02-06: Service hours now always have `times` as an array -- even when the library is closed. Previous behavior was to set `times` as `NULL`.
 This should simplify code required to process opening times.
 
 **PLEASE NOTE**
@@ -324,7 +324,7 @@ contains a list of service times. Days can contain multiple time entries, becaus
 either in self-service mode without staff, or while the staff is present as usual.
 
 - Some libraries are closed during the day, resulting in gaps between time entries.
-- When a library is closed for the whole day, `times` will be `NULL` and `closed` will be `TRUE`.
+- When a library is closed for the whole day, `times` is empty and `closed` will be `TRUE`.
 
 ## Live status
 To return live status for libraries, use parameter `status`. With this parameter, returned rows will
