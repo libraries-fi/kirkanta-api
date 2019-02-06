@@ -19,11 +19,16 @@ Date        | API version       | Summary of changes
 2019-01-28  | 4.0.0-beta        | `refs` and `liveStatus` are now returned for a single-record endpoints e.g. `/library/<id>`.
 2019-02-04  | 4.0.0-beta        | Added `library.customData`.
 2019-02-04  | 4.0.0-beta        | Restored `info` on schedule day rows.
+2019-02-06  | 4.0.0-beta        | Changed behavior of schedules `times` when `closed` == `true`.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
 [API V2](https://api.kirjastot.fi/v2-doc.html),
 [API V1](https://api.kirjastot.fi/v1-doc.html)
+
+**RECENT CHANGES**
+- 2019-02-06: Service hours now always have `times` as an array -- even when the library is closed.
+This should simplify code required to process opening times.
 
 **PLEASE NOTE**
 There are known issues WRT reporting the total size of the result set for some queries.
