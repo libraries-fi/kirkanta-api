@@ -20,6 +20,7 @@ Date        | API version       | Summary of changes
 2019-02-04  | 4.0.0-beta        | Added `library.customData`.
 2019-02-04  | 4.0.0-beta        | Restored `info` on schedule day rows.
 2019-02-06  | 4.0.0-beta        | Changed behavior of schedules `times` when `closed` == `true`.
+2019-02-16  | 4.0.0-beta        | Changes to structure of schedules.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -27,6 +28,7 @@ Date        | API version       | Summary of changes
 [API V1](https://api.kirjastot.fi/v1-doc.html)
 
 **RECENT CHANGES**
+- 2019-02-16: Field `staff` in schedules is now **deprecated** and will be removed soon. Instead use **status**. Also, time entries now have a special row with `status = 0` for intervals when the library is temporarily closed during the day.
 - 2019-02-06: Service hours now always have `times` as an array -- even when the library is closed. Previous behavior was to set `times` as `NULL`.
 This should simplify code required to process opening times.
 
@@ -317,24 +319,28 @@ consortium.name | Consortium name. Varies by `langcode`.
 # Service hours
 ```
 https://api.kirjastot.fi/v4/schedules
+https://api.kirjastot.fi/v4/schedules?library=<id>
 ```
+
+**NOTE** Global paging rules apply to this endpoint as well. Use `limit` to increase the result set size.
 
 Opening times are provided for libraries and service points. The data consists of days, each of which
 contains a list of service times. Days can contain multiple time entries, because libraries can service
 either in self-service mode without staff, or while the staff is present as usual.
 
-- Some libraries are closed during the day, resulting in gaps between time entries.
-- When a library is closed for the whole day, `times` is empty and `closed` will be `TRUE`.
-
-## Live status
-To return live status for libraries, use parameter `status`. With this parameter, returned rows will
-contain an additional field `liveStatus` that represents the status of the library.
-
-- `0` means the library is closed.
+Each entry in `times` contains a `status` field:
+- `0` means the library is temporarily closed during the day.
 - `1` means the library is open and has staff.
 - `2` means the library is in self-service mode (no staff).
 
+When a library is closed for the whole day, `times` is empty and `closed` will be `TRUE`.
+
+## Live status
+To return live status for libraries, use parameter `status`. With this parameter, returned rows will
+contain an additional field `liveStatus` that represents the real-time status of the library.
+
 Parameter `status` can be used with OR without value.
+- Numeric values `0`, `1`, `2` correspond with status codes.
 - Value `open` returns libraries for which `liveStatus >= 1`.
 - Value `closed` returns libraries for which `liveStatus = 0`.
 - When value is omitted, result contains current day schedules for all libraries.
