@@ -3,15 +3,6 @@ Kirkanta API v4
 
 Date        | API version       | Summary of changes
 ----------- | ----------------- | ------------------
-2018-08-27  | 4.0.0-preview     | Published a preview version.
-2018-09-26  | 4.0.0-preview     | Added `finna_organisation.links`.
-2018-10-12  | 4.0.0-preview     | Enabled HTML in service.description.
-2018-10-17  | 4.0.0-preview     | Added `library.emailAddresses` and `library.links`.
-2018-10-17  | 4.0.0-preview     | Image entries now contain resolution and filesize information.
-2018-10-17  | 4.0.0-preview     | Added `library.coverPhoto`.
-2018-11-29  | 4.0.0-beta        | Dropped option for returning all translations in a single query.
-2018-12-17  | 4.0.0-beta        | Calculate distance to libraries in kilometers instead of meters.
-2018-12-17  | 4.0.0-beta        | Removed type `main_library` and renamed `library` to `municipal`.
 2019-01-18  | 4.0.0-beta        | Added `library.primaryContactInfo`.
 2019-01-20  | 4.0.0-beta        | Added documentation for `/service` and `/city` endpoints.
 2019-01-20  | 4.0.0-beta        | Added `library.transitInfo`.
@@ -20,7 +11,7 @@ Date        | API version       | Summary of changes
 2019-02-04  | 4.0.0-beta        | Added `library.customData`.
 2019-02-04  | 4.0.0-beta        | Restored `info` on schedule day rows.
 2019-02-06  | 4.0.0-beta        | Changed behavior of schedules `times` when `closed` == `true`.
-2019-02-16  | 4.0.0-beta        | Changes to structure of schedules.
+2019-02-16  | 4.0.0-beta        | Changes to the structure of schedules.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
