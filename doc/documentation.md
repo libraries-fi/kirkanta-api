@@ -317,7 +317,7 @@ consortium      | List of consortium IDs.
 consortium.name | Consortium name. Varies by `langcode`.
 
 # Service hours
-```
+```urls
 https://api.kirjastot.fi/v4/schedules
 https://api.kirjastot.fi/v4/schedules?library=<id>
 ```
