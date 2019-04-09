@@ -12,6 +12,7 @@ Date        | API version       | Summary of changes
 2019-02-04  | 4.0.0-beta        | Restored `info` on schedule day rows.
 2019-02-06  | 4.0.0-beta        | Changed behavior of schedules `times` when `closed` == `true`.
 2019-02-16  | 4.0.0-beta        | Changes to the structure of schedules.
+2019-04-09  | 4.0.0-beta        | Restored forgotten properties to library/service point records.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -19,6 +20,7 @@ Date        | API version       | Summary of changes
 [API V1](https://api.kirjastot.fi/v1-doc.html)
 
 **RECENT CHANGES**
+- 2019-04-09: Building information, foundation year restored to library and service point records.
 - 2019-02-16: Field `staff` in schedules is now **deprecated** and will be removed soon. Instead use **status**. Also, time entries now have a special row with `status = 0` for intervals when the library is temporarily closed during the day.
 - 2019-02-06: Service hours now always have `times` as an array -- even when the library is closed. Previous behavior was to set `times` as `NULL`.
 This should simplify code required to process opening times.
@@ -88,8 +90,11 @@ Unlike in previous versions of the API, results contain only those languages tha
 provided for. Every translatable field inside a record will contain the same set of language fields,
 but from one record to another the set of fields might vary.
 
-By default queries return data for all available languages. To fetch only one language at a time,
-it is possible to use parameter `lang`.
+The newest version of the API no longer supports requesting multiple translations with a single query.
+This change was made to simplify the implementation of the API application and in part due to low usage
+of said feature.
+
+If `langcode` is omitted, by default Finnish language (`fi`) is assumed.
 
 #### Identifying translatable fields
 Basically any field with a user-readable string value is considered translatable. In rare cases other type of data such as nested objects could also be translatable (e.g. `library.primaryContactInfo`). Due to lack of human power we do not provide schemas here.
@@ -196,6 +201,7 @@ services            | List of services provided by the library.
 departments         | List of departments attached to the library.
 schedules           | Service hours for specified period of time. See endpoint `/schedules`.
 transitInfo         | Fields related to public transportation and parking.
+buildingInfo        | Information related to the building the library uses.
 customData          | Key-value pairs that provide additional data for e.g. integration to other systems.
 
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
