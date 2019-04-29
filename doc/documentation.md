@@ -13,6 +13,7 @@ Date        | API version       | Summary of changes
 2019-02-06  | 4.0.0-beta        | Changed behavior of schedules `times` when `closed` == `true`.
 2019-02-16  | 4.0.0-beta        | Changes to the structure of schedules.
 2019-04-09  | 4.0.0-beta        | Restored forgotten properties to library/service point records.
+2019-04-29  | 4.0.0-beta	| Dropped field `schedules.staff` as per announcement.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -20,6 +21,7 @@ Date        | API version       | Summary of changes
 [API V1](https://api.kirjastot.fi/v1-doc.html)
 
 **RECENT CHANGES**
+- 2019-04-29: Field `staff` in schedules has now been removed. Use **status** instead.
 - 2019-04-09: Building information, foundation year restored to library and service point records.
 - 2019-02-16: Field `staff` in schedules is now **deprecated** and will be removed soon. Instead use **status**. Also, time entries now have a special row with `status = 0` for intervals when the library is temporarily closed during the day.
 - 2019-02-06: Service hours now always have `times` as an array -- even when the library is closed. Previous behavior was to set `times` as `NULL`.
