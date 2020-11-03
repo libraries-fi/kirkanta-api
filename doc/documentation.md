@@ -15,6 +15,7 @@ Date        | API version       | Summary of changes
 2019-04-09  | 4.0.0-beta        | Restored forgotten properties to library/service point records.
 2019-04-29  | 4.0.0-beta	    | Dropped field `schedules.staff` as per announcement.
 2019-07-09  | 4.0.0-beta        | Added `customData` to Finna organisations.
+2020-06-26  | 4.0.0-beta        | Added `library.library_system_servicepoint_id` and `library.library_system_name`.
 
 **Documentation for old API versions (in Finnish)**:
 [API V3](https://api.kirjastot.fi/v3-doc.html),
@@ -143,31 +144,34 @@ https://api.kirjastot.fi/v4/library/<id>
 **NOTE**: `<id>` can be either `id` or `slug`.
 
 ## Query parameters
-Name            | Description
---------------- | -----------
-id              | List of library IDs.
-name            | Name of the library. Varies by `langcode`.
-slug            | URL identifier. Varies by `langcode`.
-type            | Type of library.
-status          | Filter by live status of the library. (see `/schedules`)
---              | --
-city            | List of city IDs.
-city.name       | Name of the city. Varies by `langcode`.
-consortium      | List of consortium IDs.
-consortium.name | Name of library consortium.
-service         | List of service IDs offered by libraries.
-service.name    | Search using a service's name.
---              | --
-geo.pos         | Reference point for geographic search. (`lat,lon`)
-geo.dist        | Distance from the reference point in kilometers. (`1` = 1 km, `100` = 100 km)
---              | --
-created.after   | Lower bound for the date the document was created.
-created.before  | Upper bound for the date the document was created.
-modified.after  | Lower bound for document modification date.
-modified.before | Upper bound for document modification date.
---              | --
-with            | Return additional data blocks.
-refs            | Collect specified linked data.
+Name                              | Description
+--------------------------------- | -----------
+id                                | List of library IDs.
+name                              | Name of the library. Varies by `langcode`.
+slug                              | URL identifier. Varies by `langcode`.
+type                              | Type of library.
+status                            | Filter by live status of the library. (see `/schedules`)
+--                                | --
+city                              | List of city IDs.
+city.name                         | Name of the city. Varies by `langcode`.
+consortium                        | List of consortium IDs.
+consortium.name                   | Name of library consortium.
+service                           | List of service IDs offered by libraries.
+service.name                      | Search using a service's name.
+--                                | --
+library\_system\_servicepoint\_id | Filter by library system servicepoint IDs.
+library\_system\_name             | Filter by library system name  (axiell, koha, exlibris, etc.).
+--                                | --
+geo.pos                           | Reference point for geographic search. (`lat,lon`)
+geo.dist                          | Distance from the reference point in kilometers. (`1` = 1 km, `100` = 100 km)
+--                                | --
+created.after                     | Lower bound for the date the document was created.
+created.before                    | Upper bound for the date the document was created.
+modified.after                    | Lower bound for document modification date.
+modified.before                   | Upper bound for document modification date.
+--                                | --
+with                              | Return additional data blocks.
+refs                              | Collect specified linked data.
 
 - Consortium is applicable only to municipal libraries.
 - When using `geo.pos`, calculated distance is returned in field `distance`.
@@ -207,6 +211,7 @@ schedules           | Service hours for specified period of time. See endpoint `
 transitInfo         | Fields related to public transportation and parking.
 buildingInfo        | Information related to the building the library uses.
 customData          | Key-value pairs that provide additional data for e.g. integration to other systems.
+librarySystem       | Information related to the library system in use.
 
 - Amount of returned service times can be controlled with parameters `period.start` and `period.end`.
 - Note that the maximum number of schedules per request is limited internally to 5 000 rows.
