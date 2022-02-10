@@ -50,6 +50,8 @@ The API can be used free of charge and without authentication. There are no usag
 but we reserve the right to block any clients deemed to be generating excessive amounts of
 *dumb queries*.
 
+The information produced through the interface is licensed under the [Creative Commons 4.0 Attribution License](https://creativecommons.org/licenses/by/4.0/deed.en), which allows the information to be edited and redistributed across different media. In this case, the provider of the material, Kirjastot.fi, the CC 4.0 license and a link to the front page of the interface (this documentation) must be mentioned.
+
 ## Available languages
 Content is produced independently by libraries. For the most part content is provided in Finnish,
 while availability of English and Swedish translations is regional. Russian and Sami languages
