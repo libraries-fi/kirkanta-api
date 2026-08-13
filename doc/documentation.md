@@ -50,6 +50,13 @@ The API can be used free of charge and without authentication. There are no usag
 but we reserve the right to block any clients deemed to be generating excessive amounts of
 *dumb queries*.
 
+## Content License
+Data provided through the API is licensed under the
+[Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/),
+which permits the data to be adapted and redistributed in any medium or format. You must give
+appropriate credit by naming Kirjastot.fi as the data provider, referring to the CC BY 4.0 license,
+and providing a link to [this API documentation](https://api.kirjastot.fi/).
+
 ## Available languages
 Content is produced independently by libraries. For the most part content is provided in Finnish,
 while availability of English and Swedish translations is regional. Russian and Sami languages
